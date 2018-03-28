@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.dgit.pool_java.dao.ClassDao">
+	<select id="selectByAll" resultType="Class">
+		select * from class;	
+	</select>
+	<select id="selectByNo" resultType="Class" parameterType="int">
+		select * from class where cno = #{cno}
+	</select>
+	<insert id="insertClass" parameterType="Class">
+		insert into class(classmate,time,level,pay,tno,s_day) values(#{classmate},#{time},#{level},#{pay},#{tno},#{s_day})
+	</insert>
+	<delete id="deleteClass" parameterType="Class">
+		delete from class where cno = #{cno}
+	</delete>
+</mapper>

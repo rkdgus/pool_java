@@ -31,5 +31,8 @@
 		<mapper resource="kr/or/dgit/pool_java/mappers/LockerMapper.xml"/>
 		<mapper resource="kr/or/dgit/pool_java/mappers/SalesMapper.xml"/>
 		<mapper resource="kr/or/dgit/pool_java/mappers/RegisterMapper.xml"/>
+		<mapper resource="kr/or/dgit/pool_java/mappers/TeacherMapper.xml"/>
+		<mapper resource="kr/or/dgit/pool_java/mappers/ClassMapper.xml"/>
+
 	</mappers>
 </configuration>
