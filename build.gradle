@@ -1,6 +1,5 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'application'
 
 sourceCompatibility = 1.8
 
@@ -25,7 +24,6 @@ dependencies {
 	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.9.1'
 	// https://mvnrepository.com/artifact/org.mybatis/mybatis
 	compile group: 'org.mybatis', name: 'mybatis', version: '3.4.5'
-	
 	    testImplementation 'junit:junit:4.12'
 }
 

@@ -28,5 +28,7 @@
 	</environments>
 	<mappers>
 		<mapper resource="kr/or/dgit/pool_java/mappers/MemberMapper.xml"/>
+		<mapper resource="kr/or/dgit/pool_java/mappers/TeacherMapper.xml"/>
+		<mapper resource="kr/or/dgit/pool_java/mappers/ClassMapper.xml"/>
 	</mappers>
 </configuration>

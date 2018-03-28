@@ -22,7 +22,7 @@ public class TestCarDataService {
 		service = null;
 	}
 
-	@Test 
+	//@Test 
 	public void test1InsertMemberData() {
 		Member member = new Member();
 		member.setName("강현");
