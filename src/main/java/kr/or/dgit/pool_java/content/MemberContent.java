@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.JCheckBox;
 public class MemberContent extends JPanel {
 	private JTable table;
 	private JTextField searchField;
@@ -75,7 +76,7 @@ public class MemberContent extends JPanel {
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(134, 58, 183, 30);
+		textField_2.setBounds(134, 66, 183, 30);
 		panel.add(textField_2);
 		
 		JLabel label_1 = new JLabel("나이");
@@ -84,7 +85,7 @@ public class MemberContent extends JPanel {
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(134, 156, 116, 21);
+		textField_3.setBounds(134, 156, 81, 21);
 		panel.add(textField_3);
 		
 		JLabel label_2 = new JLabel("전화번호");
@@ -128,6 +129,14 @@ public class MemberContent extends JPanel {
 		textField.setColumns(10);
 		textField.setBounds(134, 106, 186, 30);
 		panel.add(textField);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(691, 14, 81, 30);
+		panel.add(comboBox_1);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("");
+		chckbxNewCheckBox.setBounds(687, 61, 115, 23);
+		panel.add(chckbxNewCheckBox);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(12, 10, 138, 35);
