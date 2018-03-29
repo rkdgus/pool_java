@@ -6,11 +6,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import kr.or.dgit.pool_java.content.IectureSchedule;
+import kr.or.dgit.pool_java.content.ClassSchedule;
 
 public class Test extends JFrame {
 
-	private IectureSchedule contentPane;
+	private ClassSchedule contentPane;
 
 	/**
 	 * Launch the application.
@@ -34,7 +34,7 @@ public class Test extends JFrame {
 	public Test() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 873, 510);
-		contentPane = new IectureSchedule();
+		contentPane = new ClassSchedule();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
