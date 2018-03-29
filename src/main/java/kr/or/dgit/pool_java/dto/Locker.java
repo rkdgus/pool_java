@@ -3,8 +3,18 @@ package kr.or.dgit.pool_java.dto;
 public class Locker {
 	private int lno;
 	private boolean able;
-	
-	public Locker() {}
+	private String gender;
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public Locker() {
+	}
 
 	public int getLno() {
 		return lno;
@@ -24,7 +34,7 @@ public class Locker {
 
 	@Override
 	public String toString() {
-		return String.format("LockerRoom [lno=%s, able=%s]", lno, able);
+		return String.format("Locker [lno=%s, able=%s, gender=%s]", lno, able, gender);
 	}
-	
+
 }

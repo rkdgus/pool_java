@@ -77,11 +77,13 @@ public class AdminSidebar extends JPanel {
 		sales.setBounds(69, 339, 97, 15);
 		add(sales);
 		
+
 		JLabel reclass = new JLabel("재등록 강의률");
 		reclass.setForeground(Color.WHITE);
 		reclass.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		reclass.setBounds(69, 375, 107, 15);
 		add(reclass);
+
 		
 		JLabel locker = new JLabel("락커룸");
 		locker.setForeground(Color.WHITE);
@@ -123,6 +125,14 @@ public class AdminSidebar extends JPanel {
 
 	public void setClassqna(JLabel classqna) {
 		this.classqna = classqna;
+	}
+
+	public JLabel getCome() {
+		return come;
+	}
+
+	public void setCome(JLabel come) {
+		this.come = come;
 	}
 	
 	

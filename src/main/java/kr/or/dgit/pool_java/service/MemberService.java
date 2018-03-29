@@ -71,4 +71,12 @@ public class MemberService implements MemberDao{
 		
 	}
 
+	@Override
+	public Member selectMno(int mno) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(MemberDao.class);
+			return dao.selectMno(mno);
+		}
+	}
+
 }

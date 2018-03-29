@@ -8,4 +8,7 @@ public interface LockerDao {
 	public List<Locker> selectAll();
 	public int insertLocker(Locker locker);
 	public int updateLocker(boolean able);
+	public List<Locker> selectGender(Locker locker);
+	
+	
 }
