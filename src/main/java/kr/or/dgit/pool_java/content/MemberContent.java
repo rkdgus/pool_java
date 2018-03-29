@@ -1,29 +1,32 @@
 package kr.or.dgit.pool_java.content;
 
-import java.util.List;
-
-import javax.swing.JMenuBar;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
-import kr.or.dgit.pool_java.dto.Member;
-import kr.or.dgit.pool_java.service.MemberService;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
+import java.util.List;
+import java.util.Vector;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import kr.or.dgit.pool_java.dto.Class;
+import kr.or.dgit.pool_java.dto.Member;
+import kr.or.dgit.pool_java.service.ClassService;
+import kr.or.dgit.pool_java.service.MemberService;
+
+
 public class MemberContent extends JPanel {
 	private JTable table;
 	private JTextField searchField;
@@ -31,10 +34,14 @@ public class MemberContent extends JPanel {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_5;
-	private JTextField textField;
 	private JTextField textField_4;
 	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField emailAddr;
+	private JComboBox<String> emailCombo;
+	private JComboBox<String> classCombo;
+	private JRadioButton menRadio;
+	private JRadioButton womenRadio;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -77,12 +84,13 @@ public class MemberContent extends JPanel {
 		label.setBounds(41, 87, 57, 15);
 		panel.add(label);
 		
+		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
 		textField_2.setBounds(134, 80, 183, 30);
 		panel.add(textField_2);
 		
-		JLabel label_1 = new JLabel("나이");
+		JLabel label_1 = new JLabel("생년월일");
 		label_1.setBounds(375, 87, 57, 15);
 		panel.add(label_1);
 		
@@ -109,36 +117,44 @@ public class MemberContent extends JPanel {
 		panel.add(label_4);
 		
 		JLabel label_5 = new JLabel("반 번호");
-		label_5.setBounds(610, 33, 57, 15);
+		label_5.setBounds(719, 37, 57, 15);
 		panel.add(label_5);
 		
 		JLabel label_6 = new JLabel("재등록 여부");
-		label_6.setBounds(610, 87, 97, 15);
+		label_6.setBounds(719, 91, 97, 15);
 		panel.add(label_6);
 		
 		JButton addBtn = new JButton("추가");
+		addBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
 		addBtn.setBounds(791, 189, 97, 31);
 		panel.add(addBtn);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("남자");
-		rdbtnNewRadioButton.setBounds(431, 33, 66, 23);
-		panel.add(rdbtnNewRadioButton);
 		
-		JRadioButton radioButton = new JRadioButton("여자");
-		radioButton.setBounds(499, 33, 66, 23);
-		panel.add(radioButton);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(435, 80, 91, 30);
-		panel.add(textField);
+		menRadio = new JRadioButton("남자");
+		menRadio.setBounds(442, 34, 66, 23);
+		panel.add(menRadio);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(689, 25, 81, 30);
-		panel.add(comboBox_1);
+		womenRadio = new JRadioButton("여자");
+		womenRadio.setBounds(510, 34, 66, 23);
+		panel.add(womenRadio);
+		
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(menRadio);
+		group.add(womenRadio);
+		
+		classCombo = new JComboBox<>();
+		classCombo.setBounds(798, 29, 81, 30);
+		panel.add(classCombo);
+		getClassCombo();
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("");
-		chckbxNewCheckBox.setBounds(703, 79, 41, 23);
+		chckbxNewCheckBox.setBounds(812, 83, 41, 23);
 		panel.add(chckbxNewCheckBox);
 		
 		JLabel lblNewLabel_1 = new JLabel("-");
@@ -163,14 +179,58 @@ public class MemberContent extends JPanel {
 		label_8.setBounds(259, 197, 13, 15);
 		panel.add(label_8);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(396, 189, 130, 30);
-		panel.add(comboBox_2);
+		emailAddr = new JTextField();
+		emailAddr.setColumns(10);
+		emailAddr.setBounds(270, 190, 124, 30);
+		panel.add(emailAddr);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(270, 190, 124, 30);
-		panel.add(textField_7);
+		emailCombo = new JComboBox<>();
+		emailCombo.setBounds(396, 190, 130, 30);
+		emailCombo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(emailCombo.getSelectedIndex()==0) {
+					emailAddr.setText("");
+				}else {
+					emailAddr.setText((String)emailCombo.getSelectedItem());
+				}
+			}
+		});
+		emailCombo.addItem("직접입력");
+		emailCombo.addItem("naver.com");
+		emailCombo.addItem("gmail.com");
+		emailCombo.addItem("nate.com");
+		emailCombo.addItem("daum.net");
+		
+		
+		panel.add(emailCombo);
+		
+		JComboBox<String> year = new JComboBox<String>();
+		year.setBounds(438, 82, 81, 30);
+		panel.add(year);
+		
+		JComboBox<String> month = new JComboBox<String>();
+		month.setBounds(520, 82, 70, 30);
+		panel.add(month);
+		
+		JComboBox<String> day = new JComboBox<String>();
+		day.setBounds(591, 82, 70, 30);
+		panel.add(day);
+		
+		year.addItem("선택");
+		for(int i=2018;i>1949;i--) {
+			year.addItem(i+"");
+		}
+		month.addItem("선택");
+		for(int i=1;i<13;i++) {
+			month.addItem(i+"");
+		}
+		day.addItem("선택");
+		for(int i=1;i<32;i++) {
+			day.addItem(i+"");
+		}
+		
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(12, 10, 138, 35);
@@ -188,6 +248,7 @@ public class MemberContent extends JPanel {
 		addPopupMenu();
 	}
 	
+
 	private String[] getColumnNames() {
 
 		return new String[] { "회원번호", "이름", "나이","전화번호","이메일","성별","등록날짜"};
@@ -229,9 +290,15 @@ public class MemberContent extends JPanel {
 				
 			}
 		});
-	    
+	   
+	}
 	
-	      
-	      
+	private void getClassCombo() {
+		List<Class> list = ClassService.getInstance().selectByAll();
+		classCombo.addItem("선택");
+		for(int i=0;i<list.size();i++) {
+			classCombo.addItem(list.get(i).getCno()+"");
+		}
+	
 	}
 }

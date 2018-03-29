@@ -20,7 +20,8 @@ public class Member {
 	public int getMno() {
 		return mno;
 	}
-
+	
+	
 	public void setMno(int mno) {
 		this.mno = mno;
 	}
@@ -93,6 +94,24 @@ public class Member {
 		return new Object[] {mno,name,age,tell,email,gender,d};
 	
 	}
+
+
+	public Member(String name, int age, String tell, String email, String gender,String pw) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.tell = tell;
+		this.email = email;
+		this.gender = gender;
+		this.pw = pw;
+	}
+
+
+	public Member() {}
+	
+	
+	
+	
 
 
 }
