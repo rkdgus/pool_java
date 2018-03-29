@@ -10,12 +10,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import kr.or.dgit.pool_java.content.AdminSidebar;
+import kr.or.dgit.pool_java.content.ClassSchedule;
 import kr.or.dgit.pool_java.content.MemberContent;
 
 public class MemberFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JPanel contentPanel;
+	private JPanel content;
 
 	/**
 	 * Launch the application.
@@ -46,32 +47,39 @@ public class MemberFrame extends JFrame {
 		
 		AdminSidebar panel = new AdminSidebar();
 		panel.setBounds(12, 10, 236, 551);
-		contentPanel= new JPanel();
-		contentPanel.setBounds(253, 10, 900, 550);
+		content= new JPanel();
+		content.setBounds(253, 10, 900, 550);
 		
 		contentPane.add(panel);
-		contentPane.add(contentPanel);
-		contentPanel.setLayout(new BorderLayout(0, 0));
+		contentPane.add(content);
+		content.setLayout(new BorderLayout(0, 0));
 		
 		panel.getMember().addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				/*super.mouseClicked(e);*/
-				contentPanel.removeAll();
 				MemberContent memberContent = new MemberContent();
-				contentPanel.add(memberContent,BorderLayout.CENTER);
-				revalidate();
-				repaint();
+				contentCall(memberContent);
 			}
 			
+		});
+		
+		panel.getSchedule().addMouseListener(new MouseAdapter() {
 			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ClassSchedule classSchedule = ClassSchedule.getInstance();
+				contentCall(classSchedule);
+			}
 		});
 		
 		
 	}
 	
-	private void contentCall(Object object) {
-		
+	private void contentCall(JPanel object) {
+		content.removeAll();
+		content.add(object,BorderLayout.CENTER);
+		revalidate();
+		repaint();
 	}
 }

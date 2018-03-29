@@ -9,9 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class AdminSidebar extends JPanel {
-	private JLabel schedule;
-	private JLabel classinfo;
 	private JLabel userinfo;
+	private JLabel classinfo;
+	private JLabel schedule;
 	private JLabel classqna;
 	private JButton btnNewButton;
 	private JLabel member;
@@ -24,11 +24,11 @@ public class AdminSidebar extends JPanel {
 		setBackground(new Color(0, 102, 255));
 		setLayout(null);
 		
-		schedule = new JLabel("회원정보");
-		schedule.setForeground(new Color(255, 255, 255));
-		schedule.setFont(new Font("맑은 고딕", Font.BOLD, 17));
-		schedule.setBounds(39, 44, 162, 28);
-		add(schedule);
+		userinfo = new JLabel("회원정보");
+		userinfo.setForeground(new Color(255, 255, 255));
+		userinfo.setFont(new Font("맑은 고딕", Font.BOLD, 17));
+		userinfo.setBounds(39, 44, 162, 28);
+		add(userinfo);
 		
 		classinfo = new JLabel("수강관리");
 		classinfo.setForeground(new Color(255, 255, 255));
@@ -36,11 +36,11 @@ public class AdminSidebar extends JPanel {
 		classinfo.setBounds(39, 150, 162, 28);
 		add(classinfo);
 		
-		userinfo = new JLabel("수강별관리");
-		userinfo.setForeground(new Color(255, 255, 255));
-		userinfo.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		userinfo.setBounds(69, 188, 92, 15);
-		add(userinfo);
+		schedule = new JLabel("수강별관리");
+		schedule.setForeground(new Color(255, 255, 255));
+		schedule.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		schedule.setBounds(69, 188, 92, 15);
+		add(schedule);
 		
 		classqna = new JLabel("신규수강관리");
 		classqna.setForeground(new Color(255, 255, 255));
@@ -101,6 +101,24 @@ public class AdminSidebar extends JPanel {
 	public void setTeacher(JLabel teacher) {
 		this.teacher = teacher;
 	}
+
+	public JLabel getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(JLabel schedule) {
+		this.schedule = schedule;
+	}
+
+	public JLabel getClassqna() {
+		return classqna;
+	}
+
+	public void setClassqna(JLabel classqna) {
+		this.classqna = classqna;
+	}
+	
+	
 	
 	
 }
