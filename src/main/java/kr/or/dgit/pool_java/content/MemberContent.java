@@ -32,6 +32,9 @@ public class MemberContent extends JPanel {
 	private JTextField textField_3;
 	private JTextField textField_5;
 	private JTextField textField;
+	private JTextField textField_4;
+	private JTextField textField_6;
+	private JTextField textField_7;
 	/**
 	 * Create the panel.
 	 */
@@ -62,34 +65,34 @@ public class MemberContent extends JPanel {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("회원번호");
-		lblNewLabel.setBounds(41, 22, 57, 15);
+		lblNewLabel.setBounds(41, 26, 57, 15);
 		panel.add(lblNewLabel);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(134, 19, 183, 30);
+		textField_1.setBounds(134, 26, 183, 30);
 		panel.add(textField_1);
 		textField_1.setColumns(10);
 		
 		JLabel label = new JLabel("이름");
-		label.setBounds(41, 65, 57, 15);
+		label.setBounds(41, 87, 57, 15);
 		panel.add(label);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(134, 66, 183, 30);
+		textField_2.setBounds(134, 80, 183, 30);
 		panel.add(textField_2);
 		
 		JLabel label_1 = new JLabel("나이");
-		label_1.setBounds(41, 113, 57, 15);
+		label_1.setBounds(375, 87, 57, 15);
 		panel.add(label_1);
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(134, 156, 81, 21);
+		textField_3.setBounds(134, 134, 66, 30);
 		panel.add(textField_3);
 		
 		JLabel label_2 = new JLabel("전화번호");
-		label_2.setBounds(41, 159, 57, 15);
+		label_2.setBounds(41, 157, 57, 15);
 		panel.add(label_2);
 		
 		JLabel label_3 = new JLabel("이메일");
@@ -98,45 +101,76 @@ public class MemberContent extends JPanel {
 		
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
-		textField_5.setBounds(339, 202, 116, 21);
+		textField_5.setBounds(134, 190, 124, 30);
 		panel.add(textField_5);
 		
 		JLabel label_4 = new JLabel("성별");
-		label_4.setBounds(375, 22, 57, 15);
+		label_4.setBounds(375, 33, 57, 15);
 		panel.add(label_4);
 		
 		JLabel label_5 = new JLabel("반 번호");
-		label_5.setBounds(610, 22, 57, 15);
+		label_5.setBounds(610, 33, 57, 15);
 		panel.add(label_5);
 		
 		JLabel label_6 = new JLabel("재등록 여부");
-		label_6.setBounds(605, 65, 97, 15);
+		label_6.setBounds(610, 87, 97, 15);
 		panel.add(label_6);
 		
 		JButton addBtn = new JButton("추가");
-		addBtn.setBounds(791, 222, 97, 23);
+		addBtn.setBounds(791, 189, 97, 31);
 		panel.add(addBtn);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("남자");
-		rdbtnNewRadioButton.setBounds(429, 22, 66, 23);
+		rdbtnNewRadioButton.setBounds(431, 33, 66, 23);
 		panel.add(rdbtnNewRadioButton);
 		
 		JRadioButton radioButton = new JRadioButton("여자");
-		radioButton.setBounds(497, 22, 66, 23);
+		radioButton.setBounds(499, 33, 66, 23);
 		panel.add(radioButton);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(134, 106, 186, 30);
+		textField.setBounds(435, 80, 91, 30);
 		panel.add(textField);
 		
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(691, 14, 81, 30);
+		comboBox_1.setBounds(689, 25, 81, 30);
 		panel.add(comboBox_1);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("");
-		chckbxNewCheckBox.setBounds(687, 61, 115, 23);
+		chckbxNewCheckBox.setBounds(703, 79, 41, 23);
 		panel.add(chckbxNewCheckBox);
+		
+		JLabel lblNewLabel_1 = new JLabel("-");
+		lblNewLabel_1.setBounds(203, 140, 13, 15);
+		panel.add(lblNewLabel_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(211, 134, 66, 30);
+		panel.add(textField_4);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(289, 134, 66, 30);
+		panel.add(textField_6);
+		
+		JLabel label_7 = new JLabel("-");
+		label_7.setBounds(280, 141, 13, 15);
+		panel.add(label_7);
+		
+		JLabel label_8 = new JLabel("@");
+		label_8.setBounds(259, 197, 13, 15);
+		panel.add(label_8);
+		
+		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setBounds(396, 189, 130, 30);
+		panel.add(comboBox_2);
+		
+		textField_7 = new JTextField();
+		textField_7.setColumns(10);
+		textField_7.setBounds(270, 190, 124, 30);
+		panel.add(textField_7);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(12, 10, 138, 35);
