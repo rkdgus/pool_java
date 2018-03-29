@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import kr.or.dgit.pool_java.content.AdminSidebar;
 import kr.or.dgit.pool_java.content.ClassSchedule;
 import kr.or.dgit.pool_java.content.MemberContent;
+import kr.or.dgit.pool_java.content.StancePanel;
 
 public class MemberFrame extends JFrame {
 
@@ -73,6 +74,15 @@ public class MemberFrame extends JFrame {
 			}
 		});
 		
+		panel.getCome().addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				StancePanel stancePanel = new StancePanel();
+				contentCall(stancePanel);
+			}
+			
+		});
 		
 	}
 	

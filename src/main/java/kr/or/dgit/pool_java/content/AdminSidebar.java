@@ -126,6 +126,14 @@ public class AdminSidebar extends JPanel {
 	public void setClassqna(JLabel classqna) {
 		this.classqna = classqna;
 	}
+
+	public JLabel getCome() {
+		return come;
+	}
+
+	public void setCome(JLabel come) {
+		this.come = come;
+	}
 	
 	
 	
