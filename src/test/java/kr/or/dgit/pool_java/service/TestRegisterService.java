@@ -1,19 +1,16 @@
 package kr.or.dgit.pool_java.service;
 
-import java.util.Date;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import kr.or.dgit.pool_java.dto.Attendance;
-import kr.or.dgit.pool_java.dto.Member;
+import kr.or.dgit.pool_java.dto.Register;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestCarDataService {
-	private static AttendanceService service;
+public class TestRegisterService {
+	private static RegisterService service;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -25,18 +22,21 @@ public class TestCarDataService {
 		service = null;
 	}
 
-
-	/*@Test
-	public void test1InsertCarData() {
-		CarData carData = new CarData();
-		carData.setCarCode("aaaaa");
-		carData.setCarModelCode(new CarModel("RUV", "스포티지"));
-		carData.setManufacturerCode(new Manufacturer("K", "KIA"));
-		carData.setFuelCode(new Fuel("G", "가솔린"));
-		carDataService.insertCarData(carData);
+	//@Test 
+	public void test1InsertLockerData() {
+		
 	}
 	
 	@Test
+	public void test1InsertSalesData() {
+		Register register = new Register();
+		register.setCno(1);
+		register.setMno(1);
+		register.setReentrance(true);
+		service.insertRegister(register);
+	}
+	
+	/*@Test
 	public void test2FindSelectCarDataByCarDataCode() {
 		CarData carData = new CarData("CC-K-G-001");
 		CarData findCarData = carDataService.selectCarDataByCarDataCode(carData);

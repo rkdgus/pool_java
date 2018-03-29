@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.dgit.pool_java.dao.RegisterDao">
+
+	<select id="selectAll" resultType="Register">
+		select * from register
+	</select>
+	
+	<insert id="insertRegister" parameterType="Register">
+		insert into register(mno,cno,reentrance) values(#{mno},#{cno},#{reentrance})
+	</insert>
+	
+	<update id="updateRegister" parameterType="Register">
+		update register set mno=#{mno},reentrance=#{reentrance} where cno=#{cno}
+	</update>
+	
+	<delete id="deleteRegister" parameterType="int">
+		delete from register where cno=#{cno}
+	</delete>
+	
+</mapper>

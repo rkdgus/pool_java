@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.dgit.pool_java.dao.SalesDao">
+
+	<select id="selectAll" resultType="Sales">
+		select * from sales
+	</select>
+	
+	<insert id="insertSales" parameterType="Sales">
+		insert into sales(day,pay) values(#{day},#{pay})
+	</insert>
+	
+	<update id="updateSales" parameterType="Sales">
+		update sales set pay=#{pay} where day=#{day}
+	</update>
+	
+	<delete id="deleteSales" parameterType="Sales">
+		delete from sales where day=#{day}
+	</delete>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.dgit.pool_java.dao.LockerDao">
+
+	<select id="selectAll" resultType="Locker">
+		select * from locker
+	</select>
+	
+	<insert id="insertLocker" parameterType="Locker">
+		insert into locker(able) values(#{able})
+	</insert>
+	
+	<update id="updateLocker" parameterType="boolean">
+		update locker set able=#{able} where lno=#{lno}
+	</update>
+	
+</mapper>
