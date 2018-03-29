@@ -1,19 +1,16 @@
 package kr.or.dgit.pool_java.service;
 
-import java.util.Date;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import kr.or.dgit.pool_java.dto.Attendance;
 import kr.or.dgit.pool_java.dto.Member;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestCarDataService {
-	private static AttendanceService service;
+public class TestAttendanceService {
+	private static MemberService service;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -26,11 +23,14 @@ public class TestCarDataService {
 	}
 
 	@Test 
-	public void test1InsertData() {
-		Attendance a = new Attendance();
-		a.setDate(new Date());
-		a.setMno(1);
-		service.insertAttendance(a);
+	public void test1InsertMemberData() {
+		Member member = new Member();
+		member.setName("강현");
+		member.setAge(12);
+		member.setGender("남");
+		member.setTell("010-9287-3004");
+		System.out.println(member);
+		service.insertMember(member);
 	}
 	
 	/*@Test

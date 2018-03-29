@@ -43,4 +43,32 @@ public class MemberService implements MemberDao{
 		
 	}
 
+	@Override
+	public void deleteMember(int mno) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+			dao = sqlsession.getMapper(MemberDao.class);
+			dao.deleteMember(mno);
+			sqlsession.commit();
+			JOptionPane.showMessageDialog(null, "삭제되었습니다");
+		}catch(Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "삭제에 실패하였습니다");
+		}
+		
+	}
+
+	@Override
+	public void updateMember(Member member) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+			dao = sqlsession.getMapper(MemberDao.class);
+			dao.updateMember(member);
+			sqlsession.commit();
+			JOptionPane.showMessageDialog(null, "수정되었습니다");
+		}catch(Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "수정에 실패하였습니다");
+		}
+		
+	}
+
 }

@@ -27,6 +27,9 @@ dependencies {
 	compile group: 'org.mybatis', name: 'mybatis', version: '3.4.5'
 	
 	    testImplementation 'junit:junit:4.12'
+	    	
+	// prompt 파일 추가(jar 파일 추가)
+	compile files('libs/prompt.jar')
 }
 
 
