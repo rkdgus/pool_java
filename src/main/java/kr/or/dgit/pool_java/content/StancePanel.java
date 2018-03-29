@@ -1,24 +1,30 @@
 package kr.or.dgit.pool_java.content;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
-import kr.or.dgit.pool_java.dao.MemberDao;
-import kr.or.dgit.pool_java.dto.Member;
-import kr.or.dgit.pool_java.service.MemberService;
-import javax.swing.JTabbedPane;
-import java.awt.Color;
 import javax.swing.border.LineBorder;
-import javax.swing.JButton;
+
+import kr.or.dgit.pool_java.dao.AttendanceDao;
+import kr.or.dgit.pool_java.dao.LockerDao;
+import kr.or.dgit.pool_java.dao.MemberDao;
+import kr.or.dgit.pool_java.dto.Attendance;
+import kr.or.dgit.pool_java.dto.Member;
+import kr.or.dgit.pool_java.service.AttendanceService;
+import kr.or.dgit.pool_java.service.LockerService;
+import kr.or.dgit.pool_java.service.MemberService;
 
 public class StancePanel extends JPanel {
 	private JTextField noTf;
@@ -29,6 +35,8 @@ public class StancePanel extends JPanel {
 	private JTextField todayTf;
 	private JTextField textField;
 	private MemberDao mDao;
+	private AttendanceDao aDao;
+	private LockerDao lDao;
 	
 
 	/**
@@ -37,7 +45,10 @@ public class StancePanel extends JPanel {
 	public StancePanel() {
 		setLayout(null);
 		this.mDao = MemberService.getInstance();
+		this.aDao = AttendanceService.getInstance();
+		this.lDao = LockerService.getInstance();
 		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		panel.setBounds(28, 70, 232, 299);
 		add(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 1));
@@ -117,15 +128,19 @@ public class StancePanel extends JPanel {
 		todayP.add(toDayLbl);
 		
 		todayTf = new JTextField();
+	
+	
+	
+		
 		todayTf.setEnabled(false);
 		todayTf.setColumns(10);
 		todayP.add(todayTf);
 		
-		
+		noTf.setFocusable(true);
 
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(664, 10, 193, 49);
+		panel_1.setBounds(678, 10, 193, 49);
 		add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
@@ -169,6 +184,7 @@ public class StancePanel extends JPanel {
 			women.add(panel_3);
 			panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 			for(int j=1;j<=10;j++) {
+				
 				JButton btn = new JButton(String.valueOf(i*10+j));
 				btn.setBorder(new LineBorder(Color.gray));
 				btn.setOpaque(true);
@@ -183,18 +199,33 @@ public class StancePanel extends JPanel {
 		noTf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Member member = mDao.selectMno(Integer.parseInt(noTf.getText()));
+				if(member == null) {
+					JOptionPane.showMessageDialog(null, "존재하지 않는 회원입니다.");
+					clear(); 
+					return;
+				}
 				nameTf.setText(member.getName());
 				ageTf.setText(String.valueOf(member.getAge()));
 				tellTf.setText(member.getTell());
 				genderTf.setText(member.getGender());
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				todayTf.setText(sf.format(new Date()));
-				
+				Attendance attendance = new Attendance();
+				attendance.setDate(new Date());
+				attendance.setMno(member.getMno());
+				aDao.insertAttendance(attendance);
 			}
 		});
-		
-		
-		
-		
+
+	}
+
+	public void clear() {
+		noTf.setText("");
+		nameTf.setText("");
+		ageTf.setText("");
+		tellTf.setText("");
+		genderTf.setText("");
+		todayTf.setText("");
+		noTf.setFocusable(true);
 	}
 }
