@@ -74,7 +74,7 @@ public class Class {
 	
 	public Object[] toArray() {
 		Teacher t = TeacherService.getInstance().selectByNo(tno);
-		return new Object[] {time,t.getName(),level,classmate};
+		return new Object[] {cno,time,t.getName(),level,classmate};
 	}
 	
 }

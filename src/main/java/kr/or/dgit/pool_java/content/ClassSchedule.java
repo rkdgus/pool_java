@@ -10,8 +10,11 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import kr.or.dgit.pool_java.dto.Class;
+import kr.or.dgit.pool_java.dto.Teacher;
 import kr.or.dgit.pool_java.frame.ClassScheduleUpdate;
 import kr.or.dgit.pool_java.service.ClassService;
+import kr.or.dgit.pool_java.service.TeacherService;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -28,11 +31,12 @@ import java.awt.event.ActionEvent;
 @SuppressWarnings("serial")
 public class ClassSchedule extends JPanel {
 	private JTable table;
-
-	/**
-	 * Create the panel.
-	 */
-	public ClassSchedule() {
+	private static final ClassSchedule instance = new ClassSchedule();
+	
+	public static ClassSchedule getInstance() {
+		return instance;
+	}
+	private ClassSchedule() {
 		
 		setBounds(0, 0, 900, 570);
 		setLayout(null);
@@ -87,7 +91,7 @@ public class ClassSchedule extends JPanel {
 	}
 	private String[] getColumnNames() {
 
-		return new String[] { "시간", "강사명", "레벨","인원"};
+		return new String[] {"반 번호","시간", "강사명", "레벨","인원"};
 	}
 	private Object[][] getData() {
 		List<Class> list = ClassService.getInstance().selectByAll();
@@ -110,7 +114,11 @@ public class ClassSchedule extends JPanel {
 				if(table.getSelectedRow() == -1) {
 					return;
 				}
-				ClassScheduleUpdate updateFrame = new ClassScheduleUpdate();
+				int cno = (int)table.getValueAt(table.getSelectedRow(), 0);
+				Class cls = ClassService.getInstance().selectByNo(cno);
+				Teacher t = TeacherService.getInstance().selectByNo(cls.getTno());
+				System.out.println(cls);
+				ClassScheduleUpdate updateFrame = new ClassScheduleUpdate(t.getName(),cls.getClassmate());
 				updateFrame.setVisible(true);
 			}
 		});

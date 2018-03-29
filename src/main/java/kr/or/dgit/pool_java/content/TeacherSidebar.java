@@ -9,9 +9,6 @@ import java.awt.SystemColor;
 
 public class TeacherSidebar extends JPanel {
 
-	/**
-	 * Create the panel.
-	 */
 	public TeacherSidebar() {
 		setBounds(10, 10, 200, 550);
 		setBackground(new Color(0, 102, 255));
