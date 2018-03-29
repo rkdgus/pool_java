@@ -73,7 +73,7 @@ public class AdminSidebar extends JPanel {
 		JLabel label_4 = new JLabel("재등록 강의률");
 		label_4.setForeground(Color.WHITE);
 		label_4.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		label_4.setBounds(69, 342, 107, 15);
+		label_4.setBounds(64, 342, 107, 15);
 		add(label_4);
 		
 		JLabel label_5 = new JLabel("락커룸");

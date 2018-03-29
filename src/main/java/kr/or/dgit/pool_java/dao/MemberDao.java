@@ -9,4 +9,5 @@ public interface MemberDao {
 	public void insertMember(Member member);
 	public void deleteMember(int mno);
 	public void updateMember(Member member);
+	public Member selectMno(int mno);
 }

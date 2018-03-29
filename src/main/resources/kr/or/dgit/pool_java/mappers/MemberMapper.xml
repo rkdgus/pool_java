@@ -6,6 +6,10 @@
 		select * from member
 	</select>
 	
+	<select id="selectMno"  resultType="Member">
+		select * from member where mno=#{mno}
+	</select>
+	
 	<insert id="insertMember" parameterType="Member">
 		insert into member(name,age,tell,email,gender,pw) values(#{name}, #{age}, #{tell}, #{email}, #{gender},#{pw})
 	</insert>
