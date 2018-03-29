@@ -15,6 +15,10 @@ import javax.swing.SwingConstants;
 import kr.or.dgit.pool_java.dao.MemberDao;
 import kr.or.dgit.pool_java.dto.Member;
 import kr.or.dgit.pool_java.service.MemberService;
+import javax.swing.JTabbedPane;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
+import javax.swing.JButton;
 
 public class StancePanel extends JPanel {
 	private JTextField noTf;
@@ -34,15 +38,16 @@ public class StancePanel extends JPanel {
 		setLayout(null);
 		this.mDao = MemberService.getInstance();
 		JPanel panel = new JPanel();
-		panel.setBounds(44, 82, 232, 299);
+		panel.setBounds(28, 70, 232, 299);
 		add(panel);
-		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		panel.setLayout(new GridLayout(0, 1, 0, 1));
 		
 		JPanel noP = new JPanel();
 		panel.add(noP);
 		noP.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JLabel noLbl = new JLabel("회원번호");
+		noLbl.setBackground(Color.LIGHT_GRAY);
 		noLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		noP.add(noLbl);
 		
@@ -60,6 +65,7 @@ public class StancePanel extends JPanel {
 		nameP.add(nameLbl);
 		
 		nameTf = new JTextField();
+		nameTf.setEnabled(false);
 		nameTf.setColumns(10);
 		nameP.add(nameTf);
 		
@@ -72,6 +78,7 @@ public class StancePanel extends JPanel {
 		ageP.add(ageLbl);
 		
 		ageTf = new JTextField();
+		ageTf.setEnabled(false);
 		ageTf.setColumns(10);
 		ageP.add(ageTf);
 		
@@ -84,6 +91,7 @@ public class StancePanel extends JPanel {
 		tellP.add(tellLbl);
 		
 		tellTf = new JTextField();
+		tellTf.setEnabled(false);
 		tellTf.setColumns(10);
 		tellP.add(tellTf);
 		
@@ -96,6 +104,7 @@ public class StancePanel extends JPanel {
 		genderP.add(genderLbl);
 		
 		genderTf = new JTextField();
+		genderTf.setEnabled(false);
 		genderTf.setColumns(10);
 		genderP.add(genderTf);
 		
@@ -108,12 +117,15 @@ public class StancePanel extends JPanel {
 		todayP.add(toDayLbl);
 		
 		todayTf = new JTextField();
+		todayTf.setEnabled(false);
 		todayTf.setColumns(10);
 		todayP.add(todayTf);
+		
+		
 
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(664, 10, 193, 62);
+		panel_1.setBounds(664, 10, 193, 49);
 		add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
@@ -121,21 +133,50 @@ public class StancePanel extends JPanel {
 		panel_1.add(textField);
 		textField.setColumns(10);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(374, 82, 494, 458);
-		add(panel_2);
-		panel_2.setLayout(new GridLayout(1, 0, 0, 0));
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(278, 46, 610, 494);
+		add(tabbedPane);
+		
+		JPanel men = new JPanel();
+		tabbedPane.addTab("남자 탈의실", null, men, null);
+		men.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JPanel women = new JPanel();
+		tabbedPane.addTab("여자 탈의실", null, women, null);
+		women.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		
-		
-		for(int i=0;i<100;i++) {
+		for(int i=0;i<10;i++) {
 			JPanel panel_3 = new JPanel();
-			panel_2.add(panel_3);
+			men.add(panel_3);
 			panel_3.setLayout(new GridLayout(0, 1, 0, 0));
-			JTextField textField = new JTextField();
-			panel_3.add(textField);
-			textField.setColumns(10);
-			textField.setText(String.valueOf(i));
+			for(int j=1;j<=10;j++) {
+				JButton btn = new JButton(String.valueOf(i*10+j));
+				btn.setBorder(new LineBorder(Color.gray));
+				btn.setOpaque(true);
+				btn.setBackground(Color.WHITE);
+				btn.setHorizontalAlignment(SwingConstants.CENTER);
+				panel_3.add(btn);
+			
+			}
+			
+		}
+		
+		
+		
+		for(int i=0;i<10;i++) {
+			JPanel panel_3 = new JPanel();
+			women.add(panel_3);
+			panel_3.setLayout(new GridLayout(0, 1, 0, 0));
+			for(int j=1;j<=10;j++) {
+				JButton btn = new JButton(String.valueOf(i*10+j));
+				btn.setBorder(new LineBorder(Color.gray));
+				btn.setOpaque(true);
+				btn.setBackground(Color.WHITE);
+				btn.setHorizontalAlignment(SwingConstants.CENTER);
+				panel_3.add(btn);
+			}
+			
 		}
 		
 		
@@ -143,7 +184,7 @@ public class StancePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Member member = mDao.selectMno(Integer.parseInt(noTf.getText()));
 				nameTf.setText(member.getName());
-				ageTf.setText(member.getName());
+				ageTf.setText(String.valueOf(member.getAge()));
 				tellTf.setText(member.getTell());
 				genderTf.setText(member.getGender());
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -156,7 +197,4 @@ public class StancePanel extends JPanel {
 		
 		
 	}
-	
-	
-	
 }
