@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -14,10 +17,15 @@ import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import kr.or.dgit.pool_java.dto.Class;
+import kr.or.dgit.pool_java.dto.Teacher;
+import kr.or.dgit.pool_java.service.TeacherService;
+
 @SuppressWarnings("serial")
 public class ClassScheduleUpdate extends JFrame {
 	private JPanel contentPane;
-	public ClassScheduleUpdate() {
+	private DefaultComboBoxModel<String> cmbModel;
+	public ClassScheduleUpdate(String name, int classmate) {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 375, 300);
 		contentPane = new JPanel();
@@ -36,7 +44,9 @@ public class ClassScheduleUpdate extends JFrame {
 		lblNewLabel.setBounds(64, 35, 75, 26);
 		panel.add(lblNewLabel);
 		
-		JComboBox comboBox = new JComboBox();
+		cmbModel = new DefaultComboBoxModel<String>(getDate());
+		JComboBox<String> comboBox = new JComboBox<String>(cmbModel);
+		cmbModel.setSelectedItem(name);
 		comboBox.setBounds(130, 40, 116, 21);
 		panel.add(comboBox);
 		
@@ -47,15 +57,18 @@ public class ClassScheduleUpdate extends JFrame {
 		
 		JSpinner spinner = new JSpinner();
 		spinner.setBounds(130, 71, 116, 22);
+		spinner.setValue(classmate);
 		panel.add(spinner);
 		
 		JButton btnUpdate = new JButton("수정");
 		btnUpdate.setBounds(183, 136, 97, 23);
 		btnUpdate.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				//1. 수정
+				String teachName = (String)cmbModel.getSelectedItem();
+				int classmate = (int)spinner.getValue();
+				//2. 닫으면서 리스트 갱신
 				
 			}
 		});
@@ -69,5 +82,14 @@ public class ClassScheduleUpdate extends JFrame {
 		});
 		btnCancel.setBounds(59, 136, 97, 23);
 		panel.add(btnCancel);
+	}
+	
+	private Vector<String> getDate(){
+		Vector<String> vt = new Vector<>();
+		List<Teacher> lists = TeacherService.getInstance().selectByAll();
+		for(Teacher t : lists) {
+			vt.add(t.getName());
+		}
+		return vt;
 	}
 }
