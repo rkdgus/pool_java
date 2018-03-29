@@ -5,6 +5,8 @@ public class Teacher {
 	private String name;
 	private String tell;
 	private String title;
+	private String pw;
+	
 	public int getTno() {
 		return tno;
 	}
@@ -29,9 +31,19 @@ public class Teacher {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	
+	
 	@Override
 	public String toString() {
-		return "Teacher [tno=" + tno + ", name=" + name + ", tell=" + tell + ", title=" + title + "]";
+		return String.format("Teacher [tno=%s, name=%s, tell=%s, title=%s, pw=%s]", tno, name, tell, title, pw);
 	}
 	public Teacher(int tno, String name, String tell, String title) {
 		super();

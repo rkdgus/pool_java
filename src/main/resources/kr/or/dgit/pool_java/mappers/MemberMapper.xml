@@ -7,7 +7,7 @@
 	</select>
 	
 	<insert id="insertMember" parameterType="Member">
-		insert into member(name,age,tell,email,gender) values(#{name}, #{age}, #{tell}, #{email}, #{gender})
+		insert into member(name,age,tell,email,gender,pw) values(#{name}, #{age}, #{tell}, #{email}, #{gender},#{pw})
 	</insert>
 	
 	<delete id="deleteMember"  parameterType="int">

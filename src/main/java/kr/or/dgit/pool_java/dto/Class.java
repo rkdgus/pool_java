@@ -10,6 +10,8 @@ public class Class {
 	private int pay;
 	private int tno;
 	private Date s_day;
+	private boolean reclass;
+	
 	public int getCno() {
 		return cno;
 	}
@@ -52,10 +54,19 @@ public class Class {
 	public void setS_day(Date s_day) {
 		this.s_day = s_day;
 	}
+	
+	public boolean isReclass() {
+		return reclass;
+	}
+	public void setReclass(boolean reclass) {
+		this.reclass = reclass;
+	}
+	
+	
 	@Override
 	public String toString() {
-		return "Class [cno=" + cno + ", classmate=" + classmate + ", time=" + time + ", level=" + level + ", pay=" + pay
-				+ ", tno=" + tno + ", s_day=" + s_day + "]";
+		return String.format("Class [cno=%s, classmate=%s, time=%s, level=%s, pay=%s, tno=%s, s_day=%s, reclass=%s]",
+				cno, classmate, time, level, pay, tno, s_day, reclass);
 	}
 	public Class() {}
 	
