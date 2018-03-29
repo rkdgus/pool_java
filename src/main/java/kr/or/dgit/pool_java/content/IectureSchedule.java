@@ -1,5 +1,6 @@
 package kr.or.dgit.pool_java.content;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -12,6 +13,7 @@ import kr.or.dgit.pool_java.service.ClassService;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JLabel;
 
 
 @SuppressWarnings("serial")
@@ -22,6 +24,7 @@ public class IectureSchedule extends JPanel {
 	 * Create the panel.
 	 */
 	public IectureSchedule() {
+		
 		setBounds(0, 0, 900, 570);
 		setLayout(null);
 		
@@ -48,6 +51,12 @@ public class IectureSchedule extends JPanel {
 		
 		JMenuItem menuItem = new JMenuItem("강의삭제");
 		mnNewMenu.add(menuItem);
+		
+		JLabel lblTitle = new JLabel("");
+		lblTitle.setBounds(223, 10, 453, 47);
+		add(lblTitle);
+		Calendar cal = Calendar.getInstance();
+		lblTitle.setText(cal.get(Calendar.MONTH)+"월");
 	}
 	private String[] getColumnNames() {
 
