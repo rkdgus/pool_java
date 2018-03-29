@@ -10,7 +10,8 @@ public class Member {
 	private Date date;
 	private String email;
 	private String gender;
-
+	private String pw;
+	
 	public int getMno() {
 		return mno;
 	}
@@ -67,10 +68,19 @@ public class Member {
 		this.gender = gender;
 	}
 
+	public String getPw() {
+		return pw;
+	}
+
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("MemberDto [mno=%s, name=%s, age=%s, tell=%s, date=%s, email=%s, gender=%s]", mno, name,
-				age, tell, date, email, gender);
+		return String.format("Member [mno=%s, name=%s, age=%s, tell=%s, date=%s, email=%s, gender=%s, pw=%s]", mno,
+				name, age, tell, date, email, gender, pw);
 	}
+
 
 }

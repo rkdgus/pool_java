@@ -2,57 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dgit.pool_java.dao.MemberDao">
 
-
-	
-	
 	<select id="selectAll" resultType="Member">
 		select * from member
 	</select>
 	
 	<insert id="insertMember" parameterType="Member">
-		insert into member(name,age,tell,email,gender) values(#{name}, #{age}, #{tell}, #{email}, #{gender})
+		insert into member(name,age,tell,email,gender,pw) values(#{name}, #{age}, #{tell}, #{email}, #{gender},#{pw})
 	</insert>
 	
-<!-- 	<select id="selectCarDataByOld" resultMap="CarDataResult">
-		select distinct car_old from car_data order by car_old
-	</select>
+	<delete id="deleteMember"  parameterType="int">
+		delete from member where mno = #{mno}
+	</delete>
 	
-	<select id="selectCarDataBySeater" resultMap="CarDataResult">
-		select distinct car_seater from car_data order by car_seater
-	</select>
-	
-	<select id="selectCarDataByCarDataCode" resultMap="CarDataResult">
-		<include refid="selectSql"/>
-		<include refid="wherePrimarySql"/>
-	</select>
-	
-	<select id="selectCarDataByCarDataCodeList" resultMap="CarDataResult">
-		<include refid="selectSql"/>
-		<include refid="wherePrimarySql"/>
-	</select>
-	
-	<select id="selectCarDataByCarValue" resultMap="CarDataResult">
-		<include refid="selectSql"/>
-		<include refid="whereAllSql"/>
-	</select>
-	
-	<select id="selectCarDataByAll" resultMap="CarDataResult">
-		<include refid="selectSql"/>
-	</select>
-	
-	<select id="selectCarDataByCarModelCode" resultMap="CarDataResult">
-		<include refid="selectSql"/>
-		where car_model_code = #{carModelCode}
-	</select>
-	
-	<insert id="insertCarData" parameterType="CarData">
-		insert into car_data values(#{carCode}, #{carName}, #{carImage}, #{carOld}, #{carNumber}, #{isAuto},
-		#{carSeater}, #{carModelCode.carModelCode}, #{manufacturerCode.manufacturerCode}, #{fuelCode.fuelCode})
-	</insert>
+	<update id="updateMember" parameterType="Member">
+		update member set name=#{name},age=#{age},tell=#{tell},email=#{email} where mno = #{mno}  
+	</update>
 
-	
-	<delete id="deleteCarData" parameterType="CarData">
-		<include refid="deleteSql"/>
-		<include refid="wherePrimarySql"/>
-	</delete> -->
 </mapper>

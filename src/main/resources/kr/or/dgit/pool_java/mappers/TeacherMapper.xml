@@ -22,7 +22,7 @@
 		select * from teacher where tno = #{tno}
 	</select>
 	<insert id="insertTeacher" parameterType="Teacher">
-		insert into teacher(name,tell,title) values(#{name},#{tell},#{title})
+		insert into teacher(name,tell,title,pw) values(#{name},#{tell},#{title},#{pw})
 	</insert>
 	<update id="updateTeacher" parameterType="Teacher">
 		update teacher set title = #{title}, tell = #{tell}, name = #{name} where tno = #{tno}
