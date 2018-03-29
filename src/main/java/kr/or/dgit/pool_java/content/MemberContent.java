@@ -176,8 +176,7 @@ public class MemberContent extends JPanel {
 				// TODO Auto-generated method stub
 				
 			}
-		});
-	      
+		});      
 	      menuItem2.addActionListener(new ActionListener() {
 			
 			@Override
@@ -186,9 +185,5 @@ public class MemberContent extends JPanel {
 				
 			}
 		});
-	    
-	
-	      
-	      
 	}
 }
