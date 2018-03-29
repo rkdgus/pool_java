@@ -2,6 +2,8 @@ package kr.or.dgit.pool_java.dto;
 
 import java.util.Date;
 
+import kr.or.dgit.pool_java.service.TeacherService;
+
 public class Class {
 	private int cno;
 	private int classmate;
@@ -69,5 +71,10 @@ public class Class {
 				cno, classmate, time, level, pay, tno, s_day, reclass);
 	}
 	public Class() {}
+	
+	public Object[] toArray() {
+		Teacher t = TeacherService.getInstance().selectByNo(tno);
+		return new Object[] {time,t.getName(),level,classmate};
+	}
 	
 }

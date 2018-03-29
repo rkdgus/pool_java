@@ -1,6 +1,11 @@
 package kr.or.dgit.pool_java.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import kr.or.dgit.pool_java.service.MemberService;
+import kr.or.dgit.pool_java.service.TeacherService;
 
 public class Member {
 	private int mno;
@@ -80,6 +85,13 @@ public class Member {
 	public String toString() {
 		return String.format("Member [mno=%s, name=%s, age=%s, tell=%s, date=%s, email=%s, gender=%s, pw=%s]", mno,
 				name, age, tell, date, email, gender, pw);
+	}
+
+	public Object[] toArray() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String d = sdf.format(date);
+		return new Object[] {mno,name,age,tell,email,gender,d};
+	
 	}
 
 
