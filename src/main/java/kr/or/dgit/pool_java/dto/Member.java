@@ -120,6 +120,21 @@ public class Member {
 		this.gender = gender;
 		this.pw = pw;
 	}
+	
+	
+
+
+
+
+	public Member(int mno, String name, int age, String tell, String email, String gender) {
+		super();
+		this.mno = mno;
+		this.name = name;
+		this.age = age;
+		this.tell = tell;
+		this.email = email;
+		this.gender = gender;
+	}
 
 
 	public Member() {}

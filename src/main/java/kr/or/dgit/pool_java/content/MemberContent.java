@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import javax.imageio.spi.RegisterableService;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -28,8 +29,10 @@ import javax.swing.table.DefaultTableModel;
 
 import kr.or.dgit.pool_java.dto.Class;
 import kr.or.dgit.pool_java.dto.Member;
+import kr.or.dgit.pool_java.dto.Register;
 import kr.or.dgit.pool_java.service.ClassService;
 import kr.or.dgit.pool_java.service.MemberService;
+import kr.or.dgit.pool_java.service.RegisterService;
 
 
 public class MemberContent extends JPanel {
@@ -50,6 +53,10 @@ public class MemberContent extends JPanel {
 	private JComboBox<String> year;
 	private JComboBox<String> month;
 	private JComboBox<String> day;
+	private JButton memupdate;
+	private JButton addBtn;
+	private JButton classupdate;
+	private JButton backBtn;
 	
 	/**
 	 * Create the panel.
@@ -60,11 +67,11 @@ public class MemberContent extends JPanel {
 		
 		JScrollPane scrollPane = new JScrollPane();
 	
-		
 		scrollPane.setBounds(0, 55, 900, 248);
 		add(scrollPane);
 		
 		table = new JTable();
+	
 		loadData();
 
 		scrollPane.setViewportView(table);
@@ -151,6 +158,7 @@ public class MemberContent extends JPanel {
 		
 		
 		menRadio = new JRadioButton("남");
+		menRadio.setSelected(true);
 		menRadio.setBounds(442, 34, 66, 23);
 		panel.add(menRadio);
 		
@@ -228,17 +236,31 @@ public class MemberContent extends JPanel {
 		}
 		month.addItem("선택");
 		for(int i=1;i<13;i++) {
-			month.addItem(i+"");
+			if(i<10) {
+				month.addItem("0"+i+"");
+			}else {
+				month.addItem(i+"");
+			}
+			
 		}
 		day.addItem("선택");
 		for(int i=1;i<32;i++) {
-			day.addItem(i+"");
+			if(i<10) {
+				day.addItem("0"+i+"");
+			}else {
+				day.addItem(i+"");
+			}
+		
 		}
 		
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<>();
 		comboBox.setBounds(12, 10, 138, 35);
 		add(comboBox);
+		comboBox.addItem("전체보기");
+		comboBox.addItem("회원번호");
+		comboBox.addItem("이름");
+		comboBox.addItem("수강반");
 		
 		searchField = new JTextField();
 		searchField.setBounds(149, 10, 630, 35);
@@ -251,53 +273,70 @@ public class MemberContent extends JPanel {
 		
 		addPopupMenu();
 		
-		JButton addBtn = new JButton("신규등록");
+		addBtn = new JButton("신규등록");
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String y = year.getSelectedItem().toString();
-				String m = month.getSelectedItem().toString();
-				String d = day.getSelectedItem().toString();
-				String a = y+m+d;
-			
-					int age = Integer.parseInt(a);
-				
-				
-				String tell = tell1.getText()+"-"+tell2.getText()+"-"+tell3.getText();
-				String gender="";
-				
-				if(menRadio.isSelected()) {
-					gender = "남";
-				}else {
-					gender = "여";
-				}
-				
-				String email = email1.getText()+"@"+emailAddr.getText();
-				
-				Member mem = new Member(name.getText(), age, tell, email, gender, a);
-				
-				MemberService.getInstance().insertMember(mem);
+				MemberService.getInstance().insertMember(sendMemberData("insert"));
 				loadData();
-				
-				
-				
-				name.setText("");
-				tell1.setText("");
-				tell2.setText("");
-				tell3.setText("");
-				email1.setText("");
-				emailAddr.setText("");
-				emailCombo.setSelectedIndex(0);
-				year.setSelectedIndex(0);
-				month.setSelectedIndex(0);
-				day.setSelectedIndex(0);
-				classCombo.setSelectedIndex(0);
-				menRadio.setSelected(false);
-				womenRadio.setSelected(false);
-				mno.setText("");
 			}
 		});
-		addBtn.setBounds(791, 189, 97, 31);
+		addBtn.setBounds(791, 190, 97, 30);
 		panel.add(addBtn);
+		
+		memupdate = new JButton("회원정보수정");
+		memupdate.setBounds(591, 190, 117, 30);
+		panel.add(memupdate);
+		
+		classupdate = new JButton("수강반 수정");
+		classupdate.setBounds(710, 190, 110, 30);
+		panel.add(classupdate);
+		
+		backBtn = new JButton("취소");
+		backBtn.setBounds(822, 190, 66, 30);
+		panel.add(backBtn);
+		
+		backBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clearText();
+				addBtn.setVisible(true);
+				memupdate.setVisible(false);
+				classupdate.setVisible(false);
+				backBtn.setVisible(false);
+			}
+		});
+		
+		memupdate.setVisible(false);
+		memupdate.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MemberService.getInstance().updateMember(sendMemberData("update"));
+				memupdate.setVisible(false);
+				classupdate.setVisible(false);
+				backBtn.setVisible(false);
+				addBtn.setVisible(true);
+				loadData();
+				
+			}
+		});
+		classupdate.setVisible(false);
+		
+		table.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount()==2) {
+					getMemberData();
+					addBtn.setVisible(false);
+					memupdate.setVisible(true);
+					classupdate.setVisible(true);
+					backBtn.setVisible(true);
+				}
+			}
+			
+		});
 	}
 	
 
@@ -322,43 +361,44 @@ public class MemberContent extends JPanel {
 	      JPopupMenu popupMenu = new JPopupMenu();
 	      JMenuItem menuItem = new JMenuItem("수정");
 	      JMenuItem menuItem2 = new JMenuItem("삭제");
+	      JMenuItem menuItem3 = new JMenuItem("재등록");
+	      
 	      popupMenu.add(menuItem);
 	      popupMenu.add(menuItem2);
+	      popupMenu.add(menuItem3);
+	      
 	      table.setComponentPopupMenu(popupMenu);
 	      menuItem.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int row = table.getSelectedRow();
-				int no =(int)table.getValueAt(row, 0); 
-				
-				Member m = MemberService.getInstance().selectMno(no);
-				mno.setText(m.getMno()+"");
-				name.setText(m.getName());
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				regdatetf.setText(sdf.format(m.getDate()));
-				
-				if(m.getGender()=="남") {
-
-					menRadio.setSelected(true);
-				}else if(m.getGender()=="여") {
-					womenRadio.setSelected(true);
-				}
-				
-				
+				getMemberData();
+				addBtn.setVisible(false);
+				memupdate.setVisible(true);
+				classupdate.setVisible(true);
+				backBtn.setVisible(true);
 			}
 		});      
 	      menuItem2.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int reply = JOptionPane.showConfirmDialog(null, "회원을 삭제하시겠습니까?");
+				int reply = JOptionPane.showConfirmDialog(null, "회원을 삭제하시겠습니까?","회원정보 삭제",JOptionPane.OK_CANCEL_OPTION,JOptionPane.ERROR_MESSAGE);
 				if(reply==JOptionPane.YES_OPTION) {
 					int row = table.getSelectedRow();
 					int mno =(int)table.getValueAt(row, 0);
 					MemberService.getInstance().deleteMember(mno);
 					loadData();
 				}
+			}
+		});
+	      
+	      menuItem3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 
@@ -384,9 +424,130 @@ public class MemberContent extends JPanel {
 	}
 	
 	private void loadData() {
-		DefaultTableModel model = new DefaultTableModel(getData(),getColumnNames());
+		DefaultTableModel model = new DefaultTableModel(getData(),getColumnNames()) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+			
+		};
+	
 		table.setModel(model);
 	}
+	
+	private Member sendMemberData(String type) {
+		
+		String y = year.getSelectedItem().toString();
+		String m = month.getSelectedItem().toString();
+		String d = day.getSelectedItem().toString();
+		String a = y+m+d;
+	
+			int age = Integer.parseInt(a);
+		
+		
+		String tell = tell1.getText()+"-"+tell2.getText()+"-"+tell3.getText();
+		String gender="";
+		
+		if(menRadio.isSelected()) {
+			gender = "남";
+		}else {
+			gender = "여";
+		}
+		
+		String email = email1.getText()+"@"+emailAddr.getText();
+		Member mem = null;
+		
+		if(type.equals("insert")) {
+			mem = new Member(name.getText(), age, tell, email, gender, a);
+			Register  register = new Register();
+			register.setCno(mem.getMno());
+			register.setReentrance(false);
+			RegisterService.getInstance().insertRegister(register);
+			
+		}else if(type.equals("update")) {
+			mem = new Member(Integer.parseInt(mno.getText()), name.getText(), age, tell, email, gender);
+		}
+			
+		name.setText("");
+		tell1.setText("");
+		tell2.setText("");
+		tell3.setText("");
+		email1.setText("");
+		emailAddr.setText("");
+		emailCombo.setSelectedIndex(0);
+		year.setSelectedIndex(0);
+		month.setSelectedIndex(0);
+		day.setSelectedIndex(0);
+		classCombo.setSelectedIndex(0);
+		menRadio.setSelected(true);
+		mno.setText("");
+		
+		return mem;
+	}
+	
+	private void getMemberData() {
+		int row = table.getSelectedRow();
+		int no =(int)table.getValueAt(row, 0); 
+		
 
+		Member m = MemberService.getInstance().selectMno(no);
+		
+		mno.setText(m.getMno()+"");
+		name.setText(m.getName());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		regdatetf.setText(sdf.format(m.getDate()));
+		
+		if(m.getGender().equals("남")) {
+			womenRadio.setSelected(false);
+			menRadio.setSelected(true);
+		}else if(m.getGender().equals("여")){
+			menRadio.setSelected(false);
+			womenRadio.setSelected(true);
+		}
+		
+		String total = String.valueOf(m.getAge());
+		String y = total.substring(0, 4);
+		year.setSelectedItem(y);
+		
+		String m2 = total.substring(4,6);
+		month.setSelectedItem(m2);
+		
+		String d = total.substring(6,total.length());
+		day.setSelectedItem(d);
+		
+		String totale = m.getEmail();
+		String em = totale.substring(0, totale.indexOf("@"));
+		email1.setText(em);
+		
+		String emaddr = totale.substring(totale.indexOf("@")+1);
+		emailAddr.setText(emaddr);
+		
+		String phone = m.getTell();
+		String t1 = phone.substring(0, phone.indexOf("-"));
+		String t2 = phone.substring(phone.indexOf("-")+1,phone.lastIndexOf("-"));
+		String t3 = phone.substring(phone.lastIndexOf("-")+1);
+		tell1.setText(t1);
+		tell2.setText(t2);
+		tell3.setText(t3);
+	}
+	
+	private void clearText() {
+		name.setText("");
+		tell1.setText("");
+		tell2.setText("");
+		tell3.setText("");
+		email1.setText("");
+		emailAddr.setText("");
+		emailCombo.setSelectedIndex(0);
+		year.setSelectedIndex(0);
+		month.setSelectedIndex(0);
+		day.setSelectedIndex(0);
+		classCombo.setSelectedIndex(0);
+		menRadio.setSelected(true);
+		mno.setText("");
+	}
+	
+
+	
 }
 

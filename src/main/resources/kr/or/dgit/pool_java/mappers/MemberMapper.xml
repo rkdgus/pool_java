@@ -19,7 +19,7 @@
 	</delete>
 	
 	<update id="updateMember" parameterType="Member">
-		update member set name=#{name},age=#{age},tell=#{tell},email=#{email} where mno = #{mno}  
+		update member set name=#{name},age=#{age},tell=#{tell},email=#{email},gender=#{gender} where mno = #{mno}  
 	</update>
 
 </mapper>
