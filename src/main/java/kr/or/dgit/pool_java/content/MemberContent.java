@@ -1,9 +1,12 @@
 package kr.or.dgit.pool_java.content;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -30,17 +33,21 @@ import kr.or.dgit.pool_java.service.MemberService;
 public class MemberContent extends JPanel {
 	private JTable table;
 	private JTextField searchField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_5;
-	private JTextField textField_4;
-	private JTextField textField_6;
+	private JTextField mno;
+	private JTextField name;
+	private JTextField tell1;
+	private JTextField email1;
+	private JTextField tell2;
+	private JTextField tell3;
 	private JTextField emailAddr;
 	private JComboBox<String> emailCombo;
 	private JComboBox<String> classCombo;
 	private JRadioButton menRadio;
 	private JRadioButton womenRadio;
+	private JTextField regdatetf;
+	private JComboBox<String> year;
+	private JComboBox<String> month;
+	private JComboBox<String> day;
 	
 	/**
 	 * Create the panel.
@@ -54,8 +61,9 @@ public class MemberContent extends JPanel {
 		
 		scrollPane.setBounds(0, 55, 900, 248);
 		add(scrollPane);
-		DefaultTableModel model = new DefaultTableModel(getData(),getColumnNames());
-		table = new JTable(model);
+		
+		table = new JTable();
+		loadData();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -71,46 +79,48 @@ public class MemberContent extends JPanel {
 		add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("회원번호");
-		lblNewLabel.setBounds(41, 26, 57, 15);
-		panel.add(lblNewLabel);
+		JLabel lblmno = new JLabel("회원번호");
+		lblmno.setBounds(41, 26, 57, 15);
+		panel.add(lblmno);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(134, 26, 183, 30);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		mno = new JTextField();
+		mno.setEnabled(false);
+		mno.setBounds(134, 26, 183, 30);
+		panel.add(mno);
+		//mno.setText(t);
+		mno.setColumns(10);
 		
-		JLabel label = new JLabel("이름");
-		label.setBounds(41, 87, 57, 15);
-		panel.add(label);
+		JLabel lblname = new JLabel("이름");
+		lblname.setBounds(41, 87, 57, 15);
+		panel.add(lblname);
 		
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(134, 80, 183, 30);
-		panel.add(textField_2);
+		name = new JTextField();
+		name.setColumns(10);
+		name.setBounds(134, 80, 183, 30);
+		panel.add(name);
 		
 		JLabel label_1 = new JLabel("생년월일");
 		label_1.setBounds(375, 87, 57, 15);
 		panel.add(label_1);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(134, 134, 66, 30);
-		panel.add(textField_3);
+		tell1 = new JTextField();
+		tell1.setColumns(10);
+		tell1.setBounds(134, 134, 66, 30);
+		panel.add(tell1);
 		
-		JLabel label_2 = new JLabel("전화번호");
-		label_2.setBounds(41, 157, 57, 15);
-		panel.add(label_2);
+		JLabel lbltell = new JLabel("전화번호");
+		lbltell.setBounds(41, 141, 57, 15);
+		panel.add(lbltell);
 		
 		JLabel label_3 = new JLabel("이메일");
-		label_3.setBounds(41, 205, 57, 15);
+		label_3.setBounds(41, 197, 57, 15);
 		panel.add(label_3);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(134, 190, 124, 30);
-		panel.add(textField_5);
+		email1 = new JTextField();
+		email1.setColumns(10);
+		email1.setBounds(134, 190, 124, 30);
+		panel.add(email1);
 		
 		JLabel label_4 = new JLabel("성별");
 		label_4.setBounds(375, 33, 57, 15);
@@ -120,19 +130,33 @@ public class MemberContent extends JPanel {
 		label_5.setBounds(719, 37, 57, 15);
 		panel.add(label_5);
 		
-		JLabel label_6 = new JLabel("재등록 여부");
-		label_6.setBounds(719, 91, 97, 15);
-		panel.add(label_6);
+		JLabel lblreclass = new JLabel("재등록 여부");
+		lblreclass.setBounds(719, 141, 97, 15);
+		panel.add(lblreclass);
 		
-		JButton addBtn = new JButton("추가");
-		addBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-			}
-		});
-		addBtn.setBounds(791, 189, 97, 31);
-		panel.add(addBtn);
 		
+		year = new JComboBox<String>();
+		year.setBounds(438, 82, 81, 30);
+		panel.add(year);
+		
+		month = new JComboBox<String>();
+		month.setBounds(520, 82, 70, 30);
+		panel.add(month);
+		
+		day = new JComboBox<String>();
+		day.setBounds(591, 82, 70, 30);
+		panel.add(day);
+		
+		
+		tell2 = new JTextField();
+		tell2.setColumns(10);
+		tell2.setBounds(211, 134, 66, 30);
+		panel.add(tell2);
+		
+		tell3 = new JTextField();
+		tell3.setColumns(10);
+		tell3.setBounds(289, 134, 66, 30);
+		panel.add(tell3);
 		
 		
 		menRadio = new JRadioButton("남자");
@@ -154,26 +178,17 @@ public class MemberContent extends JPanel {
 		getClassCombo();
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("");
-		chckbxNewCheckBox.setBounds(812, 83, 41, 23);
+		chckbxNewCheckBox.setBounds(811, 134, 41, 23);
 		panel.add(chckbxNewCheckBox);
 		
-		JLabel lblNewLabel_1 = new JLabel("-");
-		lblNewLabel_1.setBounds(203, 140, 13, 15);
-		panel.add(lblNewLabel_1);
+		JLabel lbl1 = new JLabel("-");
+		lbl1.setBounds(203, 140, 13, 15);
+		panel.add(lbl1);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(211, 134, 66, 30);
-		panel.add(textField_4);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(289, 134, 66, 30);
-		panel.add(textField_6);
-		
-		JLabel label_7 = new JLabel("-");
-		label_7.setBounds(280, 141, 13, 15);
-		panel.add(label_7);
+		JLabel lbl2 = new JLabel("-");
+		lbl2.setBounds(280, 141, 13, 15);
+		panel.add(lbl2);
 		
 		JLabel label_8 = new JLabel("@");
 		label_8.setBounds(259, 197, 13, 15);
@@ -206,17 +221,19 @@ public class MemberContent extends JPanel {
 		
 		panel.add(emailCombo);
 		
-		JComboBox<String> year = new JComboBox<String>();
-		year.setBounds(438, 82, 81, 30);
-		panel.add(year);
 		
-		JComboBox<String> month = new JComboBox<String>();
-		month.setBounds(520, 82, 70, 30);
-		panel.add(month);
+		JLabel regdate = new JLabel("등록날짜");
+		regdate.setBounds(375, 141, 57, 15);
+		panel.add(regdate);
 		
-		JComboBox<String> day = new JComboBox<String>();
-		day.setBounds(591, 82, 70, 30);
-		panel.add(day);
+		regdatetf = new JTextField();
+		regdatetf.setEnabled(false);
+		regdatetf.setBounds(438, 134, 91, 30);
+		panel.add(regdatetf);
+		regdatetf.setColumns(10);
+		Date date = new Date(); 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		regdatetf.setText(sdf.format(date));
 		
 		year.addItem("선택");
 		for(int i=2018;i>1949;i--) {
@@ -246,6 +263,54 @@ public class MemberContent extends JPanel {
 		add(searchBtn);
 		
 		addPopupMenu();
+		
+		JButton addBtn = new JButton("추가");
+		addBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String y = year.getSelectedItem().toString();
+				String m = month.getSelectedItem().toString();
+				String d = day.getSelectedItem().toString();
+				String a = y+m+d;
+			
+					int age = Integer.parseInt(a);
+				
+				
+				String tell = tell1.getText()+"-"+tell2.getText()+"-"+tell3.getText();
+				String gender="";
+				
+				if(menRadio.isSelected()) {
+					gender = "남자";
+				}else {
+					gender = "여자";
+				}
+				
+				String email = email1.getText()+"@"+emailAddr.getText();
+				
+				Member mem = new Member(name.getText(), age, tell, email, gender, a);
+				
+				MemberService.getInstance().insertMember(mem);
+				loadData();
+				
+				
+				
+				name.setText("");
+				tell1.setText("");
+				tell2.setText("");
+				tell3.setText("");
+				email1.setText("");
+				emailAddr.setText("");
+				emailCombo.setSelectedIndex(0);
+				year.setSelectedIndex(0);
+				month.setSelectedIndex(0);
+				day.setSelectedIndex(0);
+				classCombo.setSelectedIndex(0);
+				menRadio.setSelected(false);
+				womenRadio.setSelected(false);
+				mno.setText("");
+			}
+		});
+		addBtn.setBounds(791, 189, 97, 31);
+		panel.add(addBtn);
 	}
 	
 
@@ -300,5 +365,10 @@ public class MemberContent extends JPanel {
 			classCombo.addItem(list.get(i).getCno()+"");
 		}
 	
+	}
+	
+	private void loadData() {
+		DefaultTableModel model = new DefaultTableModel(getData(),getColumnNames());
+		table.setModel(model);
 	}
 }
