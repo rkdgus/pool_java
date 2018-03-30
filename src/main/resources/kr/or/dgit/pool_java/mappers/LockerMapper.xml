@@ -7,14 +7,14 @@
 	</select>
 	
 	<select id="selectGender" resultType="Locker">
-		select * from locker where gender=#{gender} lno=#{lno}
+		select * from locker where gender=#{gender} and lno=#{lno}
 	</select>
 	
 	<insert id="insertLocker" parameterType="Locker">
 		insert into locker(able,gender) values(#{able},#{gender})
 	</insert>
 	
-	<update id="updateLocker" parameterType="boolean">
+	<update id="updateLocker" parameterType="Locker">
 		update locker set able=#{able} where lno=#{lno}
 	</update>
 	
