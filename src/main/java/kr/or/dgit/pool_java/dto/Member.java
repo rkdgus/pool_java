@@ -16,7 +16,19 @@ public class Member {
 	private String email;
 	private String gender;
 	private String pw;
+	private String id;
 	
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
 	public int getMno() {
 		return mno;
 	}
@@ -82,11 +94,14 @@ public class Member {
 		this.pw = pw;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return String.format("Member [mno=%s, name=%s, age=%s, tell=%s, date=%s, email=%s, gender=%s, pw=%s]", mno,
-				name, age, tell, date, email, gender, pw);
+		return String.format("Member [mno=%s, name=%s, age=%s, tell=%s, date=%s, email=%s, gender=%s, pw=%s, id=%s]",
+				mno, name, age, tell, date, email, gender, pw, id);
 	}
+
 
 	public Object[] toArray() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -104,6 +119,21 @@ public class Member {
 		this.email = email;
 		this.gender = gender;
 		this.pw = pw;
+	}
+	
+	
+
+
+
+
+	public Member(int mno, String name, int age, String tell, String email, String gender) {
+		super();
+		this.mno = mno;
+		this.name = name;
+		this.age = age;
+		this.tell = tell;
+		this.email = email;
+		this.gender = gender;
 	}
 
 
