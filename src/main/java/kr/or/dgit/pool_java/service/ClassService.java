@@ -64,4 +64,18 @@ public class ClassService implements ClassDao {
 		}
 	}
 
+	@Override
+	public int updateClass(Class cls) {
+		int res = -1;
+		try(SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();){
+			dao = sqlsession.getMapper(ClassDao.class);
+			dao.updateClass(cls);
+			sqlsession.commit();
+			res = 1;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+
 }

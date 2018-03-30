@@ -280,8 +280,7 @@ public class MemberContent extends JPanel {
 				// TODO Auto-generated method stub
 				
 			}
-		});
-	      
+		});      
 	      menuItem2.addActionListener(new ActionListener() {
 			
 			@Override
@@ -290,6 +289,7 @@ public class MemberContent extends JPanel {
 				
 			}
 		});
+
 	   
 	}
 	
@@ -299,6 +299,6 @@ public class MemberContent extends JPanel {
 		for(int i=0;i<list.size();i++) {
 			classCombo.addItem(list.get(i).getCno()+"");
 		}
-	
+
 	}
 }

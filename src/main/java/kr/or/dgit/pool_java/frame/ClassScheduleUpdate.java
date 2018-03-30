@@ -12,20 +12,24 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import kr.or.dgit.pool_java.content.ClassSchedule;
 import kr.or.dgit.pool_java.dto.Class;
 import kr.or.dgit.pool_java.dto.Teacher;
+import kr.or.dgit.pool_java.service.ClassService;
 import kr.or.dgit.pool_java.service.TeacherService;
 
 @SuppressWarnings("serial")
 public class ClassScheduleUpdate extends JFrame {
 	private JPanel contentPane;
 	private DefaultComboBoxModel<String> cmbModel;
-	public ClassScheduleUpdate(String name, int classmate) {
+	private List<Teacher> lists;
+	public ClassScheduleUpdate(String name, int classmate,int cno) {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 375, 300);
 		contentPane = new JPanel();
@@ -67,8 +71,23 @@ public class ClassScheduleUpdate extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//1. 수정
 				String teachName = (String)cmbModel.getSelectedItem();
+				int tno = lists.get(cmbModel.getIndexOf(teachName)).getTno();
+				System.out.println();
 				int classmate = (int)spinner.getValue();
+				Class cls = new Class();
+				cls.setClassmate(classmate);
+				cls.setTno(tno);
+				cls.setCno(cno);
+				int res = ClassService.getInstance().updateClass(cls);
 				//2. 닫으면서 리스트 갱신
+				if(res >= 0) {
+					JOptionPane.showMessageDialog(null, "수정되었습니다.");
+					ClassSchedule.getInstance().addJTableList();
+					setVisible(false);
+				}else {
+					JOptionPane.showMessageDialog(null, "수정이 실패하였습니다.");
+				}
+				
 				
 			}
 		});
@@ -77,7 +96,7 @@ public class ClassScheduleUpdate extends JFrame {
 		JButton btnCancel = new JButton("취소");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				setVisible(false);
 			}
 		});
 		btnCancel.setBounds(59, 136, 97, 23);
@@ -86,7 +105,7 @@ public class ClassScheduleUpdate extends JFrame {
 	
 	private Vector<String> getDate(){
 		Vector<String> vt = new Vector<>();
-		List<Teacher> lists = TeacherService.getInstance().selectByAll();
+		lists = TeacherService.getInstance().selectByAll();
 		for(Teacher t : lists) {
 			vt.add(t.getName());
 		}
