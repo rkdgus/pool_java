@@ -171,7 +171,7 @@ public class MemberContent extends JPanel {
 		classCombo = new JComboBox<>();
 		classCombo.setBounds(798, 29, 81, 30);
 		panel.add(classCombo);
-		getClassCombo();
+		//getClassCombo();
 		
 		JLabel lbl1 = new JLabel("-");
 		lbl1.setBounds(203, 140, 13, 15);
@@ -350,17 +350,19 @@ public class MemberContent extends JPanel {
 	   
 	}
 	
-	private void getClassCombo() {
+	/*private void getClassCombo() {
 		List<Class> list = ClassService.getInstance().selectByAll();
 		classCombo.addItem("선택");
 		for(int i=0;i<list.size();i++) {
 			classCombo.addItem(list.get(i).getCno()+"");
 		}
 
-	}
+	}*/
 	
 	private void loadData() {
 		DefaultTableModel model = new DefaultTableModel(getData(),getColumnNames());
 		table.setModel(model);
 	}
+
 }
+
