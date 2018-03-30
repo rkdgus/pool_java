@@ -7,4 +7,5 @@ public interface ClassDao {
 	public int insertClass(Class cls);
 	public int deleteClass(int cno);
 	public Class selectByNo(int cno);
+	public int updateClass(Class cls);
 }

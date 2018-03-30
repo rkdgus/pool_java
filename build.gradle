@@ -27,5 +27,8 @@ dependencies {
 	    testImplementation 'junit:junit:4.12'   	
 	// prompt 파일 추가(jar 파일 추가)
 	compile files('libs/prompt.jar')
+	//Use 룩앤필
+    compile files('libs/liquidlnf.jar')
+
 }
 
