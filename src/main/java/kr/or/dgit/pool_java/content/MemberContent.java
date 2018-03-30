@@ -16,6 +16,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
@@ -64,14 +65,7 @@ public class MemberContent extends JPanel {
 		
 		table = new JTable();
 		loadData();
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int row = table.getSelectedRow();
-				int mno =(int)table.getValueAt(row, 0);
-				
-			}
-		});
+
 		scrollPane.setViewportView(table);
 		
 		JPanel panel = new JPanel();
@@ -87,7 +81,7 @@ public class MemberContent extends JPanel {
 		mno.setEnabled(false);
 		mno.setBounds(134, 26, 183, 30);
 		panel.add(mno);
-		//mno.setText(t);
+	
 		mno.setColumns(10);
 		
 		JLabel lblname = new JLabel("이름");
@@ -155,11 +149,11 @@ public class MemberContent extends JPanel {
 		panel.add(tell3);
 		
 		
-		menRadio = new JRadioButton("남자");
+		menRadio = new JRadioButton("남");
 		menRadio.setBounds(442, 34, 66, 23);
 		panel.add(menRadio);
 		
-		womenRadio = new JRadioButton("여자");
+		womenRadio = new JRadioButton("여");
 		womenRadio.setBounds(510, 34, 66, 23);
 		panel.add(womenRadio);
 		
@@ -271,9 +265,9 @@ public class MemberContent extends JPanel {
 				String gender="";
 				
 				if(menRadio.isSelected()) {
-					gender = "남자";
+					gender = "남";
 				}else {
-					gender = "여자";
+					gender = "여";
 				}
 				
 				String email = email1.getText()+"@"+emailAddr.getText();
@@ -334,7 +328,22 @@ public class MemberContent extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				int row = table.getSelectedRow();
+				int no =(int)table.getValueAt(row, 0); 
+				
+				Member m = MemberService.getInstance().selectMno(no);
+				mno.setText(m.getMno()+"");
+				name.setText(m.getName());
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				regdatetf.setText(sdf.format(m.getDate()));
+				
+				if(m.getGender()=="남") {
+
+					menRadio.setSelected(true);
+				}else if(m.getGender()=="여") {
+					womenRadio.setSelected(true);
+				}
+				
 				
 			}
 		});      
@@ -342,8 +351,13 @@ public class MemberContent extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				int reply = JOptionPane.showConfirmDialog(null, "회원을 삭제하시겠습니까?");
+				if(reply==JOptionPane.YES_OPTION) {
+					int row = table.getSelectedRow();
+					int mno =(int)table.getValueAt(row, 0);
+					MemberService.getInstance().deleteMember(mno);
+					loadData();
+				}
 			}
 		});
 
