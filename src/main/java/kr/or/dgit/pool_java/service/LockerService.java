@@ -69,5 +69,12 @@ public class LockerService implements LockerDao {
 		}
 		return res;
 	}
+	@Override
+	public List<Locker> selectGender(Locker locker) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(LockerDao.class);
+			return dao.selectGender(locker);
+		}
+	}
 
 }

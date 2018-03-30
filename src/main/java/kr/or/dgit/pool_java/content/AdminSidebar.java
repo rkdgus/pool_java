@@ -16,6 +16,7 @@ public class AdminSidebar extends JPanel {
 	private JButton btnNewButton;
 	private JLabel member;
 	private JLabel teacher;
+	private JLabel come;
 	/**
 	 * Create the panel.
 	 */
@@ -27,25 +28,25 @@ public class AdminSidebar extends JPanel {
 		userinfo = new JLabel("회원정보");
 		userinfo.setForeground(new Color(255, 255, 255));
 		userinfo.setFont(new Font("맑은 고딕", Font.BOLD, 17));
-		userinfo.setBounds(39, 44, 162, 28);
+		userinfo.setBounds(39, 77, 162, 28);
 		add(userinfo);
 		
 		classinfo = new JLabel("수강관리");
 		classinfo.setForeground(new Color(255, 255, 255));
 		classinfo.setFont(new Font("맑은 고딕", Font.BOLD, 17));
-		classinfo.setBounds(39, 150, 162, 28);
+		classinfo.setBounds(39, 192, 162, 28);
 		add(classinfo);
 		
 		schedule = new JLabel("수강별관리");
 		schedule.setForeground(new Color(255, 255, 255));
 		schedule.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		schedule.setBounds(69, 188, 92, 15);
+		schedule.setBounds(70, 230, 92, 15);
 		add(schedule);
 		
 		classqna = new JLabel("신규수강관리");
 		classqna.setForeground(new Color(255, 255, 255));
 		classqna.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		classqna.setBounds(69, 223, 107, 15);
+		classqna.setBounds(70, 264, 107, 15);
 		add(classqna);
 		
 		btnNewButton = new JButton("로그아웃");
@@ -55,38 +56,46 @@ public class AdminSidebar extends JPanel {
 		member = new JLabel("회원관리");
 		member.setForeground(Color.WHITE);
 		member.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		member.setBounds(69, 82, 92, 15);
+		member.setBounds(70, 115, 92, 15);
 		add(member);
 		
 		teacher = new JLabel("강사관리");
 		teacher.setForeground(Color.WHITE);
 		teacher.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		teacher.setBounds(69, 110, 92, 15);
+		teacher.setBounds(70, 151, 92, 15);
 		add(teacher);
 		
 		JLabel salesTitle = new JLabel("매출관리");
 		salesTitle.setForeground(Color.WHITE);
 		salesTitle.setFont(new Font("맑은 고딕", Font.BOLD, 17));
-		salesTitle.setBounds(39, 264, 162, 28);
+		salesTitle.setBounds(39, 301, 162, 28);
 		add(salesTitle);
 		
 		JLabel sales = new JLabel("매출관리");
 		sales.setForeground(Color.WHITE);
 		sales.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		sales.setBounds(64, 305, 97, 15);
+		sales.setBounds(69, 339, 97, 15);
 		add(sales);
 		
+
 		JLabel reclass = new JLabel("재등록 강의률");
 		reclass.setForeground(Color.WHITE);
 		reclass.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		reclass.setBounds(69, 342, 107, 15);
+		reclass.setBounds(69, 375, 107, 15);
 		add(reclass);
+
 		
 		JLabel locker = new JLabel("락커룸");
 		locker.setForeground(Color.WHITE);
 		locker.setFont(new Font("맑은 고딕", Font.BOLD, 17));
-		locker.setBounds(39, 381, 162, 28);
+		locker.setBounds(39, 412, 162, 28);
 		add(locker);
+		
+		come = new JLabel("입장");
+		come.setForeground(Color.WHITE);
+		come.setFont(new Font("맑은 고딕", Font.BOLD, 17));
+		come.setBounds(39, 28, 162, 28);
+		add(come);
 	}
 	
 	public JLabel getMember() {
@@ -116,6 +125,14 @@ public class AdminSidebar extends JPanel {
 
 	public void setClassqna(JLabel classqna) {
 		this.classqna = classqna;
+	}
+
+	public JLabel getCome() {
+		return come;
+	}
+
+	public void setCome(JLabel come) {
+		this.come = come;
 	}
 	
 	

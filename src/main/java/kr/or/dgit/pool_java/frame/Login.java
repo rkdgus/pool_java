@@ -46,14 +46,14 @@ public class Login extends JFrame {
 
 	public static void main(String[] args) {
 				
-		// 룩앤필 변경
+	/*	// 룩앤필 변경
 		try {
 			UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e1) {
 
 			e1.printStackTrace();
-		}
+		}*/
 
 		EventQueue.invokeLater(new Runnable() {
 			private Login frame;
@@ -80,7 +80,7 @@ public class Login extends JFrame {
 		setResizable(false);
 		this.dao = TeacherService.getInstance();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 637, 476);
+		setBounds(100, 100, 632, 479);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -111,7 +111,7 @@ public class Login extends JFrame {
 			}
 		});
 
-		// 아이디 키 리스너
+	/*	// 아이디 키 리스너
 		IdField.addKeyListener(new KeyAdapter() {
 
 			@Override
@@ -129,7 +129,7 @@ public class Login extends JFrame {
 				}
 			}
 
-		});
+		});*/
 		IdField.setBounds(322, 234, 226, 47);
 		contentPane.add(IdField);
 		IdField.setColumns(10);
@@ -138,6 +138,7 @@ public class Login extends JFrame {
 		// 비밀번호 필드
 		PwField = new JPasswordField();
 		PromptSupport.setPrompt("비밀번호를 입력해주세요.", PwField);
+		PromptSupport.setPrompt("아이디를 입력하세요.", IdField);
 			
 		contentPane.add(PwField);
 
@@ -151,7 +152,7 @@ public class Login extends JFrame {
 			}
 		});
 
-		// 비밀번호 리스너
+	/*	// 비밀번호 리스너
 		PwField.addKeyListener(new KeyAdapter() {
 
 			@Override
@@ -172,14 +173,14 @@ public class Login extends JFrame {
 				}
 			}
 
-		});
+		});*/
 
 		PwField.setBounds(322, 291, 226, 45);
 		contentPane.add(PwField);
 
 		// 로그인 버튼
 		JButton btnLogin = new JButton("\uB85C\uADF8\uC778");
-		btnLogin.setBounds(366, 379, 140, 34);
+		btnLogin.setBounds(363, 367, 140, 34);
 		
 		// 로그인 버튼 리스너
 		btnLogin.addActionListener(new ActionListener() {
@@ -195,39 +196,11 @@ public class Login extends JFrame {
 				Teacher ComfirmTeacher = null;
 				List<Teacher> list = dao.selectByAll();
 				
-				try {
-					idCheck = idimg.getDescription().indexOf("false");
-					pwCheck = pwimg.getDescription().indexOf("false");
-				} catch (NullPointerException err) {
-					JOptionPane.showMessageDialog(null, "아이디, 비밀번호를 확인해주세요.");
-					IdField.requestFocus();
-					return;
-				}
-
-				/*if (adminLoginBox.isSelected()) {
-					if(Id.equals("RENTADMINISTER")) {
-						if(Pw.equals("1234567890")) {
-							JOptionPane.showMessageDialog(null, "관리자모드를 시작합니다.");
-							AdminMain frame = AdminMain.getInstance();
-							frame.getContentPane().add(new AdminMainHome(), BorderLayout.CENTER);
-							frame.setVisible(true);
-							setVisible(false);
-							return;
-						}else {
-							JOptionPane.showMessageDialog(null, "비밀번호를 확인해주세요.");
-							return;
-						}
-					}else {
-						JOptionPane.showMessageDialog(null, "관리자 아이디 및 비밀번호를 확인해주세요.");
-						return;
-					}
-				} */
+				
 								
-				if (idCheck > 0 || pwCheck > 0) {
-					JOptionPane.showMessageDialog(null, "아이디, 비밀번호를 확인해주세요.");
-				} else {
+				
 					for(Teacher u : list) {
-						if(Id.equals(u.getTno())) {
+						if(Id.equals(String.valueOf( u.getTno()))) {
 							ConfirmId = u.getTno();
 							if(Pw.equals(u.getPw())) {
 								ConfirmPw = u.getPw();
@@ -254,41 +227,14 @@ public class Login extends JFrame {
 					frame.setVisible(true);
 					setVisible(false);*/
 				}
-			}
+			
 		});
 
 		contentPane.add(btnLogin);
 		
-		JButton btnRegister = new JButton("회원가입");
-		btnRegister.setBounds(332, 346, 97, 23);
-		contentPane.add(btnRegister);
-		
-		btnRegister.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			/*	MembershipFrame frame = new MembershipFrame();
-				frame.setVisible(true);*/
-			}
-		});
-		
-		// 내정보찾기 버튼
-		JButton btnFind = new JButton("내정보찾기");
-		btnFind.setBounds(441, 346, 97, 23);
-		contentPane.add(btnFind);
-		btnFind.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				/*FindIdPwFrame findId = new FindIdPwFrame();
-				findId.setVisible(true);*/
-			}
-		});
-		
 		// 배경화면 
 		JLabel backImg = new JLabel("");
-		backImg.setBounds(5, 5, 620, 442);
-		backImg.setIcon(new ImageIcon("C:\\Users\\DGIT3-10\\Desktop\\DSC03920.JPG"));
+		backImg.setBounds(0, 0, 626, 450);
 		contentPane.add(backImg);
 	}
 }
