@@ -8,9 +8,12 @@
 		select * from class where cno = #{cno}
 	</select>
 	<insert id="insertClass" parameterType="Class">
-		insert into class(classmate,time,level,pay,tno,s_day) values(#{classmate},#{time},#{level},#{pay},#{tno},#{s_day})
+		insert into class(classmate,time,level,pay,tno,s_day) values(#{classmate},#{time},#{level},50000,#{tno},#{s_day})
 	</insert>
 	<delete id="deleteClass" parameterType="Class">
 		delete from class where cno = #{cno}
 	</delete>
+	<update id="updateClass" parameterType="Class">
+		update class set classmate = #{classmate}, tno = #{tno} where cno = #{cno}
+	</update>
 </mapper>
