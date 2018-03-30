@@ -78,7 +78,7 @@ public class ClassService implements ClassDao {
 			date.setDate(1);
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			s_day = sdf.format(date);
-			System.out.println(s_day);
+			
 			dao = sqlsession.getMapper(ClassDao.class);
 			return dao.selectBytoMonth(s_day);
 		}catch(Exception e) {
@@ -95,13 +95,49 @@ public class ClassService implements ClassDao {
 			date.setMonth(date.getMonth()+1);
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			s_day = sdf.format(date);
-			System.out.println(s_day);
+			
 			dao = sqlsession.getMapper(ClassDao.class);
 			return dao.selectByNextMonth(s_day);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public List<Class> selectByTno(Class cls) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(ClassDao.class);
+			return dao.selectByTno(cls);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Class> selectByLevel(Class cls) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(ClassDao.class);
+			return dao.selectByLevel(cls);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public int updateClassInfo(Class cls) {
+		int res = -1;
+		try(SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();){
+			dao = sqlsession.getMapper(ClassDao.class);
+			dao.updateClassInfo(cls);
+			sqlsession.commit();
+			res = 1;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 }

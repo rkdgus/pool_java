@@ -1,6 +1,7 @@
 package kr.or.dgit.pool_java.content;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -12,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import kr.or.dgit.pool_java.dto.Class;
 import kr.or.dgit.pool_java.dto.Teacher;
 import kr.or.dgit.pool_java.frame.AddClassFrame;
+import kr.or.dgit.pool_java.frame.ClassInfoFrame;
 import kr.or.dgit.pool_java.frame.ClassScheduleUpdate;
 import kr.or.dgit.pool_java.service.ClassService;
 import kr.or.dgit.pool_java.service.TeacherService;
@@ -25,6 +27,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
@@ -54,6 +57,18 @@ public class ClassSchedule extends JPanel {
 		add(scrollPane);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() ==2) {
+					int row = table.getSelectedRow();
+					int cno = (int)table.getValueAt(row,0);
+					Class cls = ClassService.getInstance().selectByNo(cno);
+					ClassInfoFrame frame = new ClassInfoFrame(cls);
+					frame.setVisible(true);
+				}
+			}
+		});
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
 		table.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
@@ -87,7 +102,18 @@ public class ClassSchedule extends JPanel {
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				if(cmbSearch.getSelectedItem().equals("전체보기")) {
+					addJTableList();
+					tfSearch.setText("");
+				}else if(cmbSearch.getSelectedItem().equals("강사명")) {
+					String teacher = tfSearch.getText();
+					searchTearch(teacher);
+					tfSearch.setText("");
+				}else if(cmbSearch.getSelectedItem().equals("레벨")) {
+					String level = tfSearch.getText();
+					searchLevel(level);
+					tfSearch.setText("");
+				}
 			}
 		});
 		btnSearch.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
@@ -95,7 +121,7 @@ public class ClassSchedule extends JPanel {
 		add(btnSearch);
 		
 		cmbSearch = new JComboBox<String>();
-		cmbSearch.setModel(new DefaultComboBoxModel(new String[] {"강사명", "반 번호"}));
+		cmbSearch.setModel(new DefaultComboBoxModel(new String[] {"전체보기","강사명", "레벨"}));
 		cmbSearch.setBounds(222, 29, 89, 24);
 		add(cmbSearch);
 		addJTableList();
@@ -114,9 +140,68 @@ public class ClassSchedule extends JPanel {
 		return data;
 	}
 	public void addJTableList() {
-		DefaultTableModel model = new DefaultTableModel(getData(),getColumnNames());
+		DefaultTableModel model = new DefaultTableModel(getData(),getColumnNames()) {
+	         @Override
+	         public boolean isCellEditable(int row, int column) {
+	            return false;
+	         }
+	         
+	      };;
 		table.setModel(model);
 	}
+	
+	public void searchTearch(String teacher) {
+		Class cls = new Class();
+		cls.setLevel("%"+teacher+"%");
+		Date date = new Date();
+		date.setDate(1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		cls.setTime(sdf.format(date));
+		
+		DefaultTableModel model = new DefaultTableModel(getTnoData(cls),getColumnNames()) {
+	         @Override
+	         public boolean isCellEditable(int row, int column) {
+	            return false;
+	         }
+	         
+	      };;
+		table.setModel(model);
+		
+	}
+	public void searchLevel(String level) {
+		Class cls = new Class();
+		cls.setLevel("%"+level+"%");
+		Date date = new Date();
+		date.setDate(1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		cls.setTime(sdf.format(date));
+		DefaultTableModel model = new DefaultTableModel(getLevelData(cls),getColumnNames()) {
+	         @Override
+	         public boolean isCellEditable(int row, int column) {
+	            return false;
+	         }
+	         
+	      };;
+		table.setModel(model);
+	}
+	private Object[][] getLevelData(Class cls) {
+		List<Class> lists = ClassService.getInstance().selectByLevel(cls);
+		Object[][] data = new Object[lists.size()][];
+		for (int i = 0; i <lists.size(); i++) {
+			data[i] = lists.get(i).toArray();
+		}
+		return data;
+	}
+	private Object[][] getTnoData(Class cls) {
+		List<Class> list = ClassService.getInstance().selectByTno(cls);
+		Object[][] data = new Object[list.size()][];
+		for (int i = 0; i <list.size(); i++) {
+			data[i] = list.get(i).toArray();
+		}
+		
+		return data;
+	}
+	
 	private void addPopupMenu() {
 		JPopupMenu popupMenu = new JPopupMenu();
 		JMenuItem menuItem = new JMenuItem("수정");
