@@ -5,7 +5,7 @@
 	<select id="selectAll" resultType="Member">
 		select * from member
 	</select>
-
+	
 	<select id="selectMno"  resultType="Member">
 		select * from member where mno=#{mno}
 	</select>

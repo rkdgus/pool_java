@@ -130,10 +130,6 @@ public class MemberContent extends JPanel {
 		label_5.setBounds(719, 37, 57, 15);
 		panel.add(label_5);
 		
-		JLabel lblreclass = new JLabel("재등록 여부");
-		lblreclass.setBounds(719, 141, 97, 15);
-		panel.add(lblreclass);
-		
 		
 		year = new JComboBox<String>();
 		year.setBounds(438, 82, 81, 30);
@@ -176,10 +172,6 @@ public class MemberContent extends JPanel {
 		classCombo.setBounds(798, 29, 81, 30);
 		panel.add(classCombo);
 		getClassCombo();
-		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("");
-		chckbxNewCheckBox.setBounds(811, 134, 41, 23);
-		panel.add(chckbxNewCheckBox);
 		
 		JLabel lbl1 = new JLabel("-");
 		lbl1.setBounds(203, 140, 13, 15);
@@ -264,7 +256,7 @@ public class MemberContent extends JPanel {
 		
 		addPopupMenu();
 		
-		JButton addBtn = new JButton("추가");
+		JButton addBtn = new JButton("신규등록");
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String y = year.getSelectedItem().toString();
