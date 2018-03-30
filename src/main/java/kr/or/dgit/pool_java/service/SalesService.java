@@ -1,5 +1,6 @@
 package kr.or.dgit.pool_java.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -86,6 +87,22 @@ public class SalesService implements SalesDao {
 			
 		}
 		return res;
+	}
+
+	@Override
+	public List<Sales> selectDate(int day) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(SalesDao.class);
+			return dao.selectDate(day);
+		}
+	}
+
+	@Override
+	public int selectSum(int day) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(SalesDao.class);
+			return dao.selectSum(day);
+		}
 	}
 
 }

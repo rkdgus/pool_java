@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,12 +22,18 @@ import javax.swing.border.LineBorder;
 import kr.or.dgit.pool_java.dao.AttendanceDao;
 import kr.or.dgit.pool_java.dao.LockerDao;
 import kr.or.dgit.pool_java.dao.MemberDao;
+import kr.or.dgit.pool_java.dao.SalesDao;
 import kr.or.dgit.pool_java.dto.Attendance;
 import kr.or.dgit.pool_java.dto.Locker;
 import kr.or.dgit.pool_java.dto.Member;
+import kr.or.dgit.pool_java.dto.Sales;
 import kr.or.dgit.pool_java.service.AttendanceService;
 import kr.or.dgit.pool_java.service.LockerService;
 import kr.or.dgit.pool_java.service.MemberService;
+import kr.or.dgit.pool_java.service.SalesService;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class StancePanel extends JPanel {
 	private JTextField noTf;
@@ -35,10 +42,10 @@ public class StancePanel extends JPanel {
 	private JTextField tellTf;
 	private JTextField genderTf;
 	private JTextField todayTf;
-	private JTextField textField;
 	private MemberDao mDao;
 	private AttendanceDao aDao;
 	private LockerDao lDao;
+	private SalesDao sDao;
 
 	/**
 	 * Create the panel.
@@ -48,6 +55,8 @@ public class StancePanel extends JPanel {
 		this.mDao = MemberService.getInstance();
 		this.aDao = AttendanceService.getInstance();
 		this.lDao = LockerService.getInstance();
+		this.sDao = SalesService.getInstance();
+
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		panel.setBounds(28, 70, 232, 299);
@@ -136,14 +145,10 @@ public class StancePanel extends JPanel {
 
 		noTf.setFocusable(true);
 
-		JPanel panel_1 = new JPanel();
+		ClockPanel panel_1 = new ClockPanel();
 		panel_1.setBounds(678, 10, 193, 49);
 		add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
-
-		textField = new JTextField();
-		panel_1.add(textField);
-		textField.setColumns(10);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(278, 46, 610, 494);
@@ -158,10 +163,22 @@ public class StancePanel extends JPanel {
 		women.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnNewButton = new JButton("일일 입장");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Sales sales = new Sales();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+				SimpleDateFormat sf1 = new SimpleDateFormat("yyyyMMddHHmmss");
+				
+				Date date = new Date();
+					sales.setSno(sf1.format(date));
+					sales.setDay(Integer.parseInt(sf.format(date)));
+					sales.setPay(2200);
+				
+				sDao.insertSales(sales);
 			}
 		});
+		
 		btnNewButton.setBounds(80, 418, 135, 38);
 		add(btnNewButton);
 

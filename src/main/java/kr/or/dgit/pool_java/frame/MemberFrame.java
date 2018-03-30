@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import kr.or.dgit.pool_java.content.AdminSidebar;
 import kr.or.dgit.pool_java.content.ClassSchedule;
 import kr.or.dgit.pool_java.content.MemberContent;
+import kr.or.dgit.pool_java.content.SalesPanel;
 import kr.or.dgit.pool_java.content.StancePanel;
 
 public class MemberFrame extends JFrame {
@@ -25,13 +26,13 @@ public class MemberFrame extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
+		/*try {
 			UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -89,6 +90,16 @@ public class MemberFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				StancePanel stancePanel = new StancePanel();
 				contentCall(stancePanel);
+			}
+			
+		});
+		
+		panel.getSales().addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SalesPanel salesPanel = new SalesPanel();
+				contentCall(salesPanel);
 			}
 			
 		});
