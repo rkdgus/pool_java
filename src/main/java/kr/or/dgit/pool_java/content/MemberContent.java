@@ -151,7 +151,7 @@ public class MemberContent extends JPanel {
 		classCombo = new JComboBox<>();
 		classCombo.setBounds(798, 29, 81, 30);
 		panel.add(classCombo);
-		getClassCombo();
+		//getClassCombo();
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("");
 		chckbxNewCheckBox.setBounds(812, 83, 41, 23);
@@ -293,12 +293,12 @@ public class MemberContent extends JPanel {
 	   
 	}
 	
-	private void getClassCombo() {
+	/*private void getClassCombo() {
 		List<Class> list = ClassService.getInstance().selectByAll();
 		classCombo.addItem("선택");
 		for(int i=0;i<list.size();i++) {
 			classCombo.addItem(list.get(i).getCno()+"");
 		}
 
-	}
+	}*/
 }

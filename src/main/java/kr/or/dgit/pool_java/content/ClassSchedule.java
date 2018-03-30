@@ -38,31 +38,30 @@ import javax.swing.DefaultComboBoxModel;
 public class ClassSchedule extends JPanel {
 	private JTable table;
 	private static final ClassSchedule instance = new ClassSchedule();
-	private JTextField textField;
+	private JTextField tfSearch;
 	private JButton btnSearch;
+	private JComboBox<String> cmbSearch;
 	
 	public static ClassSchedule getInstance() {
 		return instance;
 	}
 	private ClassSchedule() {
-		
 		setBounds(0, 0, 900, 570);
 		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(7, 78, 888, 482);
+		scrollPane.setBounds(8, 63, 888, 482);
 		add(scrollPane);
 		
 		table = new JTable();
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
 		table.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
-		
 		scrollPane.setViewportView(table);
 		
 		JLabel lblTitle = new JLabel("");
 		lblTitle.setFont(new Font("맑은 고딕", Font.BOLD, 20));
-		lblTitle.setBounds(787, 25, 108, 47);
+		lblTitle.setBounds(788, 16, 108, 47);
 		add(lblTitle);
 		Calendar cal = Calendar.getInstance();
 		lblTitle.setText(cal.get(Calendar.YEAR)+"년 " + (cal.get(Calendar.MONTH)+1)+"월");
@@ -76,32 +75,37 @@ public class ClassSchedule extends JPanel {
 			}
 		});
 		btnAddClass.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
-		btnAddClass.setBounds(7, 44, 97, 24);
+		btnAddClass.setBounds(8, 29, 97, 24);
 		add(btnAddClass);
 		
-		textField = new JTextField();
-		textField.setBounds(311, 44, 308, 24);
-		add(textField);
-		textField.setColumns(10);
+		tfSearch = new JTextField();
+		tfSearch.setBounds(312, 29, 308, 24);
+		add(tfSearch);
+		tfSearch.setColumns(10);
 		
 		btnSearch = new JButton("검색");
+		btnSearch.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
 		btnSearch.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
-		btnSearch.setBounds(619, 44, 97, 24);
+		btnSearch.setBounds(620, 29, 97, 24);
 		add(btnSearch);
 		
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"강사명", "반 번호"}));
-		comboBox.setBounds(221, 44, 89, 24);
-		add(comboBox);
+		cmbSearch = new JComboBox<String>();
+		cmbSearch.setModel(new DefaultComboBoxModel(new String[] {"강사명", "반 번호"}));
+		cmbSearch.setBounds(222, 29, 89, 24);
+		add(cmbSearch);
 		addJTableList();
 		addPopupMenu();
 	}
 	private String[] getColumnNames() {
-
 		return new String[] {"반 번호","시간", "강사명", "레벨","인원"};
 	}
 	private Object[][] getData() {
-		List<Class> list = ClassService.getInstance().selectByAll();
+		List<Class> list = ClassService.getInstance().selectBytoMonth("");
 		
 		Object[][] data = new Object[list.size()][];
 		for (int i = 0; i <list.size(); i++) {
@@ -121,7 +125,6 @@ public class ClassSchedule extends JPanel {
 		popupMenu.add(menuItem2);
 		table.setComponentPopupMenu(popupMenu);
 		menuItem.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() == -1) {
@@ -137,7 +140,6 @@ public class ClassSchedule extends JPanel {
 		});
 		
 		menuItem2.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() == -1) {

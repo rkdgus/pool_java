@@ -25,13 +25,7 @@ public class MemberFrame extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+	
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
