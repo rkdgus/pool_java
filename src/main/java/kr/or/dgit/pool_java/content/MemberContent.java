@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -365,7 +366,16 @@ public class MemberContent extends JPanel {
 	}
 	
 	private void getClassCombo() {
-		List<Class> list = ClassService.getInstance().selectByAll();
+		
+		List<Class> list = null;
+		
+		Calendar c = Calendar.getInstance();
+		if(c.get(Calendar.DATE)<=10) {
+			list = ClassService.getInstance().selectBytoMonth("");
+		}else if(c.get(Calendar.DATE)>=20) {
+			list = ClassService.getInstance().selectByNextMonth("");
+		}
+		
 		classCombo.addItem("선택");
 		for(int i=0;i<list.size();i++) {
 			classCombo.addItem(list.get(i).getCno()+"");
@@ -377,4 +387,6 @@ public class MemberContent extends JPanel {
 		DefaultTableModel model = new DefaultTableModel(getData(),getColumnNames());
 		table.setModel(model);
 	}
+
 }
+
