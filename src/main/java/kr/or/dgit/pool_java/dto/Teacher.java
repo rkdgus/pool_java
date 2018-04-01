@@ -9,7 +9,15 @@ public class Teacher {
 	private String title;
 	private String pw;
 	private String id;
+	private boolean quit;
 	
+	
+	public boolean isQuit() {
+		return quit;
+	}
+	public void setQuit(boolean quit) {
+		this.quit = quit;
+	}
 	public String getId() {
 		return id;
 	}

@@ -373,7 +373,9 @@ public class MemberContent extends JPanel {
 	private void Search(String type, String keyWord) {
 		if (type.equals("전체보기") || keyWord.equals("")) {
 			loadData();
-		
+		}
+		if(type.equals("회원번호")|| type.equals("이름")||type.equals("수강반")) {
+			loadSearchData(type,keyWord);
 		}
 	}
 
