@@ -6,8 +6,16 @@
 		select * from sales
 	</select>
 	
+	<select id="selectDate" resultType="Sales">
+		select * from sales where day = #{day}
+	</select>
+	
+	<select id="selectSum" resultType="int">
+		select sum(pay) from sales where day= #{day}
+	</select>
+	
 	<insert id="insertSales" parameterType="Sales">
-		insert into sales(day,pay) values(#{day},#{pay})
+		insert into sales(sno,day,pay) values(#{sno},#{day},#{pay})
 	</insert>
 	
 	<update id="updateSales" parameterType="Sales">

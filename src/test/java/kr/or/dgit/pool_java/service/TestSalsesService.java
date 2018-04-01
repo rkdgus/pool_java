@@ -30,14 +30,14 @@ public class TestSalsesService {
 		System.out.println(service.selectAll());
 	}
 	
-	@Test
+/*	@Test
 	public void test1InsertSalesData() {
 		Sales sales = new Sales();
 		sales.setDay(new Date());
 		sales.setPay(10000);
 		service.insertSales(sales);
 	}
-	
+	*/
 	/*@Test
 	public void test2FindSelectCarDataByCarDataCode() {
 		CarData carData = new CarData("CC-K-G-001");

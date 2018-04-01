@@ -79,4 +79,20 @@ public class MemberService implements MemberDao{
 		}
 	}
 
+	@Override
+	public List<Member> selectSearchName(String name) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(MemberDao.class);
+			return dao.selectSearchName(name);
+		}
+	}
+
+	@Override
+	public List<Member> selectSearchMno(String mno) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(MemberDao.class);
+			return dao.selectSearchMno(mno);
+		}
+	}
+
 }

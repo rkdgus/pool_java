@@ -10,6 +10,13 @@
 		select * from member where mno=#{mno}
 	</select>
 	
+	<select id="selectSearchName" resultType="Member">
+		select * from member where name like #{name}
+	</select>
+	<select id="selectSearchMno" resultType="Member">
+		select * from member where mno like #{mno}
+	</select>
+	
 	<insert id="insertMember" parameterType="Member">
 		insert into member(name,age,tell,email,gender,pw) values(#{name}, #{age}, #{tell}, #{email}, #{gender},password(#{pw}))
 	</insert>
@@ -19,7 +26,7 @@
 	</delete>
 	
 	<update id="updateMember" parameterType="Member">
-		update member set name=#{name},age=#{age},tell=#{tell},email=#{email} where mno = #{mno}  
+		update member set name=#{name},age=#{age},tell=#{tell},email=#{email},gender=#{gender} where mno = #{mno}  
 	</update>
 
 </mapper>
