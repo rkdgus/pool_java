@@ -370,22 +370,11 @@ public class MemberContent extends JPanel {
 		return data;
 	}
 
-<<<<<<< HEAD
 	private void Search(String type, String keyWord) {
 		if (type.equals("전체보기") || keyWord.equals("")) {
 			loadData();
-=======
-	private Object[][] getSearchData(String type,String keyword) {
-		List<Member> list =null;
-		if(type.equals("searchName")) {
-			list = MemberService.getInstance().selectSearchName("%"+keyword+"%");
->>>>>>> branch 'master' of https://github.com/rkdgus/pool_java.git
+		
 		}
-
-		if (type.equals("회원번호") || type.equals("이름") || type.equals("수강반")) {
-			loadSearchData(type, keyWord);
-		}
-
 	}
 
 	private Object[][] getSearchData(String type, String keyword) {
@@ -407,7 +396,7 @@ public class MemberContent extends JPanel {
 		}
 		return data;
 	}
-<<<<<<< HEAD
+
 
 	private void loadSearchData(String type, String keyword) {
 
@@ -422,8 +411,6 @@ public class MemberContent extends JPanel {
 		table.setModel(model);
 	}
 
-=======
->>>>>>> branch 'master' of https://github.com/rkdgus/pool_java.git
 	private void addPopupMenu() {
 		JPopupMenu popupMenu = new JPopupMenu();
 		JMenuItem menuItem = new JMenuItem("수정");
