@@ -19,4 +19,21 @@
 	<update id="updateClass" parameterType="Class">
 		update class set classmate = #{classmate}, tno = #{tno} where cno = #{cno}
 	</update>
+	<update id="updateClassInfo" parameterType="Class">
+		update class set classmate = #{classmate}, tno = #{tno}, time = #{time}, level = #{level}, reclass = #{reclass}
+		where cno = #{cno}
+	</update>
+
+	<select id="selectByTno" resultType="Class" parameterType="Class">
+		select * from class  where tno in (select tno from teacher where name like #{level}) and s_day = #{time} order by time asc;
+	</select>
+	<select id="selectByLevel" resultType="Class" parameterType="Class">
+		select * from class  where level like #{level} and s_day =#{time} order by time asc;
+	</select>
+	<select id="selectByreclass" resultType="Class" parameterType="Boolean">
+		select * from class where reclass = #{reclass}
+	</select>
+	<update id="updateReclass">
+		update class set reclass = false where cno = #{cno}
+	</update>
 </mapper>

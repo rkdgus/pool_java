@@ -88,4 +88,18 @@ public class RegisterService implements RegisterDao {
 		return res;
 	}
 
+	@Override
+	public int selectByCountCno(int cno) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+			dao = sqlsession.getMapper(RegisterDao.class);
+		
+			return dao.selectByCountCno(cno);
+	
+		}catch(Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "추가를 실패하였습니다");
+			return -1;
+		}
+	}
+
 }

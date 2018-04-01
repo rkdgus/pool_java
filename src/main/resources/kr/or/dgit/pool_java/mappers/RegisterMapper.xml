@@ -17,5 +17,7 @@
 	<delete id="deleteRegister" parameterType="int">
 		delete from register where cno=#{cno}
 	</delete>
-	
+	<select id="selectByCountCno" parameterType="int" resultType="int">
+		select count(cno) from register where cno = #{cno}
+	</select>
 </mapper>

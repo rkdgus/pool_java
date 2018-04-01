@@ -3,6 +3,7 @@ package kr.or.dgit.pool_java.content;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -15,7 +16,9 @@ import kr.or.dgit.pool_java.dto.Teacher;
 import kr.or.dgit.pool_java.frame.AddClassFrame;
 import kr.or.dgit.pool_java.frame.ClassInfoFrame;
 import kr.or.dgit.pool_java.frame.ClassScheduleUpdate;
+import kr.or.dgit.pool_java.frame.MemberFrame;
 import kr.or.dgit.pool_java.service.ClassService;
+import kr.or.dgit.pool_java.service.MemberService;
 import kr.or.dgit.pool_java.service.TeacherService;
 
 import javax.swing.JMenuBar;
@@ -36,24 +39,36 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.TitledBorder;
+import javax.swing.ComboBoxModel;
+import javax.swing.JSpinner;
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
-public class ClassSchedule extends JPanel {
+public class NewClassSchedule extends JPanel {
 	private JTable table;
-	private static final ClassSchedule instance = new ClassSchedule();
+	private static final NewClassSchedule instance = new NewClassSchedule();
 	private JTextField tfSearch;
 	private JButton btnSearch;
 	private JComboBox<String> cmbSearch;
+	private List<Teacher> lists;
+	private JComboBox cmbLevel;
+	private JComboBox<String> cmbTno;
+	private DefaultComboBoxModel<String> cmbModel;
+	private JComboBox cmbTime;
+	private JSpinner spinner;
+	private JCheckBox cbReclass;
 	
-	public static ClassSchedule getInstance() {
+	public static NewClassSchedule getInstance() {
 		return instance;
 	}
-	private ClassSchedule() {
+	private NewClassSchedule() {
 		setBounds(0, 0, 900, 570);
 		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(8, 63, 888, 482);
+		scrollPane.setBorder(new LineBorder(new Color(130, 135, 144), 2));
+		scrollPane.setBounds(269, 63, 617, 482);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -79,10 +94,10 @@ public class ClassSchedule extends JPanel {
 		lblTitle.setBounds(788, 16, 108, 47);
 		add(lblTitle);
 		Calendar cal = Calendar.getInstance();
-		lblTitle.setText(cal.get(Calendar.YEAR)+"년 " + (cal.get(Calendar.MONTH)+1)+"월");
+		lblTitle.setText(cal.get(Calendar.YEAR)+"년 " + (cal.get(Calendar.MONTH)+2)+"월");
 		
 		tfSearch = new JTextField();
-		tfSearch.setBounds(312, 29, 308, 24);
+		tfSearch.setBounds(369, 27, 308, 24);
 		add(tfSearch);
 		tfSearch.setColumns(10);
 		
@@ -105,13 +120,125 @@ public class ClassSchedule extends JPanel {
 			}
 		});
 		btnSearch.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
-		btnSearch.setBounds(620, 29, 97, 24);
+		btnSearch.setBounds(677, 27, 97, 24);
 		add(btnSearch);
 		
 		cmbSearch = new JComboBox<String>();
 		cmbSearch.setModel(new DefaultComboBoxModel(new String[] {"전체보기","강사명", "레벨"}));
-		cmbSearch.setBounds(222, 29, 89, 24);
+		cmbSearch.setBounds(279, 27, 89, 24);
 		add(cmbSearch);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 2), "신규 강의 개설", TitledBorder.LEADING, TitledBorder.TOP, new Font(null, Font.BOLD, 18), new Color(0, 0, 0)));
+		panel.setBounds(14, 59, 244, 482);
+		add(panel);
+		
+		JLabel label = new JLabel("시간");
+		label.setBounds(6, 57, 94, 40);
+		panel.add(label);
+		
+		JLabel label_1 = new JLabel("등급");
+		label_1.setBounds(6, 114, 86, 40);
+		panel.add(label_1);
+		
+		cmbLevel = new JComboBox();
+		cmbLevel.setModel(new DefaultComboBoxModel(new String[] {"초급", "중급", "상급", "고급", "연수", "노인반", "어린이반", "방학특강"}));
+		cmbLevel.setBounds(122, 114, 114, 40);
+		panel.add(cmbLevel);
+		
+		JLabel label_2 = new JLabel("강사번호");
+		label_2.setBounds(6, 244, 94, 40);
+		panel.add(label_2);
+		cmbModel = new DefaultComboBoxModel<String>(getDate());
+		cmbTno = new JComboBox<String>(cmbModel);
+		cmbTno.setBounds(122, 244, 114, 40);
+		panel.add(cmbTno);
+		
+		JLabel label_3 = new JLabel("개설일");
+		label_3.setBounds(6, 313, 94, 40);
+		panel.add(label_3);
+		String month = cal.get(Calendar.YEAR)+"년 "+ (cal.get(Calendar.MONTH)+1)+"월";
+		String month2 = cal.get(Calendar.YEAR)+"년 "+ (cal.get(Calendar.MONTH)+2)+"월";
+		
+		JComboBox<String> cbms_day = new JComboBox<String>();
+		cbms_day.setBounds(122, 313, 114, 40);
+		cbms_day.setModel(new DefaultComboBoxModel(new String[] {month,month2}));
+		panel.add(cbms_day);
+		
+		JButton btnAddClass = new JButton("추가");
+		btnAddClass.setBounds(126, 437, 106, 33);
+		panel.add(btnAddClass);
+		btnAddClass.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if((int)spinner.getValue() == 0) {
+					JOptionPane.showMessageDialog(null,"총 인원을 입력해주세요");
+					return;
+				}
+				Class cls = new Class();
+				
+				cls.setTime((String)cmbTime.getSelectedItem());
+				cls.setClassmate((int)spinner.getValue());
+				cls.setLevel((String)cmbLevel.getSelectedItem());
+				cls.setReclass(cbReclass.isSelected());
+				if(cbms_day.getSelectedIndex() == 0) {
+					Date date = new Date();
+					cls.setS_day(date);
+				}else {
+					Date date = new Date();
+					date.setMonth(date.getMonth()+1);
+					date.setDate(1);
+					cls.setS_day(date);
+				}
+				int tno = lists.get(cmbTno.getSelectedIndex()).getTno();
+				cls.setTno(tno);
+				
+				int res = ClassService.getInstance().insertClass(cls);
+				if(res >=0) {
+					JOptionPane.showMessageDialog(null,"추가하였습니다.");
+					if(cbms_day.getSelectedIndex() ==0) {
+						ClassSchedule.getInstance().addJTableList();
+						MemberFrame.getInstance().contentCall(ClassSchedule.getInstance());
+					}else {
+						addJTableList();
+					}
+					
+				}else {
+					JOptionPane.showMessageDialog(null,"실패하였습니다.");
+				}
+				
+			}
+		});
+		JButton btnCancel = new JButton("취소");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				spinner.setValue(0);
+			}
+		});
+		btnCancel.setBounds(6, 437, 106, 33);
+		panel.add(btnCancel);
+		
+		cmbTime = new JComboBox();
+		cmbTime.setModel(new DefaultComboBoxModel(new String[] {"06시 00분", "07시 00분", "08시 00분", "09시 00분", "10시 00분", "11시 00분", "13시 00분", "14시 00분", "15시 00분", "16시 00분", "17시 00분", "18시 00분", "19시 00분", "20시 00분", "21시 00분"}));
+		cmbTime.setBounds(122, 57, 114, 40);
+		panel.add(cmbTime);
+		
+		JLabel label_4 = new JLabel("총 인원");
+		label_4.setBounds(6, 188, 57, 15);
+		panel.add(label_4);
+		
+		spinner = new JSpinner();
+		spinner.setBounds(122, 174, 114, 40);
+		panel.add(spinner);
+		
+		JLabel label_5 = new JLabel("재강습여부");
+		label_5.setBounds(6, 378, 94, 18);
+		panel.add(label_5);
+		
+		cbReclass = new JCheckBox("");
+		cbReclass.setBounds(169, 378, 34, 27);
+		panel.add(cbReclass);
 		addJTableList();
 		addPopupMenu();
 	}
@@ -119,13 +246,21 @@ public class ClassSchedule extends JPanel {
 		return new String[] {"반 번호","시간", "강사명", "레벨","인원"};
 	}
 	private Object[][] getData() {
-		List<Class> list = ClassService.getInstance().selectBytoMonth("");
+		List<Class> list = ClassService.getInstance().selectByNextMonth("");
 		
 		Object[][] data = new Object[list.size()][];
 		for (int i = 0; i <list.size(); i++) {
 			data[i] = list.get(i).toArray();
 		}
 		return data;
+	}
+	private Vector<String> getDate(){
+		Vector<String> vt = new Vector<>();
+		lists = TeacherService.getInstance().selectByAll();
+		for(Teacher t : lists) {
+			vt.add(t.getName());
+		}
+		return vt;
 	}
 	public void addJTableList() {
 		DefaultTableModel model = new DefaultTableModel(getData(),getColumnNames()) {
@@ -142,6 +277,7 @@ public class ClassSchedule extends JPanel {
 		Class cls = new Class();
 		cls.setLevel("%"+teacher+"%");
 		Date date = new Date();
+		date.setMonth(date.getMonth()+1);
 		date.setDate(1);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		cls.setTime(sdf.format(date));
@@ -160,6 +296,7 @@ public class ClassSchedule extends JPanel {
 		Class cls = new Class();
 		cls.setLevel("%"+level+"%");
 		Date date = new Date();
+		date.setMonth(date.getMonth()+1);
 		date.setDate(1);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		cls.setTime(sdf.format(date));

@@ -9,4 +9,10 @@ public interface ClassDao {
 	public int deleteClass(int cno);
 	public Class selectByNo(int cno);
 	public int updateClass(Class cls);
+	public List<Class> selectByTno(Class cls);
+	public List<Class> selectByLevel(Class cls);
+	public int updateClassInfo(Class cls);
+	public List<Class> selectByreclass(Boolean reclass);
+	public int updateReclass(int cno);
+	
 }
