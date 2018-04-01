@@ -3,6 +3,8 @@ package kr.or.dgit.pool_java.content;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -266,6 +268,34 @@ public class MemberContent extends JPanel {
 		searchField.setBounds(149, 10, 630, 35);
 		add(searchField);
 		searchField.setColumns(10);
+		searchField.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+					String word = searchField.getText();
+					
+					if(word.equals("")||comboBox.getSelectedItem().equals("전체보기")) {
+						loadData();
+					}
+					
+					if(comboBox.getSelectedItem().equals("회원번호")) {
+						loadSearchData("searchMno",word);
+					}
+					
+					if(comboBox.getSelectedItem().equals("이름")) {
+						loadSearchData("searchName",word);
+					}
+					
+					if(comboBox.getSelectedItem().equals("수강반")) {
+						
+					}
+					
+				}
+			}
+			
+		});
 		
 		JButton searchBtn = new JButton("검색");
 		searchBtn.setBounds(791, 10, 97, 35);
@@ -342,7 +372,7 @@ public class MemberContent extends JPanel {
 
 	private String[] getColumnNames() {
 
-		return new String[] { "회원번호", "이름", "나이","전화번호","이메일","성별","등록날짜"};
+		return new String[] { "회원번호", "이름", "생년월일","전화번호","이메일","성별","등록날짜"};
 	}
 	private Object[][] getData() {
 		List<Member> list = MemberService.getInstance().selectAll();
@@ -356,7 +386,29 @@ public class MemberContent extends JPanel {
 		}
 		return data;
 	}
-
+	
+	
+	private Object[][] getSearchData(String type,String keyword) {
+		List<Member> list =null;
+		if(type.equals("searchName")) {
+			list = MemberService.getInstance().selectSearchName("%"+keyword+"%");
+		}
+		if(type.equals("searchMno")) {
+			list = MemberService.getInstance().selectSearchMno("%"+keyword+"%");
+		}
+	
+		Object[][] data = new Object[list.size()][];
+		
+		for (int i = 0; i <list.size(); i++) {
+			
+			data[i] = list.get(i).toArray();
+			
+		}
+		return data;
+	}
+	
+	
+	
 	private void addPopupMenu() {
 	      JPopupMenu popupMenu = new JPopupMenu();
 	      JMenuItem menuItem = new JMenuItem("수정");
@@ -435,6 +487,18 @@ public class MemberContent extends JPanel {
 		table.setModel(model);
 	}
 	
+	private void loadSearchData(String type,String keyword) {
+		
+		DefaultTableModel model = new DefaultTableModel(getSearchData(type,keyword),getColumnNames()) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+			
+		};
+	
+		table.setModel(model);
+	}
 	private Member sendMemberData(String type) {
 		
 		String y = year.getSelectedItem().toString();
