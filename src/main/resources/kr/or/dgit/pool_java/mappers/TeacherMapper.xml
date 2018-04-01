@@ -21,6 +21,16 @@
 	<select id="selectByNo" resultType="Teacher" parameterType="int">
 		select * from teacher where tno = #{tno}
 	</select>
+	
+	<select id="searchTitle" resultType="Teacher" parameterType="String">
+		select * from teacher where title like #{title}
+	</select>
+	<select id="searchName" resultType="Teacher" parameterType="String">
+		select * from teacher where name like #{name}
+	</select>
+	<select id="searchTno" resultType="Teacher" parameterType="String">
+		select * from teacher where tno like #{tno}
+	</select>
 	<insert id="insertTeacher" parameterType="Teacher">
 		insert into teacher(name,tell,title,pw) values(#{name},#{tell},#{title},password(#{pw}))
 	</insert>

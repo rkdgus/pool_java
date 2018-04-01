@@ -91,4 +91,37 @@ public class TeacherService implements TeacherDao {
 		}
 		return res;
 	}
+
+	@Override
+	public List<Teacher> searchTitle(String title) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(TeacherDao.class);
+			return dao.searchTitle(title);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Teacher> searchName(String name) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(TeacherDao.class);
+			return dao.searchName(name);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Teacher> searchTno(String tno) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(TeacherDao.class);
+			return dao.searchTno(tno);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

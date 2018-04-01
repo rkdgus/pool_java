@@ -1,12 +1,21 @@
 package kr.or.dgit.pool_java.dto;
 
+import java.text.SimpleDateFormat;
+
 public class Teacher {
 	private int tno;
 	private String name;
 	private String tell;
 	private String title;
 	private String pw;
+	private String id;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public int getTno() {
 		return tno;
 	}
@@ -40,10 +49,10 @@ public class Teacher {
 		this.pw = pw;
 	}
 	
-	
 	@Override
 	public String toString() {
-		return String.format("Teacher [tno=%s, name=%s, tell=%s, title=%s, pw=%s]", tno, name, tell, title, pw);
+		return String.format("Teacher [tno=%s, name=%s, tell=%s, title=%s, pw=%s, id=%s]", tno, name, tell, title, pw,
+				id);
 	}
 	public Teacher(int tno, String name, String tell, String title) {
 		super();
@@ -52,6 +61,21 @@ public class Teacher {
 		this.tell = tell;
 		this.title = title;
 	}
+	
+	
+	public Teacher(String name, String tell, String title, String pw) {
+		super();
+		
+		this.name = name;
+		this.tell = tell;
+		this.title = title;
+		this.pw = pw;
+	}
 	public Teacher() {}
+	
+	public Object[] toArray() {
+		return new Object[] {tno,name,tell,title};
+	
+	}
 	
 }

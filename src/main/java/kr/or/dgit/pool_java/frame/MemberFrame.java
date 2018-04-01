@@ -16,6 +16,7 @@ import kr.or.dgit.pool_java.content.ClassSchedule;
 import kr.or.dgit.pool_java.content.MemberContent;
 import kr.or.dgit.pool_java.content.SalesPanel;
 import kr.or.dgit.pool_java.content.StancePanel;
+import kr.or.dgit.pool_java.content.TeacherContent;
 
 public class MemberFrame extends JFrame {
 
@@ -102,6 +103,17 @@ public class MemberFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				SalesPanel salesPanel = new SalesPanel();
 				contentCall(salesPanel);
+			}
+			
+		});
+		
+		panel.getTeacher().addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				TeacherContent teacherContent = new TeacherContent();
+				contentCall(teacherContent);
 			}
 			
 		});

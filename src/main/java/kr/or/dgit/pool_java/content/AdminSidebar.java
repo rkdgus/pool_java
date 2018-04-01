@@ -3,6 +3,7 @@ package kr.or.dgit.pool_java.content;
 import javax.swing.JPanel;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -42,12 +43,14 @@ public class AdminSidebar extends JPanel {
 		schedule.setForeground(new Color(255, 255, 255));
 		schedule.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		schedule.setBounds(70, 275, 92, 15);
+		schedule.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(schedule);
 		
 		classqna = new JLabel("신규수강관리");
 		classqna.setForeground(new Color(255, 255, 255));
 		classqna.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		classqna.setBounds(70, 309, 107, 15);
+		classqna.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(classqna);
 		
 		btnNewButton = new JButton("로그아웃");
@@ -58,12 +61,14 @@ public class AdminSidebar extends JPanel {
 		member.setForeground(Color.WHITE);
 		member.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		member.setBounds(70, 160, 92, 15);
+		member.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(member);
 		
 		teacher = new JLabel("강사관리");
 		teacher.setForeground(Color.WHITE);
 		teacher.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		teacher.setBounds(70, 196, 92, 15);
+		teacher.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(teacher);
 		
 		JLabel salesTitle = new JLabel("매출관리");
@@ -76,6 +81,7 @@ public class AdminSidebar extends JPanel {
 		sales.setForeground(Color.WHITE);
 		sales.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		sales.setBounds(69, 391, 97, 15);
+		sales.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(sales);
 		
 
@@ -83,6 +89,7 @@ public class AdminSidebar extends JPanel {
 		reclass.setForeground(Color.WHITE);
 		reclass.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		reclass.setBounds(69, 427, 107, 15);
+		reclass.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(reclass);
 
 		
@@ -90,12 +97,14 @@ public class AdminSidebar extends JPanel {
 		locker.setForeground(Color.WHITE);
 		locker.setFont(new Font("맑은 고딕", Font.BOLD, 17));
 		locker.setBounds(39, 72, 162, 28);
+		locker.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(locker);
 		
 		come = new JLabel("입장");
 		come.setForeground(Color.WHITE);
 		come.setFont(new Font("맑은 고딕", Font.BOLD, 17));
 		come.setBounds(39, 28, 162, 28);
+		come.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(come);
 	}
 	
@@ -149,6 +158,8 @@ public class AdminSidebar extends JPanel {
 	public void setCome(JLabel come) {
 		this.come = come;
 	}
+	
+	
 	
 	
 	
