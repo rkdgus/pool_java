@@ -48,7 +48,7 @@ public class AddClassFrame extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 2), "신규 강의 개설", TitledBorder.LEADING, TitledBorder.TOP, new Font(null, Font.BOLD, 18), new Color(0, 0, 0)));
 		
-		panel.setBounds(28, 10, 285, 532);
+		panel.setBounds(123, 10, 190, 297);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		

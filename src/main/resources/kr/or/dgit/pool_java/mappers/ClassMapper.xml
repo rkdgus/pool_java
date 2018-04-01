@@ -30,4 +30,10 @@
 	<select id="selectByLevel" resultType="Class" parameterType="Class">
 		select * from class  where level like #{level} and s_day =#{time} order by time asc;
 	</select>
+	<select id="selectByreclass" resultType="Class" parameterType="Boolean">
+		select * from class where reclass = #{reclass}
+	</select>
+	<update id="updateReclass">
+		update class set reclass = false where cno = #{cno}
+	</update>
 </mapper>

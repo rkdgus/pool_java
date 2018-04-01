@@ -386,8 +386,7 @@ public class MemberContent extends JPanel {
 		}
 		return data;
 	}
-	
-	
+
 	private Object[][] getSearchData(String type,String keyword) {
 		List<Member> list =null;
 		if(type.equals("searchName")) {
@@ -406,9 +405,6 @@ public class MemberContent extends JPanel {
 		}
 		return data;
 	}
-	
-	
-	
 	private void addPopupMenu() {
 	      JPopupMenu popupMenu = new JPopupMenu();
 	      JMenuItem menuItem = new JMenuItem("수정");

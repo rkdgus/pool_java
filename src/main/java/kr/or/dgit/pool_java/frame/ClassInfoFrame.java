@@ -20,6 +20,7 @@ import javax.swing.border.LineBorder;
 
 import kr.or.dgit.pool_java.dto.Teacher;
 import kr.or.dgit.pool_java.content.ClassSchedule;
+import kr.or.dgit.pool_java.content.NewClassSchedule;
 import kr.or.dgit.pool_java.dto.Class;
 import kr.or.dgit.pool_java.service.ClassService;
 import kr.or.dgit.pool_java.service.TeacherService;
@@ -134,15 +135,17 @@ public class ClassInfoFrame extends JFrame {
 				cls1.setClassmate((int)spinner.getValue());
 				cls1.setCno(cls.getCno());
 				cls1.setLevel((String)cmbLevel.getSelectedItem());
+				cls1.setS_day(cls.getS_day());
 				cls1.setReclass(chckbxNewCheckBox.isSelected());
 				String teachName = (String)cmbModel.getSelectedItem();
 				int tno = lists.get(cmbModel.getIndexOf(teachName)).getTno();
 				cls1.setTno(tno);
-				cls1.setTime((String)cmbLevel.getSelectedItem());
-				int res = ClassService.getInstance().updateClassInfo(cls);
+				cls1.setTime((String)cmbTime.getSelectedItem());
+				int res = ClassService.getInstance().updateClassInfo(cls1);
 				if(res >= 0) {
 					JOptionPane.showMessageDialog(null,"수정되었습니다.");
 					ClassSchedule.getInstance().addJTableList();
+					NewClassSchedule.getInstance().addJTableList();
 					setVisible(false);
 				}else {
 					JOptionPane.showMessageDialog(null,"수정에 실패하였습니다.");

@@ -2,6 +2,7 @@ package kr.or.dgit.pool_java.dto;
 
 import java.util.Date;
 
+import kr.or.dgit.pool_java.service.RegisterService;
 import kr.or.dgit.pool_java.service.TeacherService;
 
 public class Class {
@@ -65,16 +66,18 @@ public class Class {
 	}
 	
 	
+	
 	@Override
 	public String toString() {
-		return String.format("Class [cno=%s, classmate=%s, time=%s, level=%s, pay=%s, tno=%s, s_day=%s, reclass=%s]",
-				cno, classmate, time, level, pay, tno, s_day, reclass);
+		return "Class [cno=" + cno + ", classmate=" + classmate + ", time=" + time + ", level=" + level + ", pay=" + pay
+				+ ", tno=" + tno + ", s_day=" + s_day + ", reclass=" + reclass + "]";
 	}
 	public Class() {}
 	
 	public Object[] toArray() {
 		Teacher t = TeacherService.getInstance().selectByNo(tno);
-		return new Object[] {cno,time,t.getName(),level,classmate};
+		int thisclassmate = RegisterService.getInstance().selectByCountCno(cno);
+		return new Object[] {cno,time,t.getName(),level,thisclassmate+"/"+classmate};
 	}
 	
 }
