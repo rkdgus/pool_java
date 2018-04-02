@@ -13,6 +13,6 @@ public interface ClassDao {
 	public List<Class> selectByLevel(Class cls);
 	public int updateClassInfo(Class cls);
 	public List<Class> selectByreclass(Boolean reclass);
-	public int updateReclass(int cno);
+	public int updateReclass(Class cls);
 	
 }

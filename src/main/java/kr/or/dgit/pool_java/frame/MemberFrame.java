@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -32,10 +33,6 @@ public class MemberFrame extends JFrame {
 	private JPanel contentPane;
 	private JPanel content;
 
-	/**
-	 * Launch the application.
-	 */
-
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -49,9 +46,6 @@ public class MemberFrame extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	private MemberFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1170, 602);
@@ -68,19 +62,19 @@ public class MemberFrame extends JFrame {
 		contentPane.add(panel);
 		contentPane.add(content);
 		content.setLayout(new BorderLayout(0, 0));
-		
+		Calendar cal = Calendar.getInstance();
+		if(cal.get(Calendar.DATE) >= 20) {
+			updateReclass();
+		}
 		panel.getMember().addMouseListener(new MouseAdapter() {
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				MemberContent memberContent = new MemberContent();
 				contentCall(memberContent);
 			}
-			
 		});
 		
 		panel.getSchedule().addMouseListener(new MouseAdapter() {
-			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ClassSchedule classSchedule = ClassSchedule.getInstance();
@@ -89,23 +83,19 @@ public class MemberFrame extends JFrame {
 		});
 		
 		panel.getCome().addMouseListener(new MouseAdapter() {
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				StancePanel stancePanel = new StancePanel();
 				contentCall(stancePanel);
 			}
-			
 		});
 		
 		panel.getSales().addMouseListener(new MouseAdapter() {
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				SalesPanel salesPanel = new SalesPanel();
 				contentCall(salesPanel);
 			}
-			
 		});
 		panel.getClassqna().addMouseListener(new MouseAdapter() {
 			@Override
@@ -116,18 +106,14 @@ public class MemberFrame extends JFrame {
 		});
 		
 		panel.getTeacher().addMouseListener(new MouseAdapter() {
-			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
 				TeacherContent teacherContent = new TeacherContent();
 				contentCall(teacherContent);
 			}
-			
 		});
 		
 	}
-	
 	public JPanel getContent() {
 		return content;
 	}
@@ -145,10 +131,7 @@ public class MemberFrame extends JFrame {
 			date.setMonth(date.getMonth()+1);
 			date.setDate(1);
 			cls.setS_day(date);
-			int res = ClassService.getInstance().insertClass(cls);
-			if(res >=0) {
-				ClassService.getInstance().updateReclass(cls.getCno());
-			}
+			ClassService.getInstance().updateReclass(cls);
 		}
 	}
 }
