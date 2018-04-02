@@ -6,6 +6,9 @@
 		select * from register
 	</select>
 	
+	<select id="selectByMno" resultType="Class" parameterType="map">
+		select * from class where cno in(select cno from register where mno = #{mno}) and s_day = #{s_day}
+	</select>
 	<insert id="insertRegister" parameterType="Register">
 		insert into register(mno,cno,reentrance) values(#{mno},#{cno},#{reentrance})
 	</insert>
@@ -20,4 +23,8 @@
 	<select id="selectByCountCno" parameterType="int" resultType="int">
 		select count(cno) from register where cno = #{cno}
 	</select>
+	
+	<update id="updateReenter" parameterType="Register">
+		update register set reentrance=#{reentrance} where mno=#{mno} and cno=#{cno}
+	</update>
 </mapper>
