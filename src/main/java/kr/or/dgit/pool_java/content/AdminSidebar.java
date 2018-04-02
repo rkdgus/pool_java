@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class AdminSidebar extends JPanel {
+	
 	private JLabel userinfo;
 	private JLabel classinfo;
 	private JLabel schedule;
