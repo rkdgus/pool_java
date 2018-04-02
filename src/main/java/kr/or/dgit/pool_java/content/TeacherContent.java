@@ -26,6 +26,7 @@ import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.JRadioButton;
 
 public class TeacherContent extends JPanel {
 	private JTextField tno;
@@ -302,7 +303,7 @@ public class TeacherContent extends JPanel {
 	private void addPopupMenu() {
 	      JPopupMenu popupMenu = new JPopupMenu();
 	      JMenuItem menuItem = new JMenuItem("수정");
-	      JMenuItem menuItem2 = new JMenuItem("삭제");
+	      JMenuItem menuItem2 = new JMenuItem("퇴사");
 	     
 	      
 	      popupMenu.add(menuItem);
@@ -321,12 +322,15 @@ public class TeacherContent extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int reply = JOptionPane.showConfirmDialog(null, "강사정보를 삭제하시겠습니까?","회원정보 삭제",JOptionPane.OK_CANCEL_OPTION,JOptionPane.ERROR_MESSAGE);
+				int reply = JOptionPane.showConfirmDialog(null, "퇴사 강사로 등록하시겠습니까?","강사정보 삭제",JOptionPane.OK_CANCEL_OPTION,JOptionPane.ERROR_MESSAGE);
 				if(reply==JOptionPane.YES_OPTION) {
 					int row = table.getSelectedRow();
 					int tno =(int)table.getValueAt(row, 0);
 					System.out.println(tno);
-					TeacherService.getInstance().deleteTeacher(tno);
+					Teacher teacher = new Teacher();
+					teacher.setTno(tno);
+					teacher.setTitle("퇴사");
+					TeacherService.getInstance().quitTeacher(teacher);
 					loadData();
 				}
 			}
@@ -384,5 +388,4 @@ public class TeacherContent extends JPanel {
 	
 		return data;
 	}
-	
 }

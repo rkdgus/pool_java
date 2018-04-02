@@ -37,6 +37,9 @@
 	<update id="updateTeacher" parameterType="Teacher">
 		update teacher set title = #{title}, tell = #{tell}, name = #{name} where tno = #{tno}
 	</update>
+	<update id="quitTeacher" parameterType="Teacher">
+		update teacher set title=#{title} where tno=#{tno}
+	</update>
 	<delete id="deleteTeacher" parameterType="int">
 		delete from teacher where tno = #{tno}
 	</delete>

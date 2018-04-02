@@ -278,6 +278,7 @@ public class MemberContent extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String word = searchField.getText();
+				
 				String type = comboBox.getSelectedItem().toString();
 				Search(type, word);
 			}
