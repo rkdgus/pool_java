@@ -209,7 +209,6 @@ public class NewClassSchedule extends JPanel {
 				}else {
 					JOptionPane.showMessageDialog(null,"실패하였습니다.");
 				}
-				
 			}
 		});
 		JButton btnCancel = new JButton("취소");
