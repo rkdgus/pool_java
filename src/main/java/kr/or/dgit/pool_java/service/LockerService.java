@@ -50,27 +50,27 @@ public class LockerService implements LockerDao {
 	}
 
 	@Override
-	public int updateLocker(boolean able) {
+	public int updateLocker(Locker locker) {
 		int res = -1;
 		
 		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
 			dao = sqlsession.getMapper(LockerDao.class);
 		
-			dao.updateLocker(able);
+			dao.updateLocker(locker);
 			sqlsession.commit();
 			
-			JOptionPane.showMessageDialog(null, "추가되었습니다");
+			JOptionPane.showMessageDialog(null, "수정되었습니다");
 			res = 1;
 				
 		}catch(Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "추가를 실패하였습니다");
+			JOptionPane.showMessageDialog(null, "수정를 실패하였습니다");
 			
 		}
 		return res;
 	}
 	@Override
-	public List<Locker> selectGender(Locker locker) {
+	public Locker selectGender(Locker locker) {
 		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			dao = sqlsession.getMapper(LockerDao.class);
 			return dao.selectGender(locker);

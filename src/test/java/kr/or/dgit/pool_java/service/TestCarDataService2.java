@@ -27,8 +27,11 @@ public class TestCarDataService2 {
 	@Test
 	public void test1InsertMemberData() {
 		
-		Class cls =service.selectByNo(1);
-		System.out.println(cls);
+		List<Class> lists = service.selectByreclass(true);
+		for(Class c : lists) {
+			System.out.println(c);
+		}
+		
 		
 	}
 }

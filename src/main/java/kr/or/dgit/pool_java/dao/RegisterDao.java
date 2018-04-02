@@ -9,4 +9,5 @@ public interface RegisterDao {
 	public int insertRegister(Register register);
 	public int updateRegister(Register register);
 	public int deleteRegister(int cno);
+	public int selectByCountCno(int cno);
 }

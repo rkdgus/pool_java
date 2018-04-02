@@ -4,6 +4,8 @@ public class Locker {
 	private int lno;
 	private boolean able;
 	private String gender;
+	
+	
 
 	public String getGender() {
 		return gender;

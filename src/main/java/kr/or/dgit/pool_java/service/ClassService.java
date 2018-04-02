@@ -21,13 +21,25 @@ public class ClassService implements ClassDao {
 	@Override
 	public int insertClass(Class cls) {
 		int res = -1;
-		try(SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();){
+		SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();
+		try{
 			dao = sqlsession.getMapper(ClassDao.class);
 			dao.insertClass(cls);
+			if(cls.isReclass()) {
+				Date date = new Date();
+				date.setMonth(date.getMonth()+1);
+				date.setDate(1);
+				cls.setS_day(date);
+				dao.insertClass(cls);
+			}
 			sqlsession.commit();
+			
 			res = 1;
 		}catch(Exception e) {
+			sqlsession.rollback();
 			e.printStackTrace();
+		}finally{
+			sqlsession.close();
 		}
 		return res;
 	}
@@ -132,6 +144,31 @@ public class ClassService implements ClassDao {
 		try(SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();){
 			dao = sqlsession.getMapper(ClassDao.class);
 			dao.updateClassInfo(cls);
+			sqlsession.commit();
+			res = 1;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public List<Class> selectByreclass(Boolean reclass) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(ClassDao.class);
+			return dao.selectByreclass(reclass);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public int updateReclass(int cno) {
+		int res = -1;
+		try(SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();){
+			dao = sqlsession.getMapper(ClassDao.class);
+			dao.updateReclass(cno);
 			sqlsession.commit();
 			res = 1;
 		}catch(Exception e) {

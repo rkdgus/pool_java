@@ -81,18 +81,6 @@ public class ClassSchedule extends JPanel {
 		Calendar cal = Calendar.getInstance();
 		lblTitle.setText(cal.get(Calendar.YEAR)+"년 " + (cal.get(Calendar.MONTH)+1)+"월");
 		
-		JButton btnAddClass = new JButton("신규 강의");
-		btnAddClass.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				AddClassFrame frame = new AddClassFrame();
-				frame.setVisible(true);
-			}
-		});
-		btnAddClass.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
-		btnAddClass.setBounds(8, 29, 97, 24);
-		add(btnAddClass);
-		
 		tfSearch = new JTextField();
 		tfSearch.setBounds(312, 29, 308, 24);
 		add(tfSearch);

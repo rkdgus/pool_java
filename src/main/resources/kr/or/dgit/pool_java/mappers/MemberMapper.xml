@@ -10,6 +10,13 @@
 		select * from member where mno=#{mno}
 	</select>
 	
+	<select id="selectSearchName" resultType="Member">
+		select * from member where name like #{name}
+	</select>
+	<select id="selectSearchMno" resultType="Member">
+		select * from member where mno like #{mno}
+	</select>
+	
 	<insert id="insertMember" parameterType="Member">
 		insert into member(name,age,tell,email,gender,pw) values(#{name}, #{age}, #{tell}, #{email}, #{gender},password(#{pw}))
 	</insert>
