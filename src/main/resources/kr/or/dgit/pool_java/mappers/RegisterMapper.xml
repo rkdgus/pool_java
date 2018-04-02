@@ -27,4 +27,12 @@
 	<update id="updateReenter" parameterType="Register">
 		update register set reentrance=#{reentrance} where mno=#{mno} and cno=#{cno}
 	</update>
+	
+	<select id="selectByTnoCount" parameterType="Class" resultType="int">
+		select count(*) from register where cno in (select cno from class where tno = #{tno} and s_day=#{level})
+	</select>
+	
+	<select id="reenter" resultType="int" parameterType="Class">
+		select count(*) from register where  cno in (select cno from class where tno = #{tno} and s_day=#{level}) and reentrance=true
+	</select>
 </mapper>

@@ -91,7 +91,6 @@ public class TeacherContent extends JPanel {
 		add(tnolbl);
 		
 		tno = new JTextField();
-		tno.setEditable(false);
 		tno.setBounds(662, 102, 215, 30);
 		add(tno);
 		tno.setColumns(10);
@@ -239,7 +238,7 @@ public class TeacherContent extends JPanel {
 	
 	private String[] getColumnNames() {
 
-		return new String[] { "강사번호", "이름","전화번호","직급"};
+		return new String[] { "강사번호", "이름","전화번호","직급","재등록률"};
 	}
 	private Object[][] getData() {
 		List<Teacher> list = TeacherService.getInstance().selectByAll();

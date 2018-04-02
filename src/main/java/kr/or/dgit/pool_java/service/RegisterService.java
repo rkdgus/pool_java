@@ -138,4 +138,32 @@ public class RegisterService implements RegisterDao {
 
 	}
 
+	@Override
+	public int selectByTnoCount(Class c) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+			dao = sqlsession.getMapper(RegisterDao.class);
+
+			return dao.selectByTnoCount(c);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+
+		}
+	}
+
+	@Override
+	public int reenter(Class c) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+			dao = sqlsession.getMapper(RegisterDao.class);
+
+			return dao.reenter(c);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+
+		}
+	}
+
 }

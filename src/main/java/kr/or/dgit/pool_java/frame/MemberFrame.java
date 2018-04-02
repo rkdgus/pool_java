@@ -2,6 +2,8 @@ package kr.or.dgit.pool_java.frame;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Calendar;
@@ -71,6 +73,14 @@ public class MemberFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				MemberContent memberContent = new MemberContent();
 				contentCall(memberContent);
+				memberContent.getMno().requestFocus();
+				memberContent.getMno().addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						memberContent.getMno().setEnabled(false);
+					}
+				});
 			}
 		});
 		

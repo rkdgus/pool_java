@@ -90,9 +90,9 @@ public class MemberContent extends JPanel {
 		mno = new JTextField();
 		mno.setBounds(134, 26, 183, 30);
 		panel.add(mno);
-
 		mno.setColumns(10);
-
+	
+		
 		JLabel lblname = new JLabel("이름");
 		lblname.setBounds(41, 87, 57, 15);
 		panel.add(lblname);
@@ -293,6 +293,8 @@ public class MemberContent extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				MemberService.getInstance().insertMember(sendMemberData("insert"));
 				loadData();
+				mno.setEnabled(true);
+				mno.requestFocus();
 			}
 		});
 		addBtn.setBounds(791, 190, 97, 30);
@@ -677,4 +679,10 @@ public class MemberContent extends JPanel {
 		menRadio.setSelected(true);
 		mno.setText("");
 	}
+
+	public JTextField getMno() {
+		return mno;
+	}
+	
+	
 }
