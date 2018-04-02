@@ -200,6 +200,7 @@ public class NewClassSchedule extends JPanel {
 					JOptionPane.showMessageDialog(null,"추가하였습니다.");
 					if(cbms_day.getSelectedIndex() ==0) {
 						ClassSchedule.getInstance().addJTableList();
+						spinner.setValue(0);
 						MemberFrame.getInstance().contentCall(ClassSchedule.getInstance());
 					}else {
 						addJTableList();
