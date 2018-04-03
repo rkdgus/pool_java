@@ -216,7 +216,7 @@ public class SalesPanel extends JPanel {
 				}
 				
 				loadDataPrice(lists);
-				
+				setTable();
 				
 			}
 		});

@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import kr.or.dgit.pool_java.dto.Class;
 import kr.or.dgit.pool_java.dto.Teacher;
@@ -34,6 +36,7 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
@@ -112,7 +115,9 @@ public class ClassSchedule extends JPanel {
 		cmbSearch.setModel(new DefaultComboBoxModel(new String[] {"전체보기","강사명", "레벨"}));
 		cmbSearch.setBounds(222, 29, 89, 24);
 		add(cmbSearch);
+		
 		addJTableList();
+		setAlignWidth();
 		addPopupMenu();
 	}
 	private String[] getColumnNames() {
@@ -136,6 +141,7 @@ public class ClassSchedule extends JPanel {
 	         
 	      };;
 		table.setModel(model);
+		setAlignWidth();
 	}
 	
 	public void searchTearch(String teacher) {
@@ -154,6 +160,7 @@ public class ClassSchedule extends JPanel {
 	         
 	      };;
 		table.setModel(model);
+		setAlignWidth();
 		
 	}
 	public void searchLevel(String level) {
@@ -171,6 +178,7 @@ public class ClassSchedule extends JPanel {
 	         
 	      };;
 		table.setModel(model);
+		setAlignWidth();
 	}
 	private Object[][] getLevelData(Class cls) {
 		List<Class> lists = ClassService.getInstance().selectByLevel(cls);
@@ -230,5 +238,29 @@ public class ClassSchedule extends JPanel {
 				}
 			}
 		});
+	}
+	public void setAlignWidth() {
+		setAlign(SwingConstants.CENTER,0,1,2,3,4);
+		setCellWidth(30, 260, 80, 80,80);
+	}
+	
+	public void setCellWidth(int...width) {
+		TableColumnModel cModel = table.getColumnModel();
+		for(int i=0; i<width.length; i++){
+			cModel.getColumn(i).setPreferredWidth(width[i]);
+		}
+	}
+	
+	
+	public void setAlign(int align, int...idx) {
+		//0번 컬럼을 정렬(Left, Right, Center)
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		dtcr.setHorizontalAlignment(align);
+		
+		TableColumnModel cModel = table.getColumnModel();
+		// idx = [0,2]
+		for(int i=0; i<idx.length;i++){
+			cModel.getColumn(idx[i]).setCellRenderer(dtcr);
+		}
 	}
 }

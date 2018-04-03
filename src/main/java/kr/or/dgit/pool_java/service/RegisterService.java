@@ -166,4 +166,12 @@ public class RegisterService implements RegisterDao {
 		}
 	}
 
+	@Override
+	public List<Register> selectByCno(int cno) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(RegisterDao.class);
+			return dao.selectByCno(cno);
+		}
+	}
+
 }

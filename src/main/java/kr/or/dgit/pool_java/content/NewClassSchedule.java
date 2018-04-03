@@ -9,7 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import kr.or.dgit.pool_java.dto.Class;
 import kr.or.dgit.pool_java.dto.Teacher;
@@ -37,6 +39,7 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
@@ -108,6 +111,7 @@ public class NewClassSchedule extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				if(cmbSearch.getSelectedItem().equals("전체보기")) {
 					addJTableList();
+					
 					tfSearch.setText("");
 				}else if(cmbSearch.getSelectedItem().equals("강사명")) {
 					String teacher = tfSearch.getText();
@@ -243,6 +247,7 @@ public class NewClassSchedule extends JPanel {
 		panel.add(cbReclass);
 		addJTableList();
 		addPopupMenu();
+		setAlignWidth();
 	}
 	private String[] getColumnNames() {
 		return new String[] {"반 번호","시간", "강사명", "레벨","인원"};
@@ -273,6 +278,7 @@ public class NewClassSchedule extends JPanel {
 	         
 	      };;
 		table.setModel(model);
+		setAlignWidth();
 	}
 	
 	public void searchTearch(String teacher) {
@@ -292,7 +298,7 @@ public class NewClassSchedule extends JPanel {
 	         
 	      };;
 		table.setModel(model);
-		
+		setAlignWidth();
 	}
 	public void searchLevel(String level) {
 		Class cls = new Class();
@@ -310,6 +316,7 @@ public class NewClassSchedule extends JPanel {
 	         
 	      };;
 		table.setModel(model);
+		setAlignWidth();
 	}
 	private Object[][] getLevelData(Class cls) {
 		List<Class> lists = ClassService.getInstance().selectByLevel(cls);
@@ -370,7 +377,7 @@ public class NewClassSchedule extends JPanel {
 			}
 		});
 	}
-	
+
 	private void resetAll() {
 		cmbTime.setSelectedIndex(0);
 		cmbLevel.setSelectedIndex(0);
@@ -379,5 +386,29 @@ public class NewClassSchedule extends JPanel {
 		cbms_day.setSelectedIndex(0);
 		cbReclass.setSelected(false);
 		
+
+	public void setAlignWidth() {
+		setAlign(SwingConstants.CENTER,0,1,2,3,4);
+		setCellWidth(30, 260, 80, 80,80);
+	}
+	
+	public void setCellWidth(int...width) {
+		TableColumnModel cModel = table.getColumnModel();
+		for(int i=0; i<width.length; i++){
+			cModel.getColumn(i).setPreferredWidth(width[i]);
+		}
+	}
+	
+	public void setAlign(int align, int...idx) {
+		//0번 컬럼을 정렬(Left, Right, Center)
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		dtcr.setHorizontalAlignment(align);
+		
+		TableColumnModel cModel = table.getColumnModel();
+		// idx = [0,2]
+		for(int i=0; i<idx.length;i++){
+			cModel.getColumn(idx[i]).setCellRenderer(dtcr);
+		}
+
 	}
 }

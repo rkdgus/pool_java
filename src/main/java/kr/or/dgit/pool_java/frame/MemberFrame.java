@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.dgit.pool_java.content.AdminSidebar;
+import kr.or.dgit.pool_java.content.AttendPanel;
 import kr.or.dgit.pool_java.content.ClassSchedule;
 import kr.or.dgit.pool_java.content.MemberContent;
 import kr.or.dgit.pool_java.content.NewClassSchedule;
@@ -77,6 +79,7 @@ public class MemberFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				MemberContent memberContent = new MemberContent();
 				contentCall(memberContent);
+				panel.selectItem("회원관리");
 				memberContent.getMno().requestFocus();
 				memberContent.getMno().addActionListener(new ActionListener() {
 					
@@ -98,6 +101,7 @@ public class MemberFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ClassSchedule classSchedule = ClassSchedule.getInstance();
+				panel.selectItem("수강별관리");
 				contentCall(classSchedule);
 			}
 		});
@@ -106,6 +110,7 @@ public class MemberFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				StancePanel stancePanel = new StancePanel();
+				panel.selectItem("입장");
 				contentCall(stancePanel);
 			}
 		});
@@ -114,6 +119,7 @@ public class MemberFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				SalesPanel salesPanel = new SalesPanel();
+				panel.selectItem("매출관리");
 				contentCall(salesPanel);
 			}
 		});
@@ -121,6 +127,7 @@ public class MemberFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				NewClassSchedule newClassShchedule = NewClassSchedule.getInstance();
+				panel.selectItem("신규수강관리");
 				contentCall(newClassShchedule);
 			}
 		});
@@ -129,6 +136,7 @@ public class MemberFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TeacherContent teacherContent = new TeacherContent();
+				panel.selectItem("강사관리");
 				contentCall(teacherContent);
 				teacherContent.getTno().requestFocus();
 				teacherContent.getTno().addActionListener(new ActionListener() {
@@ -143,6 +151,21 @@ public class MemberFrame extends JFrame {
 						}
 					}
 				});
+			}
+		});
+		
+		panel.getAttend().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AttendPanel attendPanel;
+				try {
+					attendPanel = new AttendPanel();
+					contentCall(attendPanel);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+				
 			}
 		});
 		
