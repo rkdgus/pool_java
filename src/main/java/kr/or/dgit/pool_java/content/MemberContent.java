@@ -32,9 +32,11 @@ import javax.swing.table.DefaultTableModel;
 import kr.or.dgit.pool_java.dto.Class;
 import kr.or.dgit.pool_java.dto.Member;
 import kr.or.dgit.pool_java.dto.Register;
+import kr.or.dgit.pool_java.dto.Sales;
 import kr.or.dgit.pool_java.service.ClassService;
 import kr.or.dgit.pool_java.service.MemberService;
 import kr.or.dgit.pool_java.service.RegisterService;
+import kr.or.dgit.pool_java.service.SalesService;
 
 public class MemberContent extends JPanel {
 	private JTable table;
@@ -89,6 +91,18 @@ public class MemberContent extends JPanel {
 
 		mno = new JTextField();
 		mno.setBounds(134, 26, 183, 30);
+		mno.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!((Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)))) {
+					getToolkit().beep();
+					e.consume();
+				} 
+			}
+			
+		});
 		panel.add(mno);
 		mno.setColumns(10);
 	
@@ -109,6 +123,24 @@ public class MemberContent extends JPanel {
 		tell1 = new JTextField();
 		tell1.setColumns(10);
 		tell1.setBounds(134, 134, 66, 30);
+		tell1.addKeyListener(new KeyAdapter() {
+			
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!((Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)))) {
+					getToolkit().beep();
+					e.consume();
+				} else {
+					if (tell1.getText().length() >= 2) {
+						tell2.requestFocus();
+						if ((c == KeyEvent.VK_BACK_SPACE)||(c == KeyEvent.VK_DELETE)) {
+							tell1.requestFocus();
+						}
+					}
+				}
+
+			}
+		});
 		panel.add(tell1);
 
 		JLabel lbltell = new JLabel("전화번호");
@@ -147,12 +179,49 @@ public class MemberContent extends JPanel {
 		tell2 = new JTextField();
 		tell2.setColumns(10);
 		tell2.setBounds(211, 134, 66, 30);
+		tell2.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!((Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)))) {
+					getToolkit().beep();
+					e.consume();
+				} else {
+					if (tell2.getText().length() >= 3) {
+						tell3.requestFocus();
+						if ((c == KeyEvent.VK_BACK_SPACE)||(c == KeyEvent.VK_DELETE)) {
+							tell2.requestFocus();
+						}
+					}
+				}
+			}
+		});
 		panel.add(tell2);
 
 		tell3 = new JTextField();
 		tell3.setColumns(10);
 		tell3.setBounds(289, 134, 66, 30);
+		tell3.addKeyListener(new KeyAdapter() {
+			@Override
+
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!((Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)))) {
+					getToolkit().beep();
+					e.consume();
+				} else {
+					if (tell3.getText().length() >= 3) {
+						email1.requestFocus();
+						if ((c == KeyEvent.VK_BACK_SPACE)||(c == KeyEvent.VK_DELETE)) {
+							tell3.requestFocus();
+						}
+						
+					}
+				}
+
+			}
+		});
 		panel.add(tell3);
+		
 
 		menRadio = new JRadioButton("남");
 		menRadio.setSelected(true);
@@ -290,13 +359,30 @@ public class MemberContent extends JPanel {
 		addBtn = new JButton("신규등록");
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MemberService.getInstance().insertMember(sendMemberData("insert"));
+				if(emptyCheck()>0&&selectDateCheck()>0&&classCheck()>0) {
+					MemberService.getInstance().insertMember(sendMemberData("insert"));
+					Sales sales = new Sales();
+					sales.setPay(50000);
+					SalesService.getInstance().insertSales(sales);
+				}else if(emptyCheck()<0){
+					JOptionPane.showMessageDialog(null, "공백이 존재합니다.");
+					return;
+				}else if(selectDateCheck()<0) {
+					JOptionPane.showMessageDialog(null, "생년월일을 확인해주세요");
+					return;
+				}else if(classCheck()<0) {
+					JOptionPane.showMessageDialog(null, "수강반을 선택해주세요");
+					return;
+				}
+				
+				
+				
 				loadData();
 				mno.setEnabled(true);
 				mno.requestFocus();
 			}
 		});
-		addBtn.setBounds(791, 190, 97, 30);
+		addBtn.setBounds(723, 190, 97, 30);
 		panel.add(addBtn);
 
 		memupdate = new JButton("회원정보수정");
@@ -352,11 +438,15 @@ public class MemberContent extends JPanel {
 					System.out.println(register);
 					RegisterService.getInstance().updateReenter(register);
 				}
+				
+				Sales sales = new Sales();
+				sales.setPay(50000);
+				SalesService.getInstance().insertSales(sales);
+				
 				clearText();
 				getClassCombo();
 				addBtn.setVisible(true);
 				reenterBtn.setVisible(false);
-				backBtn.setVisible(false);
 			}
 		});
 		
@@ -368,9 +458,9 @@ public class MemberContent extends JPanel {
 				addBtn.setVisible(true);
 				memupdate.setVisible(false);
 				classupdate.setVisible(false);
-				backBtn.setVisible(false);
 				reenterBtn.setVisible(false);
 				mno.setEnabled(true);
+				getClassCombo();
 			}
 		});
 
@@ -382,7 +472,6 @@ public class MemberContent extends JPanel {
 				MemberService.getInstance().updateMember(sendMemberData("update"));
 				memupdate.setVisible(false);
 				classupdate.setVisible(false);
-				backBtn.setVisible(false);
 				addBtn.setVisible(true);
 				reenterBtn.setVisible(false);
 				loadData();
@@ -473,11 +562,13 @@ public class MemberContent extends JPanel {
 		JMenuItem menuItem = new JMenuItem("수정");
 		JMenuItem menuItem2 = new JMenuItem("삭제");
 		JMenuItem menuItem3 = new JMenuItem("재등록");
-
+		JMenuItem menuItem4 = new JMenuItem("수강취소");
+		
 		popupMenu.add(menuItem);
 		popupMenu.add(menuItem2);
 		popupMenu.add(menuItem3);
-
+		popupMenu.add(menuItem4);
+		
 		table.setComponentPopupMenu(popupMenu);
 		menuItem.addActionListener(new ActionListener() {
 
@@ -526,7 +617,14 @@ public class MemberContent extends JPanel {
 				}
 			}
 		});
-
+		
+		menuItem4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 	}
 
 	private void getClassCombo() {
@@ -752,4 +850,35 @@ public class MemberContent extends JPanel {
 		
 	}
 	
+	private int emptyCheck() {
+		int empty=-1;
+		
+		if(!mno.getText().equals("")&&!name.getText().equals("")
+				&&!tell1.getText().equals("")&&!tell2.getText().equals("")
+				&&!tell3.getText().equals("")&& !email1.getText().equals("")&&!emailAddr.getText().equals("")) {
+			
+			empty=1;
+			
+		}
+		return empty;
+		
+	}
+	
+	private int selectDateCheck() {
+		int select=-1;
+		
+		if(year.getSelectedIndex()>0&&month.getSelectedIndex()>0&&day.getSelectedIndex()>0) {
+			select=1;
+		}
+		
+		return select;
+	}
+	
+	private int classCheck() {
+		int select=-1;
+		if(classCombo.getSelectedIndex()>0) {
+			select=1;
+		}
+		return select;
+	}
 }

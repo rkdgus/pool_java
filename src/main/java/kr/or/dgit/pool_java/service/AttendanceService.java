@@ -60,11 +60,11 @@ public class AttendanceService implements AttendanceDao{
 		
 	}
 
-	@Override
-	public List<Attendance> selectDate(Attendance attendance) {
+	@Override 
+	public List<Attendance> selectDate(HashMap<String, Object> map) {
 		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			dao = sqlsession.getMapper(AttendanceDao.class);
-			return dao.selectDate(attendance);
+			return dao.selectDate(map);
 		}
 	}
 
