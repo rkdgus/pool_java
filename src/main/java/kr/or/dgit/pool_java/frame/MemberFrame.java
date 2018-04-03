@@ -73,6 +73,7 @@ public class MemberFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				MemberContent memberContent = new MemberContent();
 				contentCall(memberContent);
+				panel.selectItem("회원관리");
 				memberContent.getMno().requestFocus();
 				memberContent.getMno().addActionListener(new ActionListener() {
 					
@@ -88,6 +89,7 @@ public class MemberFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ClassSchedule classSchedule = ClassSchedule.getInstance();
+				panel.selectItem("수강별관리");
 				contentCall(classSchedule);
 			}
 		});
@@ -96,6 +98,7 @@ public class MemberFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				StancePanel stancePanel = new StancePanel();
+				panel.selectItem("입장");
 				contentCall(stancePanel);
 			}
 		});
@@ -104,6 +107,7 @@ public class MemberFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				SalesPanel salesPanel = new SalesPanel();
+				panel.selectItem("매출관리");
 				contentCall(salesPanel);
 			}
 		});
@@ -111,6 +115,7 @@ public class MemberFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				NewClassSchedule newClassShchedule = NewClassSchedule.getInstance();
+				panel.selectItem("신규수강관리");
 				contentCall(newClassShchedule);
 			}
 		});
@@ -119,6 +124,7 @@ public class MemberFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TeacherContent teacherContent = new TeacherContent();
+				panel.selectItem("강사관리");
 				contentCall(teacherContent);
 			}
 		});
