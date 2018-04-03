@@ -23,6 +23,7 @@ import kr.or.dgit.pool_java.content.StancePanel;
 import kr.or.dgit.pool_java.content.TeacherContent;
 import kr.or.dgit.pool_java.dto.Class;
 import kr.or.dgit.pool_java.service.ClassService;
+import kr.or.dgit.pool_java.service.MemberService;
 
 
 public class MemberFrame extends JFrame {
@@ -78,6 +79,8 @@ public class MemberFrame extends JFrame {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						int mno = Integer.parseInt(memberContent.getMno().getText());
+						MemberService.getInstance().selectMno(mno);
 						memberContent.getMno().setEnabled(false);
 					}
 				});

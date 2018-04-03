@@ -320,6 +320,7 @@ public class MemberContent extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				mno.setEnabled(true);
 				int no = Integer.parseInt(mno.getText());
 				int cno = Integer.parseInt(classCombo.getSelectedItem().toString());
 				
@@ -370,6 +371,7 @@ public class MemberContent extends JPanel {
 				classupdate.setVisible(false);
 				backBtn.setVisible(false);
 				reenterBtn.setVisible(false);
+				mno.setEnabled(true);
 			}
 		});
 
@@ -385,6 +387,7 @@ public class MemberContent extends JPanel {
 				addBtn.setVisible(true);
 				reenterBtn.setVisible(false);
 				loadData();
+				mno.setEnabled(true);
 
 			}
 		});
@@ -490,6 +493,7 @@ public class MemberContent extends JPanel {
 				classupdate.setVisible(true);
 				backBtn.setVisible(true);
 				reenterBtn.setVisible(false);
+				mno.setEnabled(false);
 			}
 		});
 		menuItem2.addActionListener(new ActionListener() {
@@ -517,7 +521,7 @@ public class MemberContent extends JPanel {
 				memupdate.setVisible(false);
 				classupdate.setVisible(false);
 				backBtn.setVisible(true);
-				
+				mno.setEnabled(false);
 				List<Class> list = ClassService.getInstance().selectByNextMonth("");
 				classCombo.removeAllItems();
 				classCombo.addItem("선택");
