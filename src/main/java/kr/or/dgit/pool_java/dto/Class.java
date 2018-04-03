@@ -69,8 +69,7 @@ public class Class {
 	
 	@Override
 	public String toString() {
-		return "Class [cno=" + cno + ", classmate=" + classmate + ", time=" + time + ", level=" + level + ", pay=" + pay
-				+ ", tno=" + tno + ", s_day=" + s_day + ", reclass=" + reclass + "]";
+		return  cno + "/" + time.replace("00분", "") + ", " + level ;
 	}
 	public Class() {}
 	

@@ -182,4 +182,15 @@ public class ClassService implements ClassDao {
 		}
 		return res;
 	}
+
+	@Override
+	public List<Class> selectByTime(String time) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(ClassDao.class);
+			return dao.selectByTime(time);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

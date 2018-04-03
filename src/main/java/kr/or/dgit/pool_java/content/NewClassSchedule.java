@@ -129,6 +129,7 @@ public class NewClassSchedule extends JPanel {
 		add(btnSearch);
 		
 		cmbSearch = new JComboBox<String>();
+		cmbSearch.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		cmbSearch.setModel(new DefaultComboBoxModel(new String[] {"전체보기","강사명", "레벨"}));
 		cmbSearch.setBounds(279, 27, 89, 24);
 		add(cmbSearch);
@@ -148,6 +149,7 @@ public class NewClassSchedule extends JPanel {
 		panel.add(label_1);
 		
 		cmbLevel = new JComboBox();
+		cmbLevel.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		cmbLevel.setModel(new DefaultComboBoxModel(new String[] {"초급", "중급", "상급", "고급", "연수", "노인반", "어린이반", "방학특강"}));
 		cmbLevel.setBounds(122, 114, 114, 40);
 		panel.add(cmbLevel);
@@ -157,6 +159,7 @@ public class NewClassSchedule extends JPanel {
 		panel.add(label_2);
 		cmbModel = new DefaultComboBoxModel<String>(getDate());
 		cmbTno = new JComboBox<String>(cmbModel);
+		cmbTno.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		cmbTno.setBounds(122, 244, 114, 40);
 		panel.add(cmbTno);
 		
@@ -167,6 +170,7 @@ public class NewClassSchedule extends JPanel {
 		String month2 = cal.get(Calendar.YEAR)+"년 "+ (cal.get(Calendar.MONTH)+2)+"월";
 		
 		cbms_day = new JComboBox<String>();
+		cbms_day.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		cbms_day.setBounds(122, 313, 114, 40);
 		cbms_day.setModel(new DefaultComboBoxModel(new String[] {month,month2}));
 		panel.add(cbms_day);
@@ -226,6 +230,7 @@ public class NewClassSchedule extends JPanel {
 		panel.add(btnCancel);
 		
 		cmbTime = new JComboBox();
+		cmbTime.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		cmbTime.setModel(new DefaultComboBoxModel(new String[] {"06시 00분", "07시 00분", "08시 00분", "09시 00분", "10시 00분", "11시 00분", "13시 00분", "14시 00분", "15시 00분", "16시 00분", "17시 00분", "18시 00분", "19시 00분", "20시 00분", "21시 00분"}));
 		cmbTime.setBounds(122, 57, 114, 40);
 		panel.add(cmbTime);

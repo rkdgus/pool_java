@@ -37,6 +37,8 @@ import kr.or.dgit.pool_java.service.ClassService;
 import kr.or.dgit.pool_java.service.MemberService;
 import kr.or.dgit.pool_java.service.RegisterService;
 import kr.or.dgit.pool_java.service.SalesService;
+import java.awt.Font;
+import java.awt.Component;
 
 public class MemberContent extends JPanel {
 	private JTable table;
@@ -61,7 +63,7 @@ public class MemberContent extends JPanel {
 	private JButton classupdate;
 	private JButton backBtn;
 	private JButton reenterBtn;
-
+	private int oldCno=-1;
 	/**
 	 * Create the panel.
 	 */
@@ -117,7 +119,7 @@ public class MemberContent extends JPanel {
 		panel.add(name);
 
 		JLabel label_1 = new JLabel("생년월일");
-		label_1.setBounds(375, 87, 57, 15);
+		label_1.setBounds(369, 33, 57, 15);
 		panel.add(label_1);
 
 		tell1 = new JTextField();
@@ -157,23 +159,26 @@ public class MemberContent extends JPanel {
 		panel.add(email1);
 
 		JLabel label_4 = new JLabel("성별");
-		label_4.setBounds(375, 33, 57, 15);
+		label_4.setBounds(375, 83, 57, 15);
 		panel.add(label_4);
 
 		JLabel label_5 = new JLabel("반 번호");
-		label_5.setBounds(719, 37, 57, 15);
+		label_5.setBounds(375, 141, 57, 15);
 		panel.add(label_5);
 
 		year = new JComboBox<String>();
-		year.setBounds(438, 82, 81, 30);
+		year.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		year.setBounds(438, 33, 81, 30);
 		panel.add(year);
 
 		month = new JComboBox<String>();
-		month.setBounds(520, 82, 70, 30);
+		month.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		month.setBounds(522, 33, 70, 30);
 		panel.add(month);
 
 		day = new JComboBox<String>();
-		day.setBounds(591, 82, 70, 30);
+		day.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		day.setBounds(593, 33, 70, 30);
 		panel.add(day);
 
 		tell2 = new JTextField();
@@ -225,11 +230,11 @@ public class MemberContent extends JPanel {
 
 		menRadio = new JRadioButton("남");
 		menRadio.setSelected(true);
-		menRadio.setBounds(442, 34, 66, 23);
+		menRadio.setBounds(440, 79, 66, 23);
 		panel.add(menRadio);
 
 		womenRadio = new JRadioButton("여");
-		womenRadio.setBounds(510, 34, 66, 23);
+		womenRadio.setBounds(508, 79, 66, 23);
 		panel.add(womenRadio);
 
 		ButtonGroup group = new ButtonGroup();
@@ -237,7 +242,9 @@ public class MemberContent extends JPanel {
 		group.add(womenRadio);
 
 		classCombo = new JComboBox<>();
-		classCombo.setBounds(798, 29, 81, 30);
+		classCombo.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		classCombo.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		classCombo.setBounds(434, 132, 229, 30);
 		panel.add(classCombo);
 		getClassCombo();
 
@@ -259,6 +266,7 @@ public class MemberContent extends JPanel {
 		panel.add(emailAddr);
 
 		emailCombo = new JComboBox<>();
+		emailCombo.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		emailCombo.setBounds(396, 190, 130, 30);
 		emailCombo.addActionListener(new ActionListener() {
 
@@ -280,12 +288,12 @@ public class MemberContent extends JPanel {
 		panel.add(emailCombo);
 
 		JLabel regdate = new JLabel("등록날짜");
-		regdate.setBounds(375, 141, 57, 15);
+		regdate.setBounds(694, 41, 57, 15);
 		panel.add(regdate);
 
 		regdatetf = new JTextField();
 		regdatetf.setEnabled(false);
-		regdatetf.setBounds(438, 134, 91, 30);
+		regdatetf.setBounds(763, 34, 91, 30);
 		panel.add(regdatetf);
 		regdatetf.setColumns(10);
 		Date date = new Date();
@@ -316,6 +324,7 @@ public class MemberContent extends JPanel {
 		}
 
 		JComboBox<String> comboBox = new JComboBox<>();
+		comboBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		comboBox.setBounds(12, 10, 138, 35);
 		add(comboBox);
 		comboBox.addItem("전체보기");
@@ -392,6 +401,33 @@ public class MemberContent extends JPanel {
 		classupdate = new JButton("수강반 수정");
 		classupdate.setBounds(710, 190, 110, 30);
 		panel.add(classupdate);
+		classupdate.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HashMap<String, Object> map = new HashMap<>();
+				String newCno = classCombo.getSelectedItem().toString();
+				if(newCno.substring(0,newCno.indexOf("/")-1).equals(oldCno+"")) {
+					JOptionPane.showMessageDialog(null, "이미 수강중인 반입니다.");
+					return;
+				}
+				if(newCno.equals("선택")) {
+					JOptionPane.showMessageDialog(null, "수강반을 선택하세요");
+					return;
+				}
+				map.put("newCno", newCno.substring(0,newCno.indexOf("/")-1));
+				map.put("mno",mno.getText());
+				map.put("oldCno",oldCno);
+				RegisterService.getInstance().changeClass(map);
+				
+				clearText();
+				getClassCombo();
+				addBtn.setVisible(true);
+				memupdate.setVisible(false);
+				classupdate.setVisible(false);
+				reenterBtn.setVisible(false);
+			}
+		});
 
 		backBtn = new JButton("취소");
 		backBtn.setBounds(822, 190, 66, 30);
@@ -407,7 +443,8 @@ public class MemberContent extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				mno.setEnabled(true);
 				int no = Integer.parseInt(mno.getText());
-				int cno = Integer.parseInt(classCombo.getSelectedItem().toString());
+				String comboVal = classCombo.getSelectedItem().toString();
+				int cno = Integer.parseInt(comboVal.substring(0,comboVal.indexOf("/")-1));
 				
 				Register register1 = new Register();
 				register1.setCno(cno);
@@ -532,6 +569,9 @@ public class MemberContent extends JPanel {
 		if (type.equals("이름")) {
 			list = MemberService.getInstance().selectSearchName("%" + keyword + "%");
 		}
+		if(type.equals("수강반")) {
+			list = MemberService.getInstance().selectSearchCno(Integer.parseInt(keyword));
+		}
 	
 		Object[][] data = new Object[list.size()][];
 
@@ -562,7 +602,7 @@ public class MemberContent extends JPanel {
 		JMenuItem menuItem = new JMenuItem("수정");
 		JMenuItem menuItem2 = new JMenuItem("삭제");
 		JMenuItem menuItem3 = new JMenuItem("재등록");
-		JMenuItem menuItem4 = new JMenuItem("수강취소");
+		JMenuItem menuItem4 = new JMenuItem("수강 취소");
 		
 		popupMenu.add(menuItem);
 		popupMenu.add(menuItem2);
@@ -613,7 +653,7 @@ public class MemberContent extends JPanel {
 				classCombo.removeAllItems();
 				classCombo.addItem("선택");
 				for (int i = 0; i < list.size(); i++) {
-					classCombo.addItem(list.get(i).getCno() + "");
+					classCombo.addItem(list.get(i).getCno() + " / "+list.get(i).getTime()+" / "+list.get(i).getLevel());
 				}
 			}
 		});
@@ -640,7 +680,7 @@ public class MemberContent extends JPanel {
 		classCombo.removeAllItems();
 		classCombo.addItem("선택");
 		for (int i = 0; i < list.size(); i++) {
-			classCombo.addItem(list.get(i).getCno() + "");
+			classCombo.addItem(list.get(i).getCno() + " / "+list.get(i).getTime()+" / "+list.get(i).getLevel());
 		}
 
 	}
@@ -681,7 +721,12 @@ public class MemberContent extends JPanel {
 		if (type.equals("insert")) {
 			mem = new Member(Integer.parseInt(mno.getText()),name.getText(), age, tell, email, gender, a);
 			Register register = new Register();
-			register.setCno(Integer.parseInt(classCombo.getSelectedItem().toString()));
+			
+			String classNo = classCombo.getSelectedItem().toString();
+			
+			int cno = Integer.parseInt(classNo.substring(0,classNo.indexOf("/")-1));
+			
+			register.setCno(cno);
 			register.setMno(Integer.parseInt(mno.getText()));
 			register.setReentrance(false);
 			RegisterService.getInstance().insertRegister(register);
@@ -736,7 +781,9 @@ public class MemberContent extends JPanel {
 		
 		Class c = RegisterService.getInstance().selectByMno(map);
 		
-		classCombo.setSelectedItem(c.getCno()+"");
+		classCombo.setSelectedItem(c.getCno()+" / "+c.getTime()+" / "+c.getLevel());
+		oldCno = c.getCno();
+		
 		String total = String.valueOf(m.getAge());
 		String y = total.substring(0, 4);
 		year.setSelectedItem(y);

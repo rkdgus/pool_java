@@ -17,4 +17,5 @@ public interface RegisterDao {
 	public int selectByTnoCount(Class c);
 	public int reenter(Class c);
 	public List<Register> selectByCno(int cno);
+	public void changeClass(HashMap<String, Object> map);
 }

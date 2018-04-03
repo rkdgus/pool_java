@@ -14,5 +14,5 @@ public interface ClassDao {
 	public int updateClassInfo(Class cls);
 	public List<Class> selectByreclass(Boolean reclass);
 	public int updateReclass(Class cls);
-	
+	public List<Class> selectByTime(String time);
 }
