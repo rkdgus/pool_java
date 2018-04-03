@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -91,6 +92,20 @@ public class TeacherContent extends JPanel {
 
 		tno = new JTextField();
 		tno.setBounds(662, 102, 215, 30);
+		tno.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+				char c = e.getKeyChar();
+				if (!((Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)))) {
+					getToolkit().beep();
+					e.consume();
+				} 
+				
+			}
+			
+		});
 		add(tno);
 		tno.setColumns(10);
 
@@ -120,7 +135,7 @@ public class TeacherContent extends JPanel {
 				} else {
 					if (tell1.getText().length() >= 2) {
 						tell2.requestFocus();
-						if ((c == KeyEvent.VK_BACK_SPACE)) {
+						if ((c == KeyEvent.VK_BACK_SPACE)||(c == KeyEvent.VK_DELETE)) {
 							tell1.requestFocus();
 						}
 					}
@@ -148,7 +163,7 @@ public class TeacherContent extends JPanel {
 				} else {
 					if (tell2.getText().length() >= 3) {
 						tell3.requestFocus();
-						if ((c == KeyEvent.VK_BACK_SPACE)) {
+						if ((c == KeyEvent.VK_BACK_SPACE)||(c == KeyEvent.VK_DELETE)) {
 							tell2.requestFocus();
 						}
 					}
@@ -177,7 +192,7 @@ public class TeacherContent extends JPanel {
 				} else {
 					if (tell3.getText().length() >= 3) {
 						titleCombo.requestFocus();
-						if ((c == KeyEvent.VK_BACK_SPACE)) {
+						if ((c == KeyEvent.VK_BACK_SPACE)||(c == KeyEvent.VK_DELETE)) {
 							tell3.requestFocus();
 						}
 					}
@@ -254,7 +269,18 @@ public class TeacherContent extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TeacherService.getInstance().updateTeacher(getTextData("update"));
+			
+				if (emptyCheck() > 0 && selectCheck() > 0) {
+					TeacherService.getInstance().updateTeacher(getTextData("update"));
+				} else if (emptyCheck() < 0) {
+					JOptionPane.showMessageDialog(null, "공백이 존재합니다. 모두 입력해주세요.");
+					return;
+				} else if (selectCheck() < 0) {
+					JOptionPane.showMessageDialog(null, "직급을 선택해주세요");
+					return;
+				}
+				
+				
 				cancel.setVisible(false);
 				updateBtn.setVisible(false);
 				addBtn.setVisible(true);

@@ -58,6 +58,7 @@ public class NewClassSchedule extends JPanel {
 	private JComboBox cmbTime;
 	private JSpinner spinner;
 	private JCheckBox cbReclass;
+	private JComboBox<String> cbms_day;
 	
 	public static NewClassSchedule getInstance() {
 		return instance;
@@ -161,7 +162,7 @@ public class NewClassSchedule extends JPanel {
 		String month = cal.get(Calendar.YEAR)+"년 "+ (cal.get(Calendar.MONTH)+1)+"월";
 		String month2 = cal.get(Calendar.YEAR)+"년 "+ (cal.get(Calendar.MONTH)+2)+"월";
 		
-		JComboBox<String> cbms_day = new JComboBox<String>();
+		cbms_day = new JComboBox<String>();
 		cbms_day.setBounds(122, 313, 114, 40);
 		cbms_day.setModel(new DefaultComboBoxModel(new String[] {month,month2}));
 		panel.add(cbms_day);
@@ -200,7 +201,7 @@ public class NewClassSchedule extends JPanel {
 					JOptionPane.showMessageDialog(null,"추가하였습니다.");
 					if(cbms_day.getSelectedIndex() ==0) {
 						ClassSchedule.getInstance().addJTableList();
-						spinner.setValue(0);
+						resetAll();
 						MemberFrame.getInstance().contentCall(ClassSchedule.getInstance());
 					}else {
 						addJTableList();
@@ -214,7 +215,7 @@ public class NewClassSchedule extends JPanel {
 		JButton btnCancel = new JButton("취소");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				spinner.setValue(0);
+				resetAll();
 			}
 		});
 		btnCancel.setBounds(6, 437, 106, 33);
@@ -368,5 +369,15 @@ public class NewClassSchedule extends JPanel {
 				}
 			}
 		});
+	}
+	
+	private void resetAll() {
+		cmbTime.setSelectedIndex(0);
+		cmbLevel.setSelectedIndex(0);
+		spinner.setValue(0);
+		cmbTno.setSelectedIndex(0);
+		cbms_day.setSelectedIndex(0);
+		cbReclass.setSelected(false);
+		
 	}
 }
