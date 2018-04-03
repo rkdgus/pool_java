@@ -37,7 +37,10 @@ public class AttendPanel extends JPanel {
 		scrollPane.setViewportView(table);
 		
 		
-		List<Register> lists = rDao.selectByCno(6);
+		List<Register> lists = rDao.selectByCno(1);
+		for(Register list : lists) {
+			System.out.println(list.toString());
+		}
 		loadDataPrice(lists, 4, 2018);
 		
 		
@@ -72,9 +75,9 @@ public class AttendPanel extends JPanel {
 		int[] day= {32,29,32,31,32,31,32,32,31,32,31,32};
 		String[] colum =new String[day[month]];
 		Object[][] data = new Object[lists.size()][];
-		Object[] d = new Object[day[month]];
 		Attendance attendance =null;
 		for (int i = 0; i < lists.size(); i++) {
+			Object[] d = new Object[day[month]];
 			for(int j=0;j<colum.length;j++) {
 				if(j==0) {
 					d[j] = MemberService.getInstance().selectMno(lists.get(i).getMno()).getName();
@@ -84,6 +87,7 @@ public class AttendPanel extends JPanel {
 				}
 				
 			}
+			
 			data[i] = d;
 
 		}

@@ -385,7 +385,7 @@ public class NewClassSchedule extends JPanel {
 		cmbTno.setSelectedIndex(0);
 		cbms_day.setSelectedIndex(0);
 		cbReclass.setSelected(false);
-		
+	}
 
 	public void setAlignWidth() {
 		setAlign(SwingConstants.CENTER,0,1,2,3,4);
