@@ -9,5 +9,5 @@ public interface AttendanceDao {
 	public List<Attendance> selectAll();
 	public void insertAttendance(Attendance attendance);
 	public void deleteAttendance(int mno);
-	public List<Attendance> selectDate(Attendance attendance);
+	public List<Attendance> selectDate(HashMap<String, Object> map);
 }
