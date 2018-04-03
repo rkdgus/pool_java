@@ -39,4 +39,8 @@
 	<select id="reenter" resultType="int" parameterType="Class">
 		select count(*) from register where  cno in (select cno from class where tno = #{tno} and s_day=#{level}) and reentrance=true
 	</select>
+	
+	<update id="changeClass" parameterType="map">
+		update register set cno=#{newCno} where mno=#{mno} and cno=#{oldCno}
+	</update>
 </mapper>

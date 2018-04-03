@@ -108,8 +108,6 @@ public class RegisterService implements RegisterDao {
 	public Class selectByMno(HashMap<String, Object> map) {
 		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
 			dao = sqlsession.getMapper(RegisterDao.class);
-			System.out.println(map.get("mno"));
-			System.out.println(map.get("s_day"));
 			return dao.selectByMno(map);
 
 		} catch (Exception e) {
@@ -172,6 +170,26 @@ public class RegisterService implements RegisterDao {
 			dao = sqlsession.getMapper(RegisterDao.class);
 			return dao.selectByCno(cno);
 		}
+	}
+
+	@Override
+	public void changeClass(HashMap<String, Object> map) {
+	
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+			dao = sqlsession.getMapper(RegisterDao.class);
+			
+			dao.changeClass(map);
+			sqlsession.commit();
+
+			JOptionPane.showMessageDialog(null, "수정 되었습니다");
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "수정에 실패하였습니다");
+
+		}
+		
 	}
 
 }

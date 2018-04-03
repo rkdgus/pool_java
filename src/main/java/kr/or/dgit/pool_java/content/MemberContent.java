@@ -63,7 +63,7 @@ public class MemberContent extends JPanel {
 	private JButton classupdate;
 	private JButton backBtn;
 	private JButton reenterBtn;
-
+	private int oldCno=-1;
 	/**
 	 * Create the panel.
 	 */
@@ -401,6 +401,33 @@ public class MemberContent extends JPanel {
 		classupdate = new JButton("수강반 수정");
 		classupdate.setBounds(710, 190, 110, 30);
 		panel.add(classupdate);
+		classupdate.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HashMap<String, Object> map = new HashMap<>();
+				String newCno = classCombo.getSelectedItem().toString();
+				if(newCno.substring(0,newCno.indexOf("/")-1).equals(oldCno+"")) {
+					JOptionPane.showMessageDialog(null, "이미 수강중인 반입니다.");
+					return;
+				}
+				if(newCno.equals("선택")) {
+					JOptionPane.showMessageDialog(null, "수강반을 선택하세요");
+					return;
+				}
+				map.put("newCno", newCno.substring(0,newCno.indexOf("/")-1));
+				map.put("mno",mno.getText());
+				map.put("oldCno",oldCno);
+				RegisterService.getInstance().changeClass(map);
+				
+				clearText();
+				getClassCombo();
+				addBtn.setVisible(true);
+				memupdate.setVisible(false);
+				classupdate.setVisible(false);
+				reenterBtn.setVisible(false);
+			}
+		});
 
 		backBtn = new JButton("취소");
 		backBtn.setBounds(822, 190, 66, 30);
@@ -416,7 +443,8 @@ public class MemberContent extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				mno.setEnabled(true);
 				int no = Integer.parseInt(mno.getText());
-				int cno = Integer.parseInt(classCombo.getSelectedItem().toString());
+				String comboVal = classCombo.getSelectedItem().toString();
+				int cno = Integer.parseInt(comboVal.substring(0,comboVal.indexOf("/")-1));
 				
 				Register register1 = new Register();
 				register1.setCno(cno);
@@ -625,7 +653,7 @@ public class MemberContent extends JPanel {
 				classCombo.removeAllItems();
 				classCombo.addItem("선택");
 				for (int i = 0; i < list.size(); i++) {
-					classCombo.addItem(list.get(i).getCno() + "");
+					classCombo.addItem(list.get(i).getCno() + " / "+list.get(i).getTime()+" / "+list.get(i).getLevel());
 				}
 			}
 		});
@@ -754,6 +782,7 @@ public class MemberContent extends JPanel {
 		Class c = RegisterService.getInstance().selectByMno(map);
 		
 		classCombo.setSelectedItem(c.getCno()+" / "+c.getTime()+" / "+c.getLevel());
+		oldCno = c.getCno();
 		
 		String total = String.valueOf(m.getAge());
 		String y = total.substring(0, 4);
