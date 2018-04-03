@@ -28,6 +28,7 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
+import java.awt.Font;
 
 public class TeacherContent extends JPanel {
 	private JTextField tno;
@@ -49,6 +50,7 @@ public class TeacherContent extends JPanel {
 
 		setBounds(0, 0, 900, 570);
 		searchCombo = new JComboBox<>();
+		searchCombo.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		searchCombo.setBounds(23, 22, 117, 30);
 		searchCombo.addItem("전체보기");
 		searchCombo.addItem("이름");
@@ -251,6 +253,7 @@ public class TeacherContent extends JPanel {
 		add(titlelbl);
 
 		titleCombo = new JComboBox<>();
+		titleCombo.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		titleCombo.setBounds(662, 273, 106, 30);
 		titleCombo.addItem("선택");
 		titleCombo.addItem("사원");

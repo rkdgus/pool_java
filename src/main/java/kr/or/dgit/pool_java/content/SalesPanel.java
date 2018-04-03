@@ -64,6 +64,7 @@ public class SalesPanel extends JPanel {
 		panel.setLayout(null);
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		
 		
 		
@@ -78,6 +79,7 @@ public class SalesPanel extends JPanel {
 		
 		
 		JComboBox yearBox = new JComboBox();
+		yearBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		yearBox.setBounds(12, 41, 81, 24);
 		panel.add(yearBox);
 		Date d = new Date();
@@ -92,6 +94,7 @@ public class SalesPanel extends JPanel {
 		}
 		yearBox.setSelectedItem(year);
 		JComboBox monthBox = new JComboBox();
+		monthBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		monthBox.setBounds(105, 43, 54, 21);
 		panel.add(monthBox);
 		for(int i = 1;i<=12;i++) {
@@ -99,6 +102,7 @@ public class SalesPanel extends JPanel {
 		}
 		monthBox.setSelectedItem(month);
 		JComboBox dayBox = new JComboBox();
+		dayBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		dayBox.setBounds(171, 43, 54, 21);
 		panel.add(dayBox);
 		for(int i = 1;i<=31;i++) {

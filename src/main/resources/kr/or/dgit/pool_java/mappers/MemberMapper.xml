@@ -13,7 +13,9 @@
 	<select id="selectSearchName" resultType="Member">
 		select * from member where name like #{name}
 	</select>
-	
+	<select id="selectSearchCno" resultType="Member" parameterType="int">
+		select * from member where mno in (select mno from register where cno=#{cno})
+	</select>
 	<insert id="insertMember" parameterType="Member">
 		insert into member(mno,name,age,tell,email,gender,pw) values(#{mno},#{name}, #{age}, #{tell}, #{email}, #{gender},password(#{pw}))
 	</insert>
