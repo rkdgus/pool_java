@@ -7,22 +7,22 @@
 	</select>
 	
 	<select id="selectDate" resultType="Sales">
-		select * from sales where day = #{day}
+		select * from sales where day like #{day}
 	</select>
 	
 	<select id="selectSum" resultType="int">
-		select sum(pay) from sales where day= #{day}
+		select sum(pay) from sales where day like #{day}
 	</select>
 	
 	<insert id="insertSales" parameterType="Sales">
-		insert into sales(sno,day,pay) values(#{sno},#{day},#{pay})
+		insert into sales(sno,pay) values(#{sno},#{pay})
 	</insert>
 	
 	<update id="updateSales" parameterType="Sales">
 		update sales set pay=#{pay} where day=#{day}
 	</update>
 	
-	<delete id="deleteSales" parameterType="Sales">
-		delete from sales where day=#{day}
+	<delete id="deleteSales" parameterType="int">
+		delete from sales where sno=#{sno}
 	</delete>
 </mapper>

@@ -25,12 +25,18 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.mybatis/mybatis
 	compile group: 'org.mybatis', name: 'mybatis', version: '3.4.5'
 	    testImplementation 'junit:junit:4.12'   	
+	    
+	// https://mvnrepository.com/artifact/org.jfree/jfreechart
+	compile group: 'org.jfree', name: 'jfreechart', version: '1.0.19'
+   
 	// prompt 파일 추가(jar 파일 추가)
 	compile files('libs/prompt.jar')
 	//Use 룩앤필
     compile files('libs/liquidlnf.jar')
+
     //excel 
     compile files('libs/jxl.jar')
+
 
 }
 

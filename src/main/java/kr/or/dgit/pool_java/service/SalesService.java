@@ -70,7 +70,7 @@ public class SalesService implements SalesDao {
 	}
 
 	@Override
-	public int deleteSales(Sales sales) {
+	public int deleteSales(int sales) {
 		int res  = -1;
 		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
 			dao = sqlsession.getMapper(SalesDao.class);
@@ -78,30 +78,30 @@ public class SalesService implements SalesDao {
 			dao.deleteSales(sales);
 			sqlsession.commit();
 			
-			JOptionPane.showMessageDialog(null, "추가되었습니다");
+			JOptionPane.showMessageDialog(null, "삭제되었습니다");
 			res = 1;
 				
 		}catch(Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "추가를 실패하였습니다");
+			JOptionPane.showMessageDialog(null, "삭제에 실패하였습니다");
 			
 		}
 		return res;
 	}
 
 	@Override
-	public List<Sales> selectDate(int day) {
+	public List<Sales> selectDate(String day) {
 		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			dao = sqlsession.getMapper(SalesDao.class);
-			return dao.selectDate(day);
+			return dao.selectDate("%"+day+"%");
 		}
 	}
 
 	@Override
-	public int selectSum(int day) {
+	public int selectSum(String day) {
 		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
 			dao = sqlsession.getMapper(SalesDao.class);
-			return dao.selectSum(day);
+			return dao.selectSum("%"+day+"%");
 		}
 	}
 

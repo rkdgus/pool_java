@@ -167,12 +167,6 @@ public class StancePanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Sales sales = new Sales();
-				SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
-				SimpleDateFormat sf1 = new SimpleDateFormat("yyyyMMddHHmmss");
-				
-				Date date = new Date();
-					sales.setSno(sf1.format(date));
-					sales.setDay(Integer.parseInt(sf.format(date)));
 					sales.setPay(2200);
 				
 				sDao.insertSales(sales);
