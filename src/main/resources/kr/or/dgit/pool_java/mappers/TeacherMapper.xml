@@ -28,11 +28,9 @@
 	<select id="searchName" resultType="Teacher" parameterType="String">
 		select * from teacher where name like #{name}
 	</select>
-	<select id="searchTno" resultType="Teacher" parameterType="String">
-		select * from teacher where tno like #{tno}
-	</select>
+
 	<insert id="insertTeacher" parameterType="Teacher">
-		insert into teacher(name,tell,title,pw) values(#{name},#{tell},#{title},password(#{pw}))
+		insert into teacher(tno,name,tell,title,pw) values(#{tno},#{name},#{tell},#{title},password(#{pw}))
 	</insert>
 	<update id="updateTeacher" parameterType="Teacher">
 		update teacher set title = #{title}, tell = #{tell}, name = #{name} where tno = #{tno}
