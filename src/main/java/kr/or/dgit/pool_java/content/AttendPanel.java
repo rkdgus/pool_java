@@ -2,6 +2,7 @@ package kr.or.dgit.pool_java.content;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -16,6 +17,7 @@ import kr.or.dgit.pool_java.dto.Register;
 import kr.or.dgit.pool_java.service.AttendanceService;
 import kr.or.dgit.pool_java.service.MemberService;
 import kr.or.dgit.pool_java.service.RegisterService;
+import javax.swing.JButton;
 
 public class AttendPanel extends JPanel {
 	private JTable table;
@@ -30,17 +32,21 @@ public class AttendPanel extends JPanel {
 		this.rDao = RegisterService.getInstance();
 		this.aDao = AttendanceService.getInstance();
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 50, 886, 423);
+		scrollPane.setBounds(12, 50, 878, 423);
 		add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
+		JButton btnNewButton = new JButton("프린트");
+		btnNewButton.setBounds(774, 10, 97, 30);
+		add(btnNewButton);
 		
-		List<Register> lists = rDao.selectByCno(1);
-		for(Register list : lists) {
-			System.out.println(list.toString());
-		}
+		
+
+		List<Register> lists = rDao.selectByCno(2);
+
+
 		loadDataPrice(lists, 4, 2018);
 		
 		
@@ -76,14 +82,34 @@ public class AttendPanel extends JPanel {
 		String[] colum =new String[day[month]];
 		Object[][] data = new Object[lists.size()][];
 		Attendance attendance =null;
+		List<Attendance> list =null ;
+		String m = "";
+		String s = "";
+		HashMap<String, Object> map = null;
+		
+		if(month<10) {
+			m = "0"+month;
+		}else {
+			m=month+"";
+		}
 		for (int i = 0; i < lists.size(); i++) {
 			Object[] d = new Object[day[month]];
 			for(int j=0;j<colum.length;j++) {
 				if(j==0) {
 					d[j] = MemberService.getInstance().selectMno(lists.get(i).getMno()).getName();
 				}else {
-					attendance = new Attendance(sf.parse(year+"-"+month+"-"+j),lists.get(i).getMno());
-					d[j] = aDao.selectDate(attendance);
+					if(j<10) {
+						s = "0"+j;
+					}else {
+						s=j+"";
+					}
+				
+					map.put("date", year+"-"+m+"-"+s);
+					map.put("mno",lists.get(i).getMno());
+					list = aDao.selectDate(map);
+					if(list.size()!=0) {
+						d[j]="O";
+					}
 				}
 				
 			}
@@ -93,6 +119,4 @@ public class AttendPanel extends JPanel {
 		}
 		return data;
 	}
-	
-	
 }
