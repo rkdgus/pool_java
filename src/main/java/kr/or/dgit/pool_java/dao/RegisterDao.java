@@ -18,4 +18,7 @@ public interface RegisterDao {
 	public int reenter(Class c);
 	public List<Register> selectByCno(int cno);
 	public void changeClass(HashMap<String, Object> map);
+	public Register checkReent(Register register);
+	public List<Register> findClass(int mno);
+	public int cancelClass(Register register);
 }

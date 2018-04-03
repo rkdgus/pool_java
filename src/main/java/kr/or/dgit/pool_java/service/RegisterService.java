@@ -192,4 +192,40 @@ public class RegisterService implements RegisterDao {
 		
 	}
 
+	@Override
+	public Register checkReent(Register register) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(RegisterDao.class);
+			return dao.checkReent(register);
+		}
+	}
+
+	@Override
+	public List<Register> findClass(int mno) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(RegisterDao.class);
+			return dao.findClass(mno);
+		}
+	}
+
+	@Override
+	public int cancelClass(Register register) {
+		int res = -1;
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+			dao = sqlsession.getMapper(RegisterDao.class);
+
+			dao.cancelClass(register);
+			sqlsession.commit();
+
+			JOptionPane.showMessageDialog(null, "수강취소 되었습니다.");
+			res = 1;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "수강취소를 실패하였습니다.");
+
+		}
+		return res;
+	}
+
 }

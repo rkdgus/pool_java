@@ -27,7 +27,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import kr.or.dgit.pool_java.dto.Class;
 import kr.or.dgit.pool_java.dto.Member;
@@ -64,6 +67,8 @@ public class MemberContent extends JPanel {
 	private JButton backBtn;
 	private JButton reenterBtn;
 	private int oldCno=-1;
+	private JButton classreupdateBtn;
+	private int oldClass=-1;
 	/**
 	 * Create the panel.
 	 */
@@ -77,7 +82,8 @@ public class MemberContent extends JPanel {
 		add(scrollPane);
 
 		table = new JTable();
-
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setResizingAllowed(false);
 		loadData();
 
 		scrollPane.setViewportView(table);
@@ -407,14 +413,16 @@ public class MemberContent extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				HashMap<String, Object> map = new HashMap<>();
 				String newCno = classCombo.getSelectedItem().toString();
-				if(newCno.substring(0,newCno.indexOf("/")-1).equals(oldCno+"")) {
-					JOptionPane.showMessageDialog(null, "이미 수강중인 반입니다.");
-					return;
-				}
 				if(newCno.equals("선택")) {
 					JOptionPane.showMessageDialog(null, "수강반을 선택하세요");
 					return;
 				}
+				
+				if(newCno.substring(0,newCno.indexOf("/")-1).equals(oldCno+"")) {
+					JOptionPane.showMessageDialog(null, "이미 수강중인 반입니다.");
+					return;
+				}
+				
 				map.put("newCno", newCno.substring(0,newCno.indexOf("/")-1));
 				map.put("mno",mno.getText());
 				map.put("oldCno",oldCno);
@@ -436,6 +444,47 @@ public class MemberContent extends JPanel {
 		reenterBtn = new JButton("재등록");
 		reenterBtn.setBounds(721, 190, 97, 30);
 		panel.add(reenterBtn);
+		
+		classreupdateBtn = new JButton("재등록 수정");
+		classreupdateBtn.setBounds(708, 190, 110, 30);
+		panel.add(classreupdateBtn);
+		classreupdateBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				HashMap<String, Object> map = new HashMap<>();
+				
+				String newCno = classCombo.getSelectedItem().toString();
+				
+				if(newCno.equals("선택")) {
+					JOptionPane.showMessageDialog(null, "재수강 반을 선택해주세요");
+					return;
+				}
+				
+				if(newCno.substring(0,newCno.indexOf("/")-1).equals(oldClass+"")) {
+					JOptionPane.showMessageDialog(null, "이미 재수강 신청된 반입니다.");
+					return;
+				}
+				
+				
+				map.put("newCno", newCno.substring(0,newCno.indexOf("/")-1));
+				map.put("mno",mno.getText());
+				map.put("oldCno",oldClass);
+				RegisterService.getInstance().changeClass(map);
+				
+				clearText();
+				getClassCombo();
+				addBtn.setVisible(true);
+				memupdate.setVisible(false);
+				classupdate.setVisible(false);
+				reenterBtn.setVisible(false);
+				classreupdateBtn.setVisible(false);
+				
+			}
+		});
+		classreupdateBtn.setVisible(false);
+		
 		reenterBtn.setVisible(false);
 		reenterBtn.addActionListener(new ActionListener() {
 			
@@ -496,6 +545,7 @@ public class MemberContent extends JPanel {
 				memupdate.setVisible(false);
 				classupdate.setVisible(false);
 				reenterBtn.setVisible(false);
+				classreupdateBtn.setVisible(false);
 				mno.setEnabled(true);
 				getClassCombo();
 			}
@@ -506,7 +556,22 @@ public class MemberContent extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MemberService.getInstance().updateMember(sendMemberData("update"));
+				
+				
+				if(emptyCheck()>0&&selectDateCheck()>0&&classCheck()>0) {
+					MemberService.getInstance().updateMember(sendMemberData("update"));
+				}else if(emptyCheck()<0){
+					JOptionPane.showMessageDialog(null, "공백이 존재합니다.");
+					return;
+				}else if(selectDateCheck()<0) {
+					JOptionPane.showMessageDialog(null, "생년월일을 확인해주세요");
+					return;
+				}else if(classCheck()<0) {
+					JOptionPane.showMessageDialog(null, "수강반을 선택해주세요");
+					return;
+				}
+				
+				
 				memupdate.setVisible(false);
 				classupdate.setVisible(false);
 				addBtn.setVisible(true);
@@ -595,6 +660,7 @@ public class MemberContent extends JPanel {
 		};
 
 		table.setModel(model);
+		setAlignWidth();
 	}
 
 	private void addPopupMenu() {
@@ -650,11 +716,40 @@ public class MemberContent extends JPanel {
 				backBtn.setVisible(true);
 				mno.setEnabled(false);
 				List<Class> list = ClassService.getInstance().selectByNextMonth("");
+				
+				
+				
 				classCombo.removeAllItems();
 				classCombo.addItem("선택");
+				
 				for (int i = 0; i < list.size(); i++) {
 					classCombo.addItem(list.get(i).getCno() + " / "+list.get(i).getTime()+" / "+list.get(i).getLevel());
 				}
+				
+				int row = table.getSelectedRow();
+				int no = (int) table.getValueAt(row, 0);
+				
+				for(int i=0;i<list.size();i++) {
+					
+					int reCno  = list.get(i).getCno();
+					Register r1 = new Register();
+					r1.setCno(reCno);
+					r1.setMno(no);
+					
+					Register r = RegisterService.getInstance().checkReent(r1);
+					if(r!=null) {
+						JOptionPane.showMessageDialog(null, "이미 재등록된 회원입니다.");
+						classCombo.setSelectedItem(list.get(i).getCno() + " / "+list.get(i).getTime()+" / "+list.get(i).getLevel());
+						oldClass = list.get(i).getCno();
+						classreupdateBtn.setVisible(true);
+						reenterBtn.setVisible(false);
+						break;
+					}
+					
+				}
+				
+				
+				
 			}
 		});
 		
@@ -662,7 +757,30 @@ public class MemberContent extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				int row = table.getSelectedRow();
+				int mno = (int)table.getValueAt(row, 0);
 				
+				List<Register> list = RegisterService.getInstance().findClass(mno);
+				
+			
+				if(list.size()==0) {
+					JOptionPane.showMessageDialog(null, "수강 신청한 반이 없습니다");
+					return;
+				}
+				
+				String[] classNo = new String[list.size()];
+				for(int i=0;i<list.size();i++) {
+					int cno = list.get(i).getCno();
+					Class c = ClassService.getInstance().selectByNo(cno);
+					classNo[i] = c.getCno()+" / "+c.getTime()+" / "+c.getLevel();
+				}
+				
+				Object selected = JOptionPane.showInputDialog(null, "수강 취소 할 반을 선택하세요", "수강취소", JOptionPane.QUESTION_MESSAGE, null, classNo, classNo[0]);
+				
+				if(selected !=null) {
+					String cancel = selected.toString();
+					RegisterService.getInstance().cancelClass(new Register(mno, Integer.parseInt(cancel.substring(0,cancel.indexOf("/")-1))));
+				}
 			}
 		});
 	}
@@ -695,6 +813,7 @@ public class MemberContent extends JPanel {
 		};
 
 		table.setModel(model);
+		setAlignWidth();
 	}
 
 	private Member sendMemberData(String type) {
@@ -781,8 +900,15 @@ public class MemberContent extends JPanel {
 		
 		Class c = RegisterService.getInstance().selectByMno(map);
 		
-		classCombo.setSelectedItem(c.getCno()+" / "+c.getTime()+" / "+c.getLevel());
-		oldCno = c.getCno();
+		if(c!=null) {
+			classCombo.setSelectedItem(c.getCno()+" / "+c.getTime()+" / "+c.getLevel());
+			oldCno = c.getCno();
+		}else {
+			JOptionPane.showMessageDialog(null, "수강신청 기록이 없습니다.");
+			classCombo.setSelectedIndex(0);
+			oldCno=-1;
+		}
+		
 		
 		String total = String.valueOf(m.getAge());
 		String y = total.substring(0, 4);
@@ -928,4 +1054,31 @@ public class MemberContent extends JPanel {
 		}
 		return select;
 	}
+	
+	
+	public void setAlignWidth() {
+		setAlign(SwingConstants.CENTER,0,1,2,3,4,5,6);
+		setCellWidth(30, 70, 80, 100,200,30,50);
+	}
+	
+	public void setCellWidth(int...width) {
+		TableColumnModel cModel = table.getColumnModel();
+		for(int i=0; i<width.length; i++){
+			cModel.getColumn(i).setPreferredWidth(width[i]);
+		}
+	}
+	
+	
+	public void setAlign(int align, int...idx) {
+		
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		dtcr.setHorizontalAlignment(align);
+		
+		TableColumnModel cModel = table.getColumnModel();
+	
+		for(int i=0; i<idx.length;i++){
+			cModel.getColumn(idx[i]).setCellRenderer(dtcr);
+		}
+	}
+	
 }
