@@ -9,7 +9,7 @@ public interface SalesDao {
 	public List<Sales> selectAll();
 	public int insertSales(Sales sales);
 	public int updateSales(Sales sales);
-	public int deleteSales(Sales sales);
-	public List<Sales> selectDate(int day);
-	public int selectSum(int day);
+	public int deleteSales(int sales);
+	public List<Sales> selectDate(String day);
+	public int selectSum(String day);
 }

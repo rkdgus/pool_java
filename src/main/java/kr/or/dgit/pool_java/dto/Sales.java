@@ -3,29 +3,27 @@ package kr.or.dgit.pool_java.dto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.logging.log4j.message.SimpleMessage;
-
 public class Sales {
-	private String sno;
-	private int day;
+	private int sno;
+	private Date day;
 	private int pay;
 
 	public Sales() {
 	}
 
-	public String getSno() {
+	public int getSno() {
 		return sno;
 	}
 
-	public void setSno(String sno) {
+	public void setSno(int sno) {
 		this.sno = sno;
 	}
 
-	public int getDay() {
+	public Date getDay() {
 		return day;
 	}
 
-	public void setDay(int day) {
+	public void setDay(Date day) {
 		this.day = day;
 	}
 
@@ -43,11 +41,9 @@ public class Sales {
 	}
 
 	public Object[] toArray() {
-		String day1 = String.valueOf(day).substring(0, 4);
-		String day2 = String.valueOf(day).substring(4, 6);
-		String day3 = String.valueOf(day).substring(6);
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:dd:ss");
 		
-		return new Object[] { day1+"-"+day2+"-"+day3, pay };
+		return new Object[] { sno,sd.format(day), pay };
 	}
 
 }
