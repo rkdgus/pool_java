@@ -29,6 +29,8 @@ dependencies {
 	compile files('libs/prompt.jar')
 	//Use 룩앤필
     compile files('libs/liquidlnf.jar')
+    //excel 
+    compile files('libs/jxl.jar')
 
 }
 
