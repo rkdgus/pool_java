@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -57,6 +58,7 @@ public class MemberContent extends JPanel {
 	private JButton addBtn;
 	private JButton classupdate;
 	private JButton backBtn;
+	private JButton reenterBtn;
 
 	/**
 	 * Create the panel.
@@ -86,12 +88,11 @@ public class MemberContent extends JPanel {
 		panel.add(lblmno);
 
 		mno = new JTextField();
-		mno.setEnabled(false);
 		mno.setBounds(134, 26, 183, 30);
 		panel.add(mno);
-
 		mno.setColumns(10);
-
+	
+		
 		JLabel lblname = new JLabel("이름");
 		lblname.setBounds(41, 87, 57, 15);
 		panel.add(lblname);
@@ -278,6 +279,7 @@ public class MemberContent extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String word = searchField.getText();
+				
 				String type = comboBox.getSelectedItem().toString();
 				Search(type, word);
 			}
@@ -291,6 +293,8 @@ public class MemberContent extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				MemberService.getInstance().insertMember(sendMemberData("insert"));
 				loadData();
+				mno.setEnabled(true);
+				mno.requestFocus();
 			}
 		});
 		addBtn.setBounds(791, 190, 97, 30);
@@ -307,7 +311,55 @@ public class MemberContent extends JPanel {
 		backBtn = new JButton("취소");
 		backBtn.setBounds(822, 190, 66, 30);
 		panel.add(backBtn);
-
+		
+		reenterBtn = new JButton("재등록");
+		reenterBtn.setBounds(721, 190, 97, 30);
+		panel.add(reenterBtn);
+		reenterBtn.setVisible(false);
+		reenterBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int no = Integer.parseInt(mno.getText());
+				int cno = Integer.parseInt(classCombo.getSelectedItem().toString());
+				
+				Register register1 = new Register();
+				register1.setCno(cno);
+				register1.setMno(no);
+				register1.setReentrance(false);
+				RegisterService.getInstance().insertRegister(register1);
+				
+				
+				
+				Class c = ClassService.getInstance().selectByNo(cno);
+				
+				HashMap<String,Object> map = new HashMap<>();
+				map.put("mno", no);
+				Date d = new Date();
+				
+				d.setDate(1);
+				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+				map.put("s_day",sdf2.format(d));
+				
+				Class c2 = RegisterService.getInstance().selectByMno(map);
+				
+			
+				if(c.getTno()==c2.getTno()) {
+					Register register = new Register();
+					register.setMno(no);
+					register.setCno(c2.getCno());
+					register.setReentrance(true);
+					System.out.println(register);
+					RegisterService.getInstance().updateReenter(register);
+				}
+				clearText();
+				getClassCombo();
+				addBtn.setVisible(true);
+				reenterBtn.setVisible(false);
+				backBtn.setVisible(false);
+			}
+		});
+		
 		backBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -317,6 +369,7 @@ public class MemberContent extends JPanel {
 				memupdate.setVisible(false);
 				classupdate.setVisible(false);
 				backBtn.setVisible(false);
+				reenterBtn.setVisible(false);
 			}
 		});
 
@@ -330,6 +383,7 @@ public class MemberContent extends JPanel {
 				classupdate.setVisible(false);
 				backBtn.setVisible(false);
 				addBtn.setVisible(true);
+				reenterBtn.setVisible(false);
 				loadData();
 
 			}
@@ -346,6 +400,8 @@ public class MemberContent extends JPanel {
 					memupdate.setVisible(true);
 					classupdate.setVisible(true);
 					backBtn.setVisible(true);
+					reenterBtn.setVisible(false);
+				
 				}
 			}
 
@@ -433,6 +489,7 @@ public class MemberContent extends JPanel {
 				memupdate.setVisible(true);
 				classupdate.setVisible(true);
 				backBtn.setVisible(true);
+				reenterBtn.setVisible(false);
 			}
 		});
 		menuItem2.addActionListener(new ActionListener() {
@@ -454,8 +511,19 @@ public class MemberContent extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
+				getMemberData();
+				reenterBtn.setVisible(true);
+				addBtn.setVisible(false);
+				memupdate.setVisible(false);
+				classupdate.setVisible(false);
+				backBtn.setVisible(true);
+				
+				List<Class> list = ClassService.getInstance().selectByNextMonth("");
+				classCombo.removeAllItems();
+				classCombo.addItem("선택");
+				for (int i = 0; i < list.size(); i++) {
+					classCombo.addItem(list.get(i).getCno() + "");
+				}
 			}
 		});
 
@@ -471,7 +539,7 @@ public class MemberContent extends JPanel {
 		} else if (c.get(Calendar.DATE) >= 20) {
 			list = ClassService.getInstance().selectByNextMonth("");
 		}
-
+		classCombo.removeAllItems();
 		classCombo.addItem("선택");
 		for (int i = 0; i < list.size(); i++) {
 			classCombo.addItem(list.get(i).getCno() + "");
@@ -513,9 +581,10 @@ public class MemberContent extends JPanel {
 		Member mem = null;
 
 		if (type.equals("insert")) {
-			mem = new Member(name.getText(), age, tell, email, gender, a);
+			mem = new Member(Integer.parseInt(mno.getText()),name.getText(), age, tell, email, gender, a);
 			Register register = new Register();
-			register.setCno(mem.getMno());
+			register.setCno(Integer.parseInt(classCombo.getSelectedItem().toString()));
+			register.setMno(Integer.parseInt(mno.getText()));
 			register.setReentrance(false);
 			RegisterService.getInstance().insertRegister(register);
 
@@ -558,7 +627,17 @@ public class MemberContent extends JPanel {
 			menRadio.setSelected(false);
 			womenRadio.setSelected(true);
 		}
-
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("mno", no);
+		Date d = new Date();
+		
+		d.setDate(1);
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+		map.put("s_day",sdf2.format(d));
+		
+		Class c = RegisterService.getInstance().selectByMno(map);
+		
+		classCombo.setSelectedItem(c.getCno()+"");
 		String total = String.valueOf(m.getAge());
 		String y = total.substring(0, 4);
 		year.setSelectedItem(y);
@@ -566,8 +645,8 @@ public class MemberContent extends JPanel {
 		String m2 = total.substring(4, 6);
 		month.setSelectedItem(m2);
 
-		String d = total.substring(6, total.length());
-		day.setSelectedItem(d);
+		String d2 = total.substring(6, total.length());
+		day.setSelectedItem(d2);
 
 		String totale = m.getEmail();
 		String em = totale.substring(0, totale.indexOf("@"));
@@ -601,4 +680,9 @@ public class MemberContent extends JPanel {
 		mno.setText("");
 	}
 
+	public JTextField getMno() {
+		return mno;
+	}
+	
+	
 }

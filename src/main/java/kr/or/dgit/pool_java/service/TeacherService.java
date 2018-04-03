@@ -124,4 +124,18 @@ public class TeacherService implements TeacherDao {
 			return null;
 		}
 	}
+
+	@Override
+	public int quitTeacher(Teacher teacher) {
+		int res = -1;
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(TeacherDao.class);
+			dao.quitTeacher(teacher);
+			sqlsession.commit();
+			res = 1;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
 }

@@ -130,7 +130,7 @@ public class NewClassSchedule extends JPanel {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 2), "신규 강의 개설", TitledBorder.LEADING, TitledBorder.TOP, new Font(null, Font.BOLD, 18), new Color(0, 0, 0)));
+		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1), "신규 강의 개설", TitledBorder.LEADING, TitledBorder.TOP, new Font(null, Font.BOLD, 18), new Color(0, 0, 0)));
 		panel.setBounds(14, 59, 244, 482);
 		add(panel);
 		
@@ -184,6 +184,7 @@ public class NewClassSchedule extends JPanel {
 				cls.setReclass(cbReclass.isSelected());
 				if(cbms_day.getSelectedIndex() == 0) {
 					Date date = new Date();
+					date.setDate(1);
 					cls.setS_day(date);
 				}else {
 					Date date = new Date();
@@ -199,6 +200,7 @@ public class NewClassSchedule extends JPanel {
 					JOptionPane.showMessageDialog(null,"추가하였습니다.");
 					if(cbms_day.getSelectedIndex() ==0) {
 						ClassSchedule.getInstance().addJTableList();
+						spinner.setValue(0);
 						MemberFrame.getInstance().contentCall(ClassSchedule.getInstance());
 					}else {
 						addJTableList();
@@ -207,7 +209,6 @@ public class NewClassSchedule extends JPanel {
 				}else {
 					JOptionPane.showMessageDialog(null,"실패하였습니다.");
 				}
-				
 			}
 		});
 		JButton btnCancel = new JButton("취소");

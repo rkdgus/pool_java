@@ -164,17 +164,22 @@ public class ClassService implements ClassDao {
 	}
 
 	@Override
-	public int updateReclass(int cno) {
+	public int updateReclass(Class cls) {
 		int res = -1;
-		try(SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();){
+		SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();
+		
+		try{
 			dao = sqlsession.getMapper(ClassDao.class);
-			dao.updateReclass(cno);
+			dao.insertClass(cls);
+			dao.updateReclass(cls);
 			sqlsession.commit();
 			res = 1;
 		}catch(Exception e) {
+			sqlsession.rollback();
 			e.printStackTrace();
+		}finally {
+			sqlsession.close();
 		}
 		return res;
 	}
-
 }

@@ -18,20 +18,19 @@ public class TestCarDataService2 {
 	public static void setUpBeforeClass() throws Exception {
 		service = service.getInstance();
 	}
-
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		service = null;
 	}
-
 	@Test
 	public void test1InsertMemberData() {
-		
 		List<Class> lists = service.selectByreclass(true);
 		for(Class c : lists) {
-			System.out.println(c);
+			Date date = new Date();
+			date.setMonth(date.getMonth()+1);
+			date.setDate(1);
+			c.setS_day(date);
+			service.updateReclass(c);
 		}
-		
-		
 	}
 }

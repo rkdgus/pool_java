@@ -33,7 +33,7 @@
 	<select id="selectByreclass" resultType="Class" parameterType="Boolean">
 		select * from class where reclass = #{reclass}
 	</select>
-	<update id="updateReclass">
+	<update id="updateReclass" parameterType="Class">
 		update class set reclass = false where cno = #{cno}
 	</update>
 </mapper>
