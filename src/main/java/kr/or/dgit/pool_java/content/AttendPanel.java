@@ -151,7 +151,7 @@ public class AttendPanel extends JPanel {
 				}
 				String str = comboBox.getSelectedItem()+"";
 				
-				String[] arr =str.split(".");
+				String[] arr =str.split("/");
 				str = arr[0];
 				String str1 =arr[1];
 				

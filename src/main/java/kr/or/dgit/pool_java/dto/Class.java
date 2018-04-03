@@ -69,7 +69,7 @@ public class Class {
 	
 	@Override
 	public String toString() {
-		return  cno + "." + time.replace("00분", "") + ", " + level ;
+		return  cno + "/" + time.replace("00분", "") + ", " + level ;
 	}
 	public Class() {}
 	
