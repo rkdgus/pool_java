@@ -112,6 +112,7 @@ public class ClassSchedule extends JPanel {
 		add(btnSearch);
 		
 		cmbSearch = new JComboBox<String>();
+		cmbSearch.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		cmbSearch.setModel(new DefaultComboBoxModel(new String[] {"전체보기","강사명", "레벨"}));
 		cmbSearch.setBounds(222, 29, 89, 24);
 		add(cmbSearch);
