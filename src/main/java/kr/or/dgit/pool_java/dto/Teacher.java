@@ -77,6 +77,17 @@ public class Teacher {
 		this.tell = tell;
 		this.title = title;
 	}
+	
+	
+
+	public Teacher(int tno, String name, String tell, String title, String pw) {
+		super();
+		this.tno = tno;
+		this.name = name;
+		this.tell = tell;
+		this.title = title;
+		this.pw = pw;
+	}
 
 	public Teacher(String name, String tell, String title, String pw) {
 		super();

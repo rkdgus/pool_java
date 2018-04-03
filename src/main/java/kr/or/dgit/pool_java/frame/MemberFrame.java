@@ -22,7 +22,11 @@ import kr.or.dgit.pool_java.content.SalesPanel;
 import kr.or.dgit.pool_java.content.StancePanel;
 import kr.or.dgit.pool_java.content.TeacherContent;
 import kr.or.dgit.pool_java.dto.Class;
+import kr.or.dgit.pool_java.dto.Member;
+import kr.or.dgit.pool_java.dto.Teacher;
 import kr.or.dgit.pool_java.service.ClassService;
+import kr.or.dgit.pool_java.service.MemberService;
+import kr.or.dgit.pool_java.service.TeacherService;
 
 
 public class MemberFrame extends JFrame {
@@ -79,7 +83,13 @@ public class MemberFrame extends JFrame {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						memberContent.getMno().setEnabled(false);
+						int mno = Integer.parseInt(memberContent.getMno().getText());
+						Member m = MemberService.getInstance().selectMno(mno);
+							memberContent.getMno().setEnabled(false);
+						if(m !=null) {
+							memberContent.barCodeData(m,mno);
+						}
+						
 					}
 				});
 			}
@@ -126,6 +136,19 @@ public class MemberFrame extends JFrame {
 				TeacherContent teacherContent = new TeacherContent();
 				panel.selectItem("강사관리");
 				contentCall(teacherContent);
+				teacherContent.getTno().requestFocus();
+				teacherContent.getTno().addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						teacherContent.getTno().setEnabled(false);
+						int tno = Integer.parseInt(teacherContent.getTno().getText());
+						Teacher t = TeacherService.getInstance().selectByNo(tno);
+						if(t!=null) {
+							teacherContent.setBarCode(t);
+						}
+					}
+				});
 			}
 		});
 		
@@ -150,4 +173,5 @@ public class MemberFrame extends JFrame {
 			ClassService.getInstance().updateReclass(cls);
 		}
 	}
+	
 }

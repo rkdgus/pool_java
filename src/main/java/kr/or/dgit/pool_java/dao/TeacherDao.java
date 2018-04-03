@@ -13,6 +13,5 @@ public interface TeacherDao {
 	public int deleteTeacher(int tno);
 	public List<Teacher> searchTitle(String title);
 	public List<Teacher> searchName(String name);
-	public List<Teacher> searchTno(String tno);
 	public int quitTeacher(Teacher teacher);
 }
