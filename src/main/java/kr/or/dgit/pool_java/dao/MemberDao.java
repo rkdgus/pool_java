@@ -11,5 +11,4 @@ public interface MemberDao {
 	public void updateMember(Member member);
 	public Member selectMno(int mno);
 	public List<Member> selectSearchName(String name);
-	public List<Member> selectSearchMno(String mno);
 }

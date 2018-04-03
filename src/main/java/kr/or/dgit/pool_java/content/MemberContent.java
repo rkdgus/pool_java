@@ -250,7 +250,6 @@ public class MemberContent extends JPanel {
 		comboBox.setBounds(12, 10, 138, 35);
 		add(comboBox);
 		comboBox.addItem("전체보기");
-		comboBox.addItem("회원번호");
 		comboBox.addItem("이름");
 		comboBox.addItem("수강반");
 
@@ -320,6 +319,7 @@ public class MemberContent extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				mno.setEnabled(true);
 				int no = Integer.parseInt(mno.getText());
 				int cno = Integer.parseInt(classCombo.getSelectedItem().toString());
 				
@@ -370,6 +370,7 @@ public class MemberContent extends JPanel {
 				classupdate.setVisible(false);
 				backBtn.setVisible(false);
 				reenterBtn.setVisible(false);
+				mno.setEnabled(true);
 			}
 		});
 
@@ -385,6 +386,7 @@ public class MemberContent extends JPanel {
 				addBtn.setVisible(true);
 				reenterBtn.setVisible(false);
 				loadData();
+				mno.setEnabled(true);
 
 			}
 		});
@@ -441,10 +443,7 @@ public class MemberContent extends JPanel {
 		if (type.equals("이름")) {
 			list = MemberService.getInstance().selectSearchName("%" + keyword + "%");
 		}
-		if (type.equals("회원번호")) {
-			list = MemberService.getInstance().selectSearchMno("%" + keyword + "%");
-		}
-
+	
 		Object[][] data = new Object[list.size()][];
 
 		for (int i = 0; i < list.size(); i++) {
@@ -490,6 +489,7 @@ public class MemberContent extends JPanel {
 				classupdate.setVisible(true);
 				backBtn.setVisible(true);
 				reenterBtn.setVisible(false);
+				mno.setEnabled(false);
 			}
 		});
 		menuItem2.addActionListener(new ActionListener() {
@@ -517,7 +517,7 @@ public class MemberContent extends JPanel {
 				memupdate.setVisible(false);
 				classupdate.setVisible(false);
 				backBtn.setVisible(true);
-				
+				mno.setEnabled(false);
 				List<Class> list = ClassService.getInstance().selectByNextMonth("");
 				classCombo.removeAllItems();
 				classCombo.addItem("선택");
@@ -610,6 +610,7 @@ public class MemberContent extends JPanel {
 	}
 
 	private void getMemberData() {
+	
 		int row = table.getSelectedRow();
 		int no = (int) table.getValueAt(row, 0);
 
@@ -663,7 +664,7 @@ public class MemberContent extends JPanel {
 		tell2.setText(t2);
 		tell3.setText(t3);
 	}
-
+	
 	private void clearText() {
 		name.setText("");
 		tell1.setText("");
@@ -684,5 +685,71 @@ public class MemberContent extends JPanel {
 		return mno;
 	}
 	
+	public void barCodeData(Member m,int no) {
+		
+		mno.setText(m.getMno() + "");
+		name.setText(m.getName());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		regdatetf.setText(sdf.format(m.getDate()));
+
+		if (m.getGender().equals("남")) {
+			womenRadio.setSelected(false);
+			menRadio.setSelected(true);
+		} else if (m.getGender().equals("여")) {
+			menRadio.setSelected(false);
+			womenRadio.setSelected(true);
+		}
+		
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("mno", no);
+		Date d = new Date();
+		
+		d.setDate(1);
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+		map.put("s_day",sdf2.format(d));
+		
+		Class c = RegisterService.getInstance().selectByMno(map);
+		
+		classCombo.setSelectedItem(c.getCno()+"");
+		String total = String.valueOf(m.getAge());
+		String y = total.substring(0, 4);
+		year.setSelectedItem(y);
+
+		String m2 = total.substring(4, 6);
+		month.setSelectedItem(m2);
+
+		String d2 = total.substring(6, total.length());
+		day.setSelectedItem(d2);
+
+		String totale = m.getEmail();
+		String em = totale.substring(0, totale.indexOf("@"));
+		email1.setText(em);
+
+		String emaddr = totale.substring(totale.indexOf("@") + 1);
+		emailAddr.setText(emaddr);
+
+		String phone = m.getTell();
+		String t1 = phone.substring(0, phone.indexOf("-"));
+		String t2 = phone.substring(phone.indexOf("-") + 1, phone.lastIndexOf("-"));
+		String t3 = phone.substring(phone.lastIndexOf("-") + 1);
+		tell1.setText(t1);
+		tell2.setText(t2);
+		tell3.setText(t3);
+		
+		reenterBtn.setVisible(true);
+		addBtn.setVisible(false);
+		memupdate.setVisible(false);
+		classupdate.setVisible(false);
+		backBtn.setVisible(true);
+		mno.setEnabled(false);
+		
+		List<Class> list =ClassService.getInstance().selectByNextMonth("");
+		classCombo.removeAllItems();
+		classCombo.addItem("선택");
+		for (int i = 0; i < list.size(); i++) {
+			classCombo.addItem(list.get(i).getCno() + "");
+		}
+		
+	}
 	
 }

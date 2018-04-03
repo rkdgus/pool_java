@@ -115,17 +115,6 @@ public class TeacherService implements TeacherDao {
 	}
 
 	@Override
-	public List<Teacher> searchTno(String tno) {
-		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
-			dao = sqlsession.getMapper(TeacherDao.class);
-			return dao.searchTno(tno);
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@Override
 	public int quitTeacher(Teacher teacher) {
 		int res = -1;
 		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
