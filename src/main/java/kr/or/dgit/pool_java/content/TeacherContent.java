@@ -50,7 +50,6 @@ public class TeacherContent extends JPanel {
 		searchCombo = new JComboBox<>();
 		searchCombo.setBounds(23, 22, 117, 30);
 		searchCombo.addItem("전체보기");
-		searchCombo.addItem("강사번호");
 		searchCombo.addItem("이름");
 		searchCombo.addItem("직급");
 		add(searchCombo);
@@ -111,6 +110,14 @@ public class TeacherContent extends JPanel {
 		tell1 = new JTextField();
 		tell1.setColumns(10);
 		tell1.setBounds(662, 218, 66, 30);
+		tell1.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+			}
+			
+		});
 		add(tell1);
 		
 		JLabel telllbl1 = new JLabel("-");
@@ -132,12 +139,13 @@ public class TeacherContent extends JPanel {
 		add(tell3);
 		
 		addBtn = new JButton("추가");
-		addBtn.setBounds(802, 357, 75, 23);
+		addBtn.setBounds(725, 357, 75, 23);
 		addBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				TeacherService.getInstance().insertTeacher(getTextData("insert"));
+				tno.setEnabled(true);
 				clearField();
 				loadData();
 			}
@@ -156,6 +164,7 @@ public class TeacherContent extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount()==2) {
+					tno.setEnabled(false);
 					setTextData();
 				}
 			}
@@ -190,6 +199,7 @@ public class TeacherContent extends JPanel {
 				cancel.setVisible(false);
 				updateBtn.setVisible(false);
 				addBtn.setVisible(true);
+				tno.setEnabled(true);
 				loadData();
 				clearField();
 			}
@@ -211,15 +221,14 @@ public class TeacherContent extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cancel.setVisible(false);
 				updateBtn.setVisible(false);
 				addBtn.setVisible(true);
+				tno.setEnabled(true);
 				clearField();
 			}
 		});
 		cancel.setBounds(802, 357, 75, 23);
 		add(cancel);
-		cancel.setVisible(false);
 		updateBtn.setVisible(false);
 		
 	}
@@ -314,6 +323,7 @@ public class TeacherContent extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				tno.setEnabled(false);
 				setTextData();
 			}
 		});      
@@ -386,5 +396,24 @@ public class TeacherContent extends JPanel {
 			}
 	
 		return data;
+	}
+
+	public JTextField getTno() {
+		return tno;
+	}
+	
+	public void setBarCode(Teacher t) {
+		tno.setText(String.valueOf(t.getTno()));
+		name.setText(t.getName());
+		titleCombo.setSelectedItem(t.getTitle());
+		
+		String phone = t.getTell();
+		tell1.setText(phone.substring(0, phone.indexOf("-")));
+		tell2.setText(phone.substring(phone.indexOf("-")+1,phone.lastIndexOf("-")));
+		tell3.setText(phone.substring(phone.lastIndexOf("-")+1));
+		
+		updateBtn.setVisible(true);
+		cancel.setVisible(true);
+		addBtn.setVisible(false);
 	}
 }

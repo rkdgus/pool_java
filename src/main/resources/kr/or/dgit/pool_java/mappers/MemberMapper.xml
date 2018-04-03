@@ -13,9 +13,6 @@
 	<select id="selectSearchName" resultType="Member">
 		select * from member where name like #{name}
 	</select>
-	<select id="selectSearchMno" resultType="Member">
-		select * from member where mno like #{mno}
-	</select>
 	
 	<insert id="insertMember" parameterType="Member">
 		insert into member(mno,name,age,tell,email,gender,pw) values(#{mno},#{name}, #{age}, #{tell}, #{email}, #{gender},password(#{pw}))
