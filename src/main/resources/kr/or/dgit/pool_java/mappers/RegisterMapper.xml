@@ -24,6 +24,10 @@
 		select count(cno) from register where cno = #{cno}
 	</select>
 	
+	<select id="selectByCno" parameterType="int" resultType="Register">
+		select * from register where cno = #{cno}
+	</select>
+	
 	<update id="updateReenter" parameterType="Register">
 		update register set reentrance=#{reentrance} where mno=#{mno} and cno=#{cno}
 	</update>

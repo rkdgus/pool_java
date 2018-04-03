@@ -1,5 +1,6 @@
 package kr.or.dgit.pool_java.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -58,6 +59,15 @@ public class AttendanceService implements AttendanceDao{
 		}
 		
 	}
+
+	@Override
+	public List<Attendance> selectDate(Attendance attendance) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(AttendanceDao.class);
+			return dao.selectDate(attendance);
+		}
+	}
+
 	
 
 }

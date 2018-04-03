@@ -16,4 +16,5 @@ public interface RegisterDao {
 	public void updateReenter(Register register);
 	public int selectByTnoCount(Class c);
 	public int reenter(Class c);
+	public List<Register> selectByCno(int cno);
 }

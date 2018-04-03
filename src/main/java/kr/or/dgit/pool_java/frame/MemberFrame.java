@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.dgit.pool_java.content.AdminSidebar;
+import kr.or.dgit.pool_java.content.AttendPanel;
 import kr.or.dgit.pool_java.content.ClassSchedule;
 import kr.or.dgit.pool_java.content.MemberContent;
 import kr.or.dgit.pool_java.content.NewClassSchedule;
@@ -120,6 +122,21 @@ public class MemberFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				TeacherContent teacherContent = new TeacherContent();
 				contentCall(teacherContent);
+			}
+		});
+		
+		panel.getAttend().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AttendPanel attendPanel;
+				try {
+					attendPanel = new AttendPanel();
+					contentCall(attendPanel);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+				
 			}
 		});
 		

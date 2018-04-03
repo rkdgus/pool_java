@@ -20,6 +20,19 @@ public class AdminSidebar extends JPanel {
 	private JLabel teacher;
 	private JLabel come;
 	private JLabel sales;
+	private JLabel attend;
+	public JLabel getAttend() {
+		return attend;
+	}
+
+
+
+	public void setAttend(JLabel attend) {
+		this.attend = attend;
+	}
+
+
+
 	/**
 	 * Create the panel.
 	 */
@@ -94,12 +107,12 @@ public class AdminSidebar extends JPanel {
 		add(reclass);
 
 		
-		JLabel locker = new JLabel("출석부");
-		locker.setForeground(Color.WHITE);
-		locker.setFont(new Font("맑은 고딕", Font.BOLD, 17));
-		locker.setBounds(39, 72, 162, 28);
-		locker.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		add(locker);
+		attend = new JLabel("출석부");
+		attend.setForeground(Color.WHITE);
+		attend.setFont(new Font("맑은 고딕", Font.BOLD, 17));
+		attend.setBounds(39, 72, 162, 28);
+		attend.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		add(attend);
 		
 		come = new JLabel("입장");
 		come.setForeground(Color.WHITE);

@@ -6,6 +6,10 @@
 		select * from attendance
 	</select>
 	
+	<select id="selectDate" resultType="Attendance">
+		select * from attendance where mno = #{mno} and date like #{date}
+	</select>
+	
 	<insert id="insertAttendance" parameterType="Attendance">
 		insert into attendance(date,mno) values(#{date}, #{mno})
 	</insert>
