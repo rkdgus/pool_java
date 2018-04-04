@@ -81,6 +81,7 @@ public class AdminSidebar extends JPanel {
 		add(classqna);
 		
 		btnNewButton = new JButton("로그아웃");
+		btnNewButton.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		btnNewButton.setBounds(29, 498, 148, 33);
 		add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {

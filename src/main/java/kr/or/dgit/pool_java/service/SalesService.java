@@ -105,4 +105,12 @@ public class SalesService implements SalesDao {
 		}
 	}
 
+	@Override
+	public Sales lastSales(String day) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(SalesDao.class);
+			return dao.lastSales("%"+day+"%");
+		}
+	}
+
 }

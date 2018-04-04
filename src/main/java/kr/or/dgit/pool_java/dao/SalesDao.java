@@ -12,4 +12,5 @@ public interface SalesDao {
 	public int deleteSales(int sales);
 	public List<Sales> selectDate(String day);
 	public int selectSum(String day);
+	public Sales lastSales(String day);
 }
