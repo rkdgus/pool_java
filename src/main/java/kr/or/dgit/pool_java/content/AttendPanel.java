@@ -52,6 +52,9 @@ public class AttendPanel extends JPanel {
 	private JComboBox yearBox;
 	private JComboBox monthBox;
 	private JComboBox comboBox;
+	private JComboBox comboBox_1;
+	private JComboBox monthBox_1;
+	private JComboBox yearBox_1;
 
 	/**
 	 * Create the panel.
@@ -87,11 +90,11 @@ public class AttendPanel extends JPanel {
 		JComboBox yearBox = new JComboBox();
 		yearBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 
-		yearBox = new JComboBox();
+		yearBox_1 = new JComboBox();
 
 
-		yearBox.setBounds(54, 11, 81, 30);
-		add(yearBox);
+		yearBox_1.setBounds(54, 11, 81, 30);
+		add(yearBox_1);
 		Date d = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
 		SimpleDateFormat sf1 = new SimpleDateFormat("MM");
@@ -101,16 +104,16 @@ public class AttendPanel extends JPanel {
 		for (int i = 2017; i <= year; i++) {
 			yearBox.addItem(i);
 		}
-		yearBox.setSelectedItem(year);
-<<<<<<< HEAD
+		yearBox_1.setSelectedItem(year);
+
 		JComboBox monthBox = new JComboBox();
 		monthBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-=======
-		monthBox = new JComboBox();
->>>>>>> branch 'master' of https://github.com/rkdgus/pool_java.git
 
-		monthBox.setBounds(173, 11, 54, 30);
-		add(monthBox);
+		monthBox_1 = new JComboBox();
+
+
+		monthBox_1.setBounds(173, 11, 54, 30);
+		add(monthBox_1);
 		String mm = "";
 		for (int i = 1; i <= 12; i++) {
 			if (i < 10) {
@@ -120,16 +123,16 @@ public class AttendPanel extends JPanel {
 			}
 			monthBox.addItem(mm);
 		}
-		monthBox.setSelectedItem(sf1.format(d));
+		monthBox_1.setSelectedItem(sf1.format(d));
 
-<<<<<<< HEAD
+
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-=======
-		comboBox = new JComboBox();
->>>>>>> branch 'master' of https://github.com/rkdgus/pool_java.git
-		comboBox.setBounds(274, 10, 160, 30);
-		add(comboBox);
+
+		comboBox_1 = new JComboBox();
+
+		comboBox_1.setBounds(274, 10, 160, 30);
+		add(comboBox_1);
 
 		JLabel lblNewLabel = new JLabel("년");
 		lblNewLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
@@ -150,13 +153,13 @@ public class AttendPanel extends JPanel {
 		add(title);
 		title.setText("출석부");
 
-		List<Class> items = cDao.selectByTime(yearBox.getSelectedItem() + "-" + monthBox.getSelectedItem() + "-01");
+		List<Class> items = cDao.selectByTime(yearBox_1.getSelectedItem() + "-" + monthBox_1.getSelectedItem() + "-01");
 
 		for (Class c : items) {
 			comboBox.addItem(c.toString());
 		}
 
-		yearBox.addActionListener(new ActionListener() {
+		yearBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				comboBox.removeAllItems();
 				List<Class> items = cDao
@@ -169,7 +172,7 @@ public class AttendPanel extends JPanel {
 				}
 			}
 		});
-		monthBox.addActionListener(new ActionListener() {
+		monthBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				comboBox.removeAllItems();
 				List<Class> items = cDao
@@ -183,7 +186,7 @@ public class AttendPanel extends JPanel {
 			}
 		});
 
-		comboBox.addActionListener(new ActionListener() {
+		comboBox_1.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
