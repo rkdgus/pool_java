@@ -34,6 +34,7 @@ import org.jdesktop.xswingx.PromptSupport;
 import kr.or.dgit.pool_java.dao.TeacherDao;
 import kr.or.dgit.pool_java.dto.Teacher;
 import kr.or.dgit.pool_java.service.TeacherService;
+import java.awt.Font;
 
 public class Login extends JFrame {
 
@@ -100,6 +101,7 @@ public class Login extends JFrame {
 
 		// 아이디 필드
 		IdField = new JTextField();
+		IdField.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		IdField.setText("아이디를 입력하세요");
 				
 		// 아이디 필드 포거스 시 글자 선택
@@ -140,6 +142,7 @@ public class Login extends JFrame {
 
 		// 로그인 버튼
 		JButton btnLogin = new JButton("\uB85C\uADF8\uC778");
+		btnLogin.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		btnLogin.setBounds(363, 367, 140, 34);
 		
 		// 로그인 버튼 리스너

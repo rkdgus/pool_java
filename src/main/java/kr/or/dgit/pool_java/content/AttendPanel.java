@@ -68,6 +68,7 @@ public class AttendPanel extends JPanel {
 		scrollPane.setViewportView(table);
 
 		JButton btnNewButton = new JButton("프린트");
+		btnNewButton.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				excelFile();
@@ -80,6 +81,7 @@ public class AttendPanel extends JPanel {
 		loadDataPrice(lists, 4, 2018);
 
 		JComboBox yearBox = new JComboBox();
+		yearBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 
 		yearBox.setBounds(54, 11, 81, 30);
 		add(yearBox);
@@ -94,6 +96,7 @@ public class AttendPanel extends JPanel {
 		}
 		yearBox.setSelectedItem(year);
 		JComboBox monthBox = new JComboBox();
+		monthBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 
 		monthBox.setBounds(173, 11, 54, 30);
 		add(monthBox);
@@ -109,21 +112,24 @@ public class AttendPanel extends JPanel {
 		monthBox.setSelectedItem(sf1.format(d));
 
 		JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		comboBox.setBounds(274, 10, 160, 30);
 		add(comboBox);
 
 		JLabel lblNewLabel = new JLabel("년");
+		lblNewLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(135, 10, 39, 38);
 		add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("월");
+		lblNewLabel_1.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(224, 10, 39, 38);
 		add(lblNewLabel_1);
 
 		JLabel title = new JLabel("");
-		title.setFont(new Font("굴림", Font.BOLD, 17));
+		title.setFont(new Font("맑은 고딕", Font.BOLD, 17));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setBounds(303, 50, 259, 39);
 		add(title);

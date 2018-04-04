@@ -23,6 +23,7 @@ import kr.or.dgit.pool_java.dto.Class;
 import kr.or.dgit.pool_java.dto.Teacher;
 import kr.or.dgit.pool_java.service.ClassService;
 import kr.or.dgit.pool_java.service.TeacherService;
+import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
 public class ClassScheduleUpdate extends JFrame {
@@ -50,6 +51,7 @@ public class ClassScheduleUpdate extends JFrame {
 		
 		cmbModel = new DefaultComboBoxModel<String>(getDate());
 		JComboBox<String> comboBox = new JComboBox<String>(cmbModel);
+		comboBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		cmbModel.setSelectedItem(name);
 		comboBox.setBounds(130, 40, 116, 21);
 		panel.add(comboBox);
@@ -60,11 +62,14 @@ public class ClassScheduleUpdate extends JFrame {
 		panel.add(lblNewLabel_1);
 		
 		JSpinner spinner = new JSpinner();
+		spinner.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spinner.setBounds(130, 71, 116, 22);
 		spinner.setValue(classmate);
 		panel.add(spinner);
 		
 		JButton btnUpdate = new JButton("수정");
+		btnUpdate.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		btnUpdate.setBounds(183, 136, 97, 23);
 		btnUpdate.addActionListener(new ActionListener() {
 			@Override
@@ -94,6 +99,7 @@ public class ClassScheduleUpdate extends JFrame {
 		panel.add(btnUpdate);
 		
 		JButton btnCancel = new JButton("취소");
+		btnCancel.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);

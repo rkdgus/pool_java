@@ -26,6 +26,7 @@ import kr.or.dgit.pool_java.service.ClassService;
 import kr.or.dgit.pool_java.service.TeacherService;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
 public class ClassInfoFrame extends JFrame {
@@ -55,6 +56,7 @@ public class ClassInfoFrame extends JFrame {
 		panel.add(lblNewLabel);
 
 		tfCno = new JTextField();
+		tfCno.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tfCno.setEditable(false);
 		tfCno.setBounds(81, 17, 116, 21);
 		panel.add(tfCno);
@@ -67,6 +69,7 @@ public class ClassInfoFrame extends JFrame {
 		panel.add(lblNewLabel_1);
 
 		JComboBox cmbTime = new JComboBox();
+		cmbTime.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		cmbTime.setBounds(81, 78, 116, 21);
 		cmbTime.setModel(new DefaultComboBoxModel(
 				new String[] { "06시 00분", "07시 00분", "08시 00분", "09시 00분", "10시 00분", "11시 00분", "13시 00분", "14시 00분",
@@ -79,6 +82,7 @@ public class ClassInfoFrame extends JFrame {
 		panel.add(lblNewLabel_2);
 
 		JComboBox cmbLevel = new JComboBox();
+		cmbLevel.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		cmbLevel.setBounds(81, 139, 116, 21);
 		cmbLevel.setModel(
 				new DefaultComboBoxModel(new String[] { "초급", "중급", "상급", "고급", "연수", "노인반", "어린이반", "방학특강" }));
@@ -91,6 +95,7 @@ public class ClassInfoFrame extends JFrame {
 		panel.add(lblNewLabel_3);
 		cmbModel = new DefaultComboBoxModel<String>(getDate());
 		JComboBox<String> cmbTName = new JComboBox<String> (cmbModel);
+		cmbTName.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		cmbTName.setBounds(308, 17, 116, 21);
 		panel.add(cmbTName);
 		Teacher t = TeacherService.getInstance().selectByNo(cls.getTno());
@@ -101,6 +106,8 @@ public class ClassInfoFrame extends JFrame {
 		panel.add(lblNewLabel_4);
 
 		JSpinner spinner = new JSpinner();
+		spinner.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spinner.setBounds(308, 74, 116, 22);
 		spinner.setValue(cls.getClassmate());
 		panel.add(spinner);
@@ -118,6 +125,7 @@ public class ClassInfoFrame extends JFrame {
 			chckbxNewCheckBox.setSelected(true);
 		}
 		JButton button = new JButton("확인");
+		button.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -128,6 +136,7 @@ public class ClassInfoFrame extends JFrame {
 		panel.add(button);
 
 		JButton button_1 = new JButton("수정");
+		button_1.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		button_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
