@@ -311,17 +311,6 @@ public class TeacherContent extends JPanel {
 			}
 		});
 
-		titleCombo.setBounds(662, 273, 106, 30);
-		titleCombo.addItem("선택");
-		titleCombo.addItem("사원");
-		titleCombo.addItem("대리");
-		titleCombo.addItem("과장");
-		titleCombo.addItem("차장");
-		titleCombo.addItem("부장");
-		titleCombo.addItem("이사");
-		titleCombo.addItem("사장");
-		add(titleCombo);
-
 		cancel = new JButton("취소");
 		cancel.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		cancel.addActionListener(new ActionListener() {

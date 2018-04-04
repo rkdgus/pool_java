@@ -18,6 +18,11 @@
 		select * from teacher
 		<include refid="whereSelect" />
 	</select>
+	
+	<select id="realTeacher" resultType="Teacher">
+		select * from teacher where title !='퇴사'
+	</select>
+	
 	<select id="selectByNo" resultType="Teacher" parameterType="int">
 		select * from teacher where tno = #{tno}
 	</select>

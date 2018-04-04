@@ -52,12 +52,12 @@ public class MemberFrame extends JFrame {
 	private JPanel content;
 
 	private MemberFrame() {
-		
+		/*
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Image img = tk.getImage(System.getProperty("user.dir") + "\\images\\Instapaper icon.png");
 		setIconImage(img);
 		
-		setTitle("수영장 관리");
+		setTitle("수영장 관리");*/
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -137,7 +137,7 @@ public class MemberFrame extends JFrame {
 		panel.getClassqna().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				NewClassSchedule newClassShchedule = NewClassSchedule.getInstance();
+				NewClassSchedule newClassShchedule = new NewClassSchedule();
 				panel.selectItem("신규수강관리");
 				contentCall(newClassShchedule);
 			}

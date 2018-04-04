@@ -16,4 +16,5 @@ public interface TeacherDao {
 	public int quitTeacher(Teacher teacher);
 	public List<Teacher> findId(String id);
 	public Teacher login(Teacher teacher);
+	public List<Teacher> realTeacher();
 }
