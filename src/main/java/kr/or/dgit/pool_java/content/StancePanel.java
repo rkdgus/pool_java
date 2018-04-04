@@ -34,6 +34,7 @@ import kr.or.dgit.pool_java.service.SalesService;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
 
 public class StancePanel extends JPanel {
 	private JTextField noTf;
@@ -68,11 +69,13 @@ public class StancePanel extends JPanel {
 		noP.setLayout(new GridLayout(1, 0, 0, 0));
 
 		JLabel noLbl = new JLabel("회원번호");
+		noLbl.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		noLbl.setBackground(Color.LIGHT_GRAY);
 		noLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		noP.add(noLbl);
 
 		noTf = new JTextField();
+		noTf.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 
 		noP.add(noTf);
 		noTf.setColumns(10);
@@ -82,10 +85,12 @@ public class StancePanel extends JPanel {
 		nameP.setLayout(new GridLayout(1, 0, 0, 0));
 
 		JLabel nameLbl = new JLabel("이름");
+		nameLbl.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		nameLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		nameP.add(nameLbl);
 
 		nameTf = new JTextField();
+		nameTf.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		nameTf.setEnabled(false);
 		nameTf.setColumns(10);
 		nameP.add(nameTf);
@@ -95,10 +100,12 @@ public class StancePanel extends JPanel {
 		ageP.setLayout(new GridLayout(1, 0, 0, 0));
 
 		JLabel ageLbl = new JLabel("나이");
+		ageLbl.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		ageLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		ageP.add(ageLbl);
 
 		ageTf = new JTextField();
+		ageTf.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		ageTf.setEnabled(false);
 		ageTf.setColumns(10);
 		ageP.add(ageTf);
@@ -108,10 +115,12 @@ public class StancePanel extends JPanel {
 		tellP.setLayout(new GridLayout(1, 0, 0, 0));
 
 		JLabel tellLbl = new JLabel("전화번호");
+		tellLbl.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		tellLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		tellP.add(tellLbl);
 
 		tellTf = new JTextField();
+		tellTf.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tellTf.setEnabled(false);
 		tellTf.setColumns(10);
 		tellP.add(tellTf);
@@ -121,10 +130,12 @@ public class StancePanel extends JPanel {
 		genderP.setLayout(new GridLayout(1, 0, 0, 0));
 
 		JLabel genderLbl = new JLabel("성별");
+		genderLbl.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		genderLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		genderP.add(genderLbl);
 
 		genderTf = new JTextField();
+		genderTf.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		genderTf.setEnabled(false);
 		genderTf.setColumns(10);
 		genderP.add(genderTf);
@@ -134,10 +145,12 @@ public class StancePanel extends JPanel {
 		todayP.setLayout(new GridLayout(1, 0, 0, 0));
 
 		JLabel toDayLbl = new JLabel("입장시간");
+		toDayLbl.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		toDayLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		todayP.add(toDayLbl);
 
 		todayTf = new JTextField();
+		todayTf.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 
 		todayTf.setEnabled(false);
 		todayTf.setColumns(10);
@@ -155,14 +168,17 @@ public class StancePanel extends JPanel {
 		add(tabbedPane);
 
 		JPanel men = new JPanel();
+		men.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tabbedPane.addTab("남자 탈의실", null, men, null);
 		men.setLayout(new GridLayout(1, 0, 0, 0));
 
 		JPanel women = new JPanel();
+		women.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tabbedPane.addTab("여자 탈의실", null, women, null);
 		women.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnNewButton = new JButton("일일 입장");
+		btnNewButton.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

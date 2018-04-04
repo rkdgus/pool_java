@@ -95,6 +95,7 @@ public class NewClassSchedule extends JPanel {
 		lblTitle.setText(cal.get(Calendar.YEAR)+"년 " + (cal.get(Calendar.MONTH)+2)+"월");
 		
 		tfSearch = new JTextField();
+		tfSearch.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tfSearch.setBounds(369, 27, 308, 24);
 		add(tfSearch);
 		tfSearch.setColumns(10);
@@ -130,7 +131,7 @@ public class NewClassSchedule extends JPanel {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1), "신규 강의 개설", TitledBorder.LEADING, TitledBorder.TOP, new Font(null, Font.BOLD, 18), new Color(0, 0, 0)));
+		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1), "신규 강의 개설", TitledBorder.LEADING, TitledBorder.TOP, new Font("맑은 고딕", Font.BOLD, 18), new Color(0, 0, 0)));
 		panel.setBounds(14, 59, 244, 482);
 		add(panel);
 		
