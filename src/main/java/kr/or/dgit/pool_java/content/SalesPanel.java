@@ -40,7 +40,7 @@ public class SalesPanel extends JPanel {
 	private JTable table_1;
 	private SalesDao sDao;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	
+	private JPanel chart;
 
 	/**
 	 * Create the panel.
@@ -163,9 +163,9 @@ public class SalesPanel extends JPanel {
 		sum.setBounds(81, 0, 204, 45);
 		panel_1.add(sum);
 		
-		JPanel panel_3 = new Chart();
-		panel_3.setBounds(296, 76, 609, 424);
-		add(panel_3);
+		chart = new Chart();
+		chart.setBounds(296, 76, 609, 424);
+		add(chart);
 		
 		JLabel lblNewLabel_1 = new JLabel("단위-만원");
 		lblNewLabel_1.setBounds(836, 501, 57, 15);
@@ -246,6 +246,7 @@ public class SalesPanel extends JPanel {
 				SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
 				List<Sales> lists = sDao.selectDate(sd.format(d));
 				loadDataPrice(lists);
+
 				if(lists.size()==0) {
 					sum.setText("0원");
 					
@@ -254,6 +255,10 @@ public class SalesPanel extends JPanel {
 					
 				}
 				setTable();
+				chart = new Chart();
+				chart.setBounds(296, 76, 609, 424);
+				add(chart);
+				/*chart = new Chart();*/
 			}
 		});
 			
