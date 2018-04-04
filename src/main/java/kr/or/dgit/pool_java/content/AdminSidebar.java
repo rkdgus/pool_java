@@ -5,10 +5,15 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
+
+import kr.or.dgit.pool_java.frame.MemberFrame;
+
 import javax.swing.SwingConstants;
 
 public class AdminSidebar extends JPanel {
@@ -42,6 +47,7 @@ public class AdminSidebar extends JPanel {
 	private JLabel lAttendanceBg;
 	private JPanel pTeacherBg;
 	private JPanel pUserBg;
+	private JLabel salesTitle;
 
 	public AdminSidebar() {
 		setBounds(10, 10, 236, 550);
@@ -77,6 +83,13 @@ public class AdminSidebar extends JPanel {
 		btnNewButton = new JButton("로그아웃");
 		btnNewButton.setBounds(29, 498, 148, 33);
 		add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(-1);
+			}
+		});
 		
 		member = new JLabel("회원관리");
 		member.setForeground(Color.WHITE);
@@ -92,7 +105,7 @@ public class AdminSidebar extends JPanel {
 		teacher.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(teacher);
 		
-		JLabel salesTitle = new JLabel("매출관리");
+		salesTitle = new JLabel("매출관리");
 		salesTitle.setForeground(Color.WHITE);
 		salesTitle.setFont(new Font("맑은 고딕", Font.BOLD, 17));
 		salesTitle.setBounds(39, 353, 162, 28);
@@ -233,6 +246,14 @@ public class AdminSidebar extends JPanel {
 			break;
 		}
 	}
+	
+	
+	public JLabel getSalesTitle() {
+		return salesTitle;
+	}
+
+
+
 	private void bgSetVisbleFalse() {
 		pTeacherBg.setVisible(false);
 		pUserBg.setVisible(false);

@@ -33,26 +33,21 @@ import kr.or.dgit.pool_java.service.TeacherService;
 
 public class MemberFrame extends JFrame {
 	private static final MemberFrame instance = new MemberFrame();
-	
+	private AdminSidebar panel;
 	public static MemberFrame getInstance() {
 		return instance;
 	}
+	
+	
+
+	public AdminSidebar getPanel() {
+		return panel;
+	}
+
+
 
 	private JPanel contentPane;
 	private JPanel content;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MemberFrame frame = MemberFrame.getInstance();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	private MemberFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,7 +57,7 @@ public class MemberFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		AdminSidebar panel = new AdminSidebar();
+		panel = new AdminSidebar();
 		panel.setBounds(12, 10, 236, 551);
 		content= new JPanel();
 		content.setBounds(253, 10, 900, 550);
@@ -70,6 +65,12 @@ public class MemberFrame extends JFrame {
 		contentPane.add(panel);
 		contentPane.add(content);
 		content.setLayout(new BorderLayout(0, 0));
+		
+		StancePanel stancePanel = new StancePanel();
+		panel.selectItem("입장");
+		contentCall(stancePanel);
+		
+		
 		Calendar cal = Calendar.getInstance();
 		if(cal.get(Calendar.DATE) >= 20) {
 			updateReclass();
@@ -160,6 +161,7 @@ public class MemberFrame extends JFrame {
 				AttendPanel attendPanel;
 				try {
 					attendPanel = new AttendPanel();
+					panel.selectItem("출석부");
 					contentCall(attendPanel);
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block

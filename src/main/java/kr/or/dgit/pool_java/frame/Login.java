@@ -111,25 +111,6 @@ public class Login extends JFrame {
 			}
 		});
 
-	/*	// 아이디 키 리스너
-		IdField.addKeyListener(new KeyAdapter() {
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// 아이디 정규표현식
-				Pattern p = Pattern.compile("(^[a-zA-Z0-9]{6,15}$)");
-				Matcher m = p.matcher(IdField.getText());
-
-				if (m.find()) {
-					idimg = new ImageIcon(System.getProperty("user.dir") + "\\Images\\check(true).png");
-					IdCheck.setIcon(idimg);
-				} else {
-					idimg = new ImageIcon(System.getProperty("user.dir") + "\\Images\\check(false).png");
-					IdCheck.setIcon(idimg);
-				}
-			}
-
-		});*/
 		IdField.setBounds(322, 234, 226, 47);
 		contentPane.add(IdField);
 		IdField.setColumns(10);
@@ -152,28 +133,7 @@ public class Login extends JFrame {
 			}
 		});
 
-	/*	// 비밀번호 리스너
-		PwField.addKeyListener(new KeyAdapter() {
 
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// 비밀번호 정규표현식
-				Pattern p = Pattern.compile("(^[a-zA-Z0-9!@#$%^&*()]{8,15}$)");
-				Matcher m = p.matcher(PwField.getText());
-
-				if (m.find()) {
-					pwimg = new ImageIcon(System.getProperty("user.dir") + "\\Images\\check(true).png");
-					PwCheck.setIcon(pwimg);
-				} else if (!m.find()) {
-					pwimg = new ImageIcon(System.getProperty("user.dir") + "\\Images\\check(false).png");
-					PwCheck.setIcon(pwimg);
-				} else {
-					PwField.requestFocus();
-					PwField.select(0, IdField.getText().length());
-				}
-			}
-
-		});*/
 
 		PwField.setBounds(322, 291, 226, 45);
 		contentPane.add(PwField);
@@ -187,38 +147,50 @@ public class Login extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int idCheck;
-				int pwCheck;
-				String Id = IdField.getText();
-				String Pw = PwField.getText();
+				
+				
+				
+				String id = IdField.getText();
+				String pw = PwField.getText();
 				int ConfirmId =-1;
-				String ConfirmPw = null;
-				Teacher ComfirmTeacher = null;
-				List<Teacher> list = dao.selectByAll();
 				
+				List<Teacher> list = TeacherService.getInstance().findId(id);
 				
-								
-				
-					for(Teacher u : list) {
-						if(Id.equals(String.valueOf( u.getTno()))) {
-							ConfirmId = u.getTno();
-							if(Pw.equals(u.getPw())) {
-								ConfirmPw = u.getPw();
-								ComfirmTeacher = u;
-								break;
+				if(list.size()==0) {
+					JOptionPane.showMessageDialog(null, "등록되지 않은 강사입니다.");
+					IdField.setText("");
+					PwField.setText("");
+					IdField.requestFocus();
+				}else {
+					for(Teacher t : list) {
+						if(id.equals(t.getId())) {
+							Teacher t2 = new Teacher();
+							t2.setId(id);
+							t2.setPw(pw);
+							Teacher login = TeacherService.getInstance().login(t2);
+							if(login == null) {
+								JOptionPane.showMessageDialog(null, "비밀번호를 확인해 주세요.");
+								PwField.setText("");
+								PwField.requestFocus();
+							}else if(!t.getTitle().equals("사장")){
+								JOptionPane.showMessageDialog(null, t.getName() + " 님 환영합니다!");
+								MemberFrame frame = MemberFrame.getInstance();
+								frame.getPanel().getSales().setVisible(false);
+								frame.getPanel().getSalesTitle().setVisible(false);
+								frame.setVisible(true);
+								setVisible(false);
 							}else {
-								JOptionPane.showMessageDialog(null, "비밀번호를 다시 확인해주세요.");
-								return;
-							}			
+								JOptionPane.showMessageDialog(null, t.getName() + " 님 환영합니다!");
+								MemberFrame frame = MemberFrame.getInstance();
+								frame.setVisible(true);
+								setVisible(false);
+							}
+							break;
 						}
 					}
-					
-					if(ConfirmId == -1) {
-						JOptionPane.showMessageDialog(null, "등록되지 않은 아이디입니다.");	
-						return;
-					}
-					
-					JOptionPane.showMessageDialog(null, ComfirmTeacher.getName() + "님 환영합니다!");
+				}
+				
+				
 				/*	UserMain frame = UserMain.getInstance();
 					UserMain.getInstance().UserFrameSetTitle(ComfirmUser);
 					UserMainHome userMainHome = new UserMainHome();
