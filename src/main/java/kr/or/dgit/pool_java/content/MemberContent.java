@@ -77,11 +77,13 @@ public class MemberContent extends JPanel {
 		setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 
 		scrollPane.setBounds(0, 55, 900, 248);
 		add(scrollPane);
 
 		table = new JTable();
+		table.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
 		loadData();
@@ -94,10 +96,12 @@ public class MemberContent extends JPanel {
 		panel.setLayout(null);
 
 		JLabel lblmno = new JLabel("회원번호");
+		lblmno.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		lblmno.setBounds(41, 26, 57, 15);
 		panel.add(lblmno);
 
 		mno = new JTextField();
+		mno.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		mno.setBounds(134, 26, 183, 30);
 		mno.addKeyListener(new KeyAdapter() {
 
@@ -116,19 +120,23 @@ public class MemberContent extends JPanel {
 	
 		
 		JLabel lblname = new JLabel("이름");
+		lblname.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		lblname.setBounds(41, 87, 57, 15);
 		panel.add(lblname);
 
 		name = new JTextField();
+		name.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		name.setColumns(10);
 		name.setBounds(134, 80, 183, 30);
 		panel.add(name);
 
 		JLabel label_1 = new JLabel("생년월일");
+		label_1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		label_1.setBounds(369, 33, 57, 15);
 		panel.add(label_1);
 
 		tell1 = new JTextField();
+		tell1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tell1.setColumns(10);
 		tell1.setBounds(134, 134, 66, 30);
 		tell1.addKeyListener(new KeyAdapter() {
@@ -152,23 +160,28 @@ public class MemberContent extends JPanel {
 		panel.add(tell1);
 
 		JLabel lbltell = new JLabel("전화번호");
+		lbltell.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		lbltell.setBounds(41, 141, 57, 15);
 		panel.add(lbltell);
 
 		JLabel label_3 = new JLabel("이메일");
+		label_3.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		label_3.setBounds(41, 197, 57, 15);
 		panel.add(label_3);
 
 		email1 = new JTextField();
+		email1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		email1.setColumns(10);
 		email1.setBounds(134, 190, 124, 30);
 		panel.add(email1);
 
 		JLabel label_4 = new JLabel("성별");
+		label_4.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		label_4.setBounds(375, 83, 57, 15);
 		panel.add(label_4);
 
 		JLabel label_5 = new JLabel("반 번호");
+		label_5.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		label_5.setBounds(375, 141, 57, 15);
 		panel.add(label_5);
 
@@ -188,6 +201,7 @@ public class MemberContent extends JPanel {
 		panel.add(day);
 
 		tell2 = new JTextField();
+		tell2.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tell2.setColumns(10);
 		tell2.setBounds(211, 134, 66, 30);
 		tell2.addKeyListener(new KeyAdapter() {
@@ -209,6 +223,7 @@ public class MemberContent extends JPanel {
 		panel.add(tell2);
 
 		tell3 = new JTextField();
+		tell3.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tell3.setColumns(10);
 		tell3.setBounds(289, 134, 66, 30);
 		tell3.addKeyListener(new KeyAdapter() {
@@ -235,11 +250,13 @@ public class MemberContent extends JPanel {
 		
 
 		menRadio = new JRadioButton("남");
+		menRadio.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		menRadio.setSelected(true);
 		menRadio.setBounds(440, 79, 66, 23);
 		panel.add(menRadio);
 
 		womenRadio = new JRadioButton("여");
+		womenRadio.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		womenRadio.setBounds(508, 79, 66, 23);
 		panel.add(womenRadio);
 
@@ -255,18 +272,22 @@ public class MemberContent extends JPanel {
 		getClassCombo();
 
 		JLabel lbl1 = new JLabel("-");
+		lbl1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		lbl1.setBounds(203, 140, 13, 15);
 		panel.add(lbl1);
 
 		JLabel lbl2 = new JLabel("-");
+		lbl2.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		lbl2.setBounds(280, 141, 13, 15);
 		panel.add(lbl2);
 
 		JLabel label_8 = new JLabel("@");
+		label_8.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		label_8.setBounds(259, 197, 13, 15);
 		panel.add(label_8);
 
 		emailAddr = new JTextField();
+		emailAddr.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		emailAddr.setColumns(10);
 		emailAddr.setBounds(270, 190, 124, 30);
 		panel.add(emailAddr);
@@ -294,10 +315,12 @@ public class MemberContent extends JPanel {
 		panel.add(emailCombo);
 
 		JLabel regdate = new JLabel("등록날짜");
+		regdate.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		regdate.setBounds(694, 41, 57, 15);
 		panel.add(regdate);
 
 		regdatetf = new JTextField();
+		regdatetf.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		regdatetf.setEnabled(false);
 		regdatetf.setBounds(763, 34, 91, 30);
 		panel.add(regdatetf);
@@ -338,6 +361,7 @@ public class MemberContent extends JPanel {
 		comboBox.addItem("수강반");
 
 		searchField = new JTextField();
+		searchField.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		searchField.setBounds(149, 10, 630, 35);
 		add(searchField);
 		searchField.setColumns(10);
@@ -356,6 +380,7 @@ public class MemberContent extends JPanel {
 		});
 
 		JButton searchBtn = new JButton("검색");
+		searchBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		searchBtn.setBounds(791, 10, 97, 35);
 		searchBtn.addActionListener(new ActionListener() {
 			
@@ -372,6 +397,7 @@ public class MemberContent extends JPanel {
 		addPopupMenu();
 
 		addBtn = new JButton("신규등록");
+		addBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(emptyCheck()>0&&selectDateCheck()>0&&classCheck()>0) {
@@ -401,10 +427,12 @@ public class MemberContent extends JPanel {
 		panel.add(addBtn);
 
 		memupdate = new JButton("회원정보수정");
+		memupdate.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		memupdate.setBounds(591, 190, 117, 30);
 		panel.add(memupdate);
 
 		classupdate = new JButton("수강반 수정");
+		classupdate.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		classupdate.setBounds(710, 190, 110, 30);
 		panel.add(classupdate);
 		classupdate.addActionListener(new ActionListener() {
@@ -438,14 +466,17 @@ public class MemberContent extends JPanel {
 		});
 
 		backBtn = new JButton("취소");
+		backBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		backBtn.setBounds(822, 190, 66, 30);
 		panel.add(backBtn);
 		
 		reenterBtn = new JButton("재등록");
+		reenterBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		reenterBtn.setBounds(721, 190, 97, 30);
 		panel.add(reenterBtn);
 		
 		classreupdateBtn = new JButton("재등록 수정");
+		classreupdateBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		classreupdateBtn.setBounds(708, 190, 110, 30);
 		panel.add(classreupdateBtn);
 		classreupdateBtn.addActionListener(new ActionListener() {

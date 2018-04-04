@@ -80,6 +80,7 @@ public class ClassSchedule extends JPanel {
 		lblTitle.setText(cal.get(Calendar.YEAR)+"년 " + (cal.get(Calendar.MONTH)+1)+"월");
 		
 		tfSearch = new JTextField();
+		tfSearch.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		tfSearch.setBounds(312, 29, 308, 24);
 		add(tfSearch);
 		tfSearch.setColumns(10);

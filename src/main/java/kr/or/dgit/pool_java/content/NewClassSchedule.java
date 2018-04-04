@@ -39,6 +39,7 @@ import kr.or.dgit.pool_java.frame.ClassScheduleUpdate;
 import kr.or.dgit.pool_java.frame.MemberFrame;
 import kr.or.dgit.pool_java.service.ClassService;
 import kr.or.dgit.pool_java.service.TeacherService;
+import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
 public class NewClassSchedule extends JPanel {
@@ -134,10 +135,12 @@ public class NewClassSchedule extends JPanel {
 		add(panel);
 		
 		JLabel label = new JLabel("시간");
+		label.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		label.setBounds(6, 57, 94, 40);
 		panel.add(label);
 		
 		JLabel label_1 = new JLabel("등급");
+		label_1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		label_1.setBounds(6, 114, 86, 40);
 		panel.add(label_1);
 		
@@ -148,6 +151,7 @@ public class NewClassSchedule extends JPanel {
 		panel.add(cmbLevel);
 		
 		JLabel label_2 = new JLabel("강사번호");
+		label_2.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		label_2.setBounds(6, 244, 94, 40);
 		panel.add(label_2);
 		cmbModel = new DefaultComboBoxModel<String>(getDate());
@@ -157,6 +161,7 @@ public class NewClassSchedule extends JPanel {
 		panel.add(cmbTno);
 		
 		JLabel label_3 = new JLabel("개설일");
+		label_3.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		label_3.setBounds(6, 313, 94, 40);
 		panel.add(label_3);
 		String month = cal.get(Calendar.YEAR)+"년 "+ (cal.get(Calendar.MONTH)+1)+"월";
@@ -169,6 +174,7 @@ public class NewClassSchedule extends JPanel {
 		panel.add(cbms_day);
 		
 		JButton btnAddClass = new JButton("추가");
+		btnAddClass.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		btnAddClass.setBounds(126, 437, 106, 33);
 		panel.add(btnAddClass);
 		btnAddClass.addMouseListener(new MouseAdapter() {
@@ -214,6 +220,7 @@ public class NewClassSchedule extends JPanel {
 			}
 		});
 		JButton btnCancel = new JButton("취소");
+		btnCancel.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetAll();
@@ -229,14 +236,17 @@ public class NewClassSchedule extends JPanel {
 		panel.add(cmbTime);
 		
 		JLabel label_4 = new JLabel("총 인원");
+		label_4.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		label_4.setBounds(6, 188, 57, 15);
 		panel.add(label_4);
 		
 		spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spinner.setBounds(122, 174, 114, 40);
 		panel.add(spinner);
 		
 		JLabel label_5 = new JLabel("재강습여부");
+		label_5.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		label_5.setBounds(6, 378, 94, 18);
 		panel.add(label_5);
 		

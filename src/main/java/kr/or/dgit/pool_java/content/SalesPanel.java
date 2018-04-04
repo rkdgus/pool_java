@@ -52,6 +52,7 @@ public class SalesPanel extends JPanel {
 		scrollPane.setBounds(10, 85, 286, 406);
 		add(scrollPane);
 		table = new JTable();
+		table.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		scrollPane.setViewportView(table);
 		
 	
@@ -133,11 +134,12 @@ public class SalesPanel extends JPanel {
 		
 		
 		JButton button = new JButton("검색");
+		button.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		button.setBounds(237, 24, 72, 41);
 		panel.add(button);
 		
 		JLabel lblNewLabel_2 = new JLabel("월 매출 그래프");
-		lblNewLabel_2.setFont(new Font("굴림", Font.BOLD, 18));
+		lblNewLabel_2.setFont(new Font("맑은 고딕", Font.BOLD, 18));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(351, 24, 494, 41);
 		panel.add(lblNewLabel_2);
@@ -150,6 +152,7 @@ public class SalesPanel extends JPanel {
 		panel_1.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("합계");
+		lblNewLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		lblNewLabel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(0, 0, 81, 45);
@@ -157,7 +160,7 @@ public class SalesPanel extends JPanel {
 		
 		JLabel sum = new JLabel("");
 		sum.setHorizontalAlignment(SwingConstants.TRAILING);
-		sum.setFont(new Font("굴림", Font.PLAIN, 18));
+		sum.setFont(new Font("맑은 고딕", Font.PLAIN, 18));
 		sum.setOpaque(true);
 		sum.setBackground(Color.WHITE);
 		sum.setBounds(81, 0, 204, 45);
@@ -168,6 +171,7 @@ public class SalesPanel extends JPanel {
 		add(chart);
 		
 		JLabel lblNewLabel_1 = new JLabel("단위-만원");
+		lblNewLabel_1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		lblNewLabel_1.setBounds(836, 501, 57, 15);
 		add(lblNewLabel_1);
 	

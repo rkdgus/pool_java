@@ -45,10 +45,16 @@ public class AttendPanel extends JPanel {
 	private RegisterDao rDao;
 
 	String FilePath2 = "D:/excelData";
-	String FilePath = "D:/excelData/data2.xls";
+	String FilePath = "";
 	String SheetName = "test";
 
 	private ClassDao cDao;
+	private JComboBox yearBox;
+	private JComboBox monthBox;
+	private JComboBox comboBox;
+	private JComboBox comboBox_1;
+	private JComboBox monthBox_1;
+	private JComboBox yearBox_1;
 
 	/**
 	 * Create the panel.
@@ -68,6 +74,7 @@ public class AttendPanel extends JPanel {
 		scrollPane.setViewportView(table);
 
 		JButton btnNewButton = new JButton("프린트");
+		btnNewButton.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				excelFile();
@@ -79,10 +86,15 @@ public class AttendPanel extends JPanel {
 		List<Register> lists = RegisterService.getInstance().selectByCno(6);
 		loadDataPrice(lists, 4, 2018);
 
-		JComboBox yearBox = new JComboBox();
 
-		yearBox.setBounds(54, 11, 81, 30);
-		add(yearBox);
+		JComboBox yearBox = new JComboBox();
+		yearBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+
+		yearBox_1 = new JComboBox();
+
+
+		yearBox_1.setBounds(54, 11, 81, 30);
+		add(yearBox_1);
 		Date d = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
 		SimpleDateFormat sf1 = new SimpleDateFormat("MM");
@@ -92,11 +104,16 @@ public class AttendPanel extends JPanel {
 		for (int i = 2017; i <= year; i++) {
 			yearBox.addItem(i);
 		}
-		yearBox.setSelectedItem(year);
-		JComboBox monthBox = new JComboBox();
+		yearBox_1.setSelectedItem(year);
 
-		monthBox.setBounds(173, 11, 54, 30);
-		add(monthBox);
+		JComboBox monthBox = new JComboBox();
+		monthBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+
+		monthBox_1 = new JComboBox();
+
+
+		monthBox_1.setBounds(173, 11, 54, 30);
+		add(monthBox_1);
 		String mm = "";
 		for (int i = 1; i <= 12; i++) {
 			if (i < 10) {
@@ -106,36 +123,43 @@ public class AttendPanel extends JPanel {
 			}
 			monthBox.addItem(mm);
 		}
-		monthBox.setSelectedItem(sf1.format(d));
+		monthBox_1.setSelectedItem(sf1.format(d));
+
 
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(274, 10, 160, 30);
-		add(comboBox);
+		comboBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+
+		comboBox_1 = new JComboBox();
+
+		comboBox_1.setBounds(274, 10, 160, 30);
+		add(comboBox_1);
 
 		JLabel lblNewLabel = new JLabel("년");
+		lblNewLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(135, 10, 39, 38);
 		add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("월");
+		lblNewLabel_1.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(224, 10, 39, 38);
 		add(lblNewLabel_1);
 
 		JLabel title = new JLabel("");
-		title.setFont(new Font("굴림", Font.BOLD, 17));
+		title.setFont(new Font("맑은 고딕", Font.BOLD, 17));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setBounds(303, 50, 259, 39);
 		add(title);
 		title.setText("출석부");
 
-		List<Class> items = cDao.selectByTime(yearBox.getSelectedItem() + "-" + monthBox.getSelectedItem() + "-01");
+		List<Class> items = cDao.selectByTime(yearBox_1.getSelectedItem() + "-" + monthBox_1.getSelectedItem() + "-01");
 
 		for (Class c : items) {
 			comboBox.addItem(c.toString());
 		}
 
-		yearBox.addActionListener(new ActionListener() {
+		yearBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				comboBox.removeAllItems();
 				List<Class> items = cDao
@@ -148,7 +172,7 @@ public class AttendPanel extends JPanel {
 				}
 			}
 		});
-		monthBox.addActionListener(new ActionListener() {
+		monthBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				comboBox.removeAllItems();
 				List<Class> items = cDao
@@ -162,7 +186,7 @@ public class AttendPanel extends JPanel {
 			}
 		});
 
-		comboBox.addActionListener(new ActionListener() {
+		comboBox_1.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -282,7 +306,7 @@ public class AttendPanel extends JPanel {
 
 		for (int i = 0; i < table.getRowCount(); i++) {
 			for (int j = 0; j < table.getColumnCount(); j++) {
-				System.out.println((String) table.getValueAt(i, j));
+
 				getData[i][j] = (String) table.getValueAt(i, j);
 			}
 		}
@@ -290,9 +314,13 @@ public class AttendPanel extends JPanel {
 		try {
 			File file = new File(FilePath2);
 			if (!file.exists()) {
-				System.out.println();
+				
 				file.mkdir();
 			}
+			String year = yearBox.getSelectedItem().toString()+"년 ";
+			String month = monthBox.getSelectedItem().toString()+ "월";
+			String cno = comboBox.getSelectedItem().toString();
+			FilePath = FilePath2 +"/"+year+month+cno.substring(0,cno.indexOf("/"))+"반"+".xls";
 			File file1 = new File(FilePath);
 
 			if (!file1.exists()) {
@@ -305,14 +333,16 @@ public class AttendPanel extends JPanel {
 			WritableCellFormat format_data = new WritableCellFormat();
 			format_column.setBackground(jxl.format.Colour.YELLOW);
 			format_column.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN);
+			Label titleLabel = new Label(0,0,year+month,format_data);
+			sheet.addCell(titleLabel);
 			for (int i = 0; i < getColumn.length; i++) {
-				Label label = new Label(i, 0, getColumn[i], format_column);
+				Label label = new Label(i, 1, getColumn[i], format_column);
 				sheet.addCell(label);
 			}
 
 			for (int i = 0; i < getData.length; i++) {
 				for (int j = 0; j < getData[i].length; j++) {
-					Label label = new Label(j, i + 1, getData[i][j], format_data);
+					Label label = new Label(j, i + 2, getData[i][j], format_data);
 					sheet.addCell(label);
 				}
 			}
