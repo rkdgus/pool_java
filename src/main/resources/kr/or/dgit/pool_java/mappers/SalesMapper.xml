@@ -25,4 +25,8 @@
 	<delete id="deleteSales" parameterType="int">
 		delete from sales where sno=#{sno}
 	</delete>
+	
+	<select id="lastSales" parameterType="String" resultType="Sales">
+		select * from sales where day like #{day} and pay=50000 order by day desc limit 1; 
+	</select>
 </mapper>

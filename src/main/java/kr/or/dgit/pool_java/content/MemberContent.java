@@ -811,6 +811,10 @@ public class MemberContent extends JPanel {
 				if(selected !=null) {
 					String cancel = selected.toString();
 					RegisterService.getInstance().cancelClass(new Register(mno, Integer.parseInt(cancel.substring(0,cancel.indexOf("/")-1))));
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+					Date day = new Date();
+					Sales s = SalesService.getInstance().lastSales(sdf.format(day));
+					SalesService.getInstance().deleteSales(s.getSno());
 				}
 			}
 		});
