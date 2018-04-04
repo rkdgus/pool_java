@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,8 +25,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import jxl.Workbook;
+import jxl.format.Alignment;
 import jxl.write.Label;
 import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import kr.or.dgit.pool_java.dao.AttendanceDao;
@@ -299,6 +302,7 @@ public class AttendPanel extends JPanel {
 			String year = yearBox.getSelectedItem().toString()+"년 ";
 			String month = monthBox.getSelectedItem().toString()+ "월";
 			String cno = comboBox.getSelectedItem().toString();
+			String level = " "+cno.substring(cno.indexOf(",")+2,cno.length())+"반";
 			FilePath = FilePath2 +"/"+year+month+cno.substring(0,cno.indexOf("/"))+"반"+".xls";
 			File file1 = new File(FilePath);
 
@@ -307,27 +311,51 @@ public class AttendPanel extends JPanel {
 			}
 			WritableWorkbook workbook = Workbook.createWorkbook(file1);
 			WritableSheet sheet = workbook.createSheet(SheetName, 0);
-
+			WritableFont centerFontBold = new WritableFont(WritableFont.ARIAL,11,WritableFont.BOLD); 
 			WritableCellFormat format_column = new WritableCellFormat();
+			WritableCellFormat format_name = new WritableCellFormat(centerFontBold);
 			WritableCellFormat format_data = new WritableCellFormat();
-			format_column.setBackground(jxl.format.Colour.YELLOW);
+			WritableCellFormat format_date = new WritableCellFormat(centerFontBold);
+			format_column.setBackground(jxl.format.Colour.BRIGHT_GREEN);
+			format_name.setBackground(jxl.format.Colour.VERY_LIGHT_YELLOW);
+			format_name.setAlignment(Alignment.LEFT);
+			format_date.setAlignment(Alignment.CENTRE);
+			format_column.setAlignment(Alignment.CENTRE);
+			format_data.setAlignment(Alignment.CENTRE);
+			format_name.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN);
 			format_column.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN);
-			Label titleLabel = new Label(0,0,year+month,format_data);
+			Label titleLabel = new Label(getColumn.length-3,0,year+month+level,format_date);
 			sheet.addCell(titleLabel);
+			sheet.mergeCells(getColumn.length-3, 0, getColumn.length-1, 0 );
 			for (int i = 0; i < getColumn.length; i++) {
-				Label label = new Label(i, 1, getColumn[i], format_column);
+				Label label = null;
+				if(i == 0) {
+					label = new Label(i, 1, getColumn[i], format_name);
+					
+				}else {
+					label = new Label(i, 1, getColumn[i], format_column);
+				}
+				
 				sheet.addCell(label);
 			}
 
 			for (int i = 0; i < getData.length; i++) {
 				for (int j = 0; j < getData[i].length; j++) {
-					Label label = new Label(j, i + 2, getData[i][j], format_data);
+					Label label = null;
+					if(j == 0) {
+						label = new Label(j, i + 2, getData[i][j], format_name);
+						
+					}else {
+						label = new Label(j, i + 2, getData[i][j], format_data);
+					}
 					sheet.addCell(label);
 				}
 			}
 			workbook.write();
 			workbook.close();
+			JOptionPane.showMessageDialog(null,"엑셀파일이 생성되었습니다.");
 		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(null,"엑셀창을 닫아주세요");
 			e1.printStackTrace();
 		}
 	}
