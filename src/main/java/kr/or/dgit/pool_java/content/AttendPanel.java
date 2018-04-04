@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -185,7 +188,7 @@ public class AttendPanel extends JPanel {
 				}
 
 				setTable();
-				title.setText("[" + str1 + "] 출석부");
+				title.setText("[" +monthBox.getSelectedItem()+"월 "+ str1 + "] 출석부");
 			}
 		});
 
@@ -198,13 +201,14 @@ public class AttendPanel extends JPanel {
 	}
 
 	protected Object[] getColumnNames(int month) {
-		int[] day = { 32, 29, 32, 31, 32, 31, 32, 32, 31, 32, 31, 32 };
-		String[] colum = new String[day[month]];
+		List<Integer> lists = monthOfLasyDay(month);
+		
+		String[] colum = new String[lists.size()+1];
 		for (int i = 0; i < colum.length; i++) {
 			if (i == 0) {
 				colum[i] = "이름";
 			} else {
-				colum[i] = i + "";
+				colum[i] = lists.get(i-1) + "";
 			}
 
 		}
@@ -226,9 +230,9 @@ public class AttendPanel extends JPanel {
 
 	protected Object[][] getDataPrice(List<Register> lists, int month, int year) throws ParseException {
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-
-		int[] day = { 32, 29, 32, 31, 32, 31, 32, 32, 31, 32, 31, 32 };
-		String[] colum = new String[day[month]];
+		List<Integer> intlists = monthOfLasyDay(month);
+		
+		String[] colum = new String[intlists.size()+1];
 		Object[][] data = new Object[lists.size()][];
 		Attendance attendance = null;
 		List<Attendance> list = null;
@@ -242,20 +246,19 @@ public class AttendPanel extends JPanel {
 			m = month + "";
 		}
 		for (int i = 0; i < lists.size(); i++) {
-			Object[] d = new Object[day[month]];
+			Object[] d = new Object[intlists.size()+1];
 			for (int j = 0; j < colum.length; j++) {
 				if (j == 0) {
 					d[j] = MemberService.getInstance().selectMno(lists.get(i).getMno()).getName();
 				} else {
-					if (j < 10) {
-						s = "0" + j;
+					if (intlists.get(j-1) < 10) {
+						s = "0" + intlists.get(j-1);
 					} else {
-						s = j + "";
+						s = intlists.get(j-1) + "";
 					}
-
 					map.put("date", year + "-" + m + "-" + s);
 					map.put("mno", lists.get(i).getMno());
-					list = aDao.selectDate(map);
+					list = aDao.selectDate(map); //출석 체크 
 					if (list.size() != 0) {
 						d[j] = "O";
 					}
@@ -300,7 +303,7 @@ public class AttendPanel extends JPanel {
 
 			WritableCellFormat format_column = new WritableCellFormat();
 			WritableCellFormat format_data = new WritableCellFormat();
-			format_column.setBackground(jxl.format.Colour.GRAY_25);
+			format_column.setBackground(jxl.format.Colour.YELLOW);
 			format_column.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN);
 			for (int i = 0; i < getColumn.length; i++) {
 				Label label = new Label(i, 0, getColumn[i], format_column);
@@ -318,5 +321,22 @@ public class AttendPanel extends JPanel {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+	}
+	private List<Integer> monthOfLasyDay(int month) {
+		
+		Calendar cal = Calendar.getInstance();
+		Date d = new Date();
+		d.setMonth(month-1);
+		cal.setTime(d);
+		int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		List<Integer> lists = new ArrayList<>();
+		for(int i=1; i <= lastDay; i++) {
+			d.setDate(i);
+			if(d.getDay() != 0 && d.getDay() !=6) {
+				lists.add(i);
+			}
+		}
+		return lists;
 	}
 }
