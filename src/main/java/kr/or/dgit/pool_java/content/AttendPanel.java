@@ -45,10 +45,13 @@ public class AttendPanel extends JPanel {
 	private RegisterDao rDao;
 
 	String FilePath2 = "D:/excelData";
-	String FilePath = "D:/excelData/data2.xls";
+	String FilePath = "";
 	String SheetName = "test";
 
 	private ClassDao cDao;
+	private JComboBox yearBox;
+	private JComboBox monthBox;
+	private JComboBox comboBox;
 
 	/**
 	 * Create the panel.
@@ -80,8 +83,12 @@ public class AttendPanel extends JPanel {
 		List<Register> lists = RegisterService.getInstance().selectByCno(6);
 		loadDataPrice(lists, 4, 2018);
 
+
 		JComboBox yearBox = new JComboBox();
 		yearBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+
+		yearBox = new JComboBox();
+
 
 		yearBox.setBounds(54, 11, 81, 30);
 		add(yearBox);
@@ -95,8 +102,12 @@ public class AttendPanel extends JPanel {
 			yearBox.addItem(i);
 		}
 		yearBox.setSelectedItem(year);
+<<<<<<< HEAD
 		JComboBox monthBox = new JComboBox();
 		monthBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+=======
+		monthBox = new JComboBox();
+>>>>>>> branch 'master' of https://github.com/rkdgus/pool_java.git
 
 		monthBox.setBounds(173, 11, 54, 30);
 		add(monthBox);
@@ -111,8 +122,12 @@ public class AttendPanel extends JPanel {
 		}
 		monthBox.setSelectedItem(sf1.format(d));
 
+<<<<<<< HEAD
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+=======
+		comboBox = new JComboBox();
+>>>>>>> branch 'master' of https://github.com/rkdgus/pool_java.git
 		comboBox.setBounds(274, 10, 160, 30);
 		add(comboBox);
 
@@ -288,7 +303,7 @@ public class AttendPanel extends JPanel {
 
 		for (int i = 0; i < table.getRowCount(); i++) {
 			for (int j = 0; j < table.getColumnCount(); j++) {
-				System.out.println((String) table.getValueAt(i, j));
+
 				getData[i][j] = (String) table.getValueAt(i, j);
 			}
 		}
@@ -296,9 +311,13 @@ public class AttendPanel extends JPanel {
 		try {
 			File file = new File(FilePath2);
 			if (!file.exists()) {
-				System.out.println();
+				
 				file.mkdir();
 			}
+			String year = yearBox.getSelectedItem().toString()+"년 ";
+			String month = monthBox.getSelectedItem().toString()+ "월";
+			String cno = comboBox.getSelectedItem().toString();
+			FilePath = FilePath2 +"/"+year+month+cno.substring(0,cno.indexOf("/"))+"반"+".xls";
 			File file1 = new File(FilePath);
 
 			if (!file1.exists()) {
@@ -311,14 +330,16 @@ public class AttendPanel extends JPanel {
 			WritableCellFormat format_data = new WritableCellFormat();
 			format_column.setBackground(jxl.format.Colour.YELLOW);
 			format_column.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN);
+			Label titleLabel = new Label(0,0,year+month,format_data);
+			sheet.addCell(titleLabel);
 			for (int i = 0; i < getColumn.length; i++) {
-				Label label = new Label(i, 0, getColumn[i], format_column);
+				Label label = new Label(i, 1, getColumn[i], format_column);
 				sheet.addCell(label);
 			}
 
 			for (int i = 0; i < getData.length; i++) {
 				for (int j = 0; j < getData[i].length; j++) {
-					Label label = new Label(j, i + 1, getData[i][j], format_data);
+					Label label = new Label(j, i + 2, getData[i][j], format_data);
 					sheet.addCell(label);
 				}
 			}
