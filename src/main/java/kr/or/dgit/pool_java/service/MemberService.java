@@ -35,10 +35,8 @@ public class MemberService implements MemberDao{
 			dao = sqlsession.getMapper(MemberDao.class);
 			dao.insertMember(member);
 			sqlsession.commit();
-			JOptionPane.showMessageDialog(null, "추가되었습니다");
 		}catch(Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "추가를 실패하였습니다");
 		}
 		
 	}

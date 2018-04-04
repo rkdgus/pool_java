@@ -2,6 +2,8 @@ package kr.or.dgit.pool_java.frame;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -50,6 +52,14 @@ public class MemberFrame extends JFrame {
 	private JPanel content;
 
 	private MemberFrame() {
+		
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Image img = tk.getImage(System.getProperty("user.dir") + "\\images\\Instapaper icon.png");
+		setIconImage(img);
+		
+		setTitle("수영장 관리");
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1170, 602);
 		contentPane = new JPanel();

@@ -38,14 +38,9 @@ public class RegisterService implements RegisterDao {
 
 			dao.insertRegister(register);
 			sqlsession.commit();
-
-			JOptionPane.showMessageDialog(null, "추가되었습니다");
 			res = 1;
-
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "추가를 실패하였습니다");
-
 		}
 		return res;
 	}
