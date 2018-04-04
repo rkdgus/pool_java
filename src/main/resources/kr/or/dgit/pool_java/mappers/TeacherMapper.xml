@@ -35,7 +35,7 @@
 	</select>
 
 	<insert id="insertTeacher" parameterType="Teacher">
-		insert into teacher(tno,name,tell,title,pw) values(#{tno},#{name},#{tell},#{title},password(#{pw}))
+		insert into teacher(tno,name,tell,title,pw,id) values(#{tno},#{name},#{tell},#{title},password(#{pw}),#{id})
 	</insert>
 	<update id="updateTeacher" parameterType="Teacher">
 		update teacher set title = #{title}, tell = #{tell}, name = #{name} where tno = #{tno}
