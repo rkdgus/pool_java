@@ -43,4 +43,15 @@
 	<update id="changeClass" parameterType="map">
 		update register set cno=#{newCno} where mno=#{mno} and cno=#{oldCno}
 	</update>
+	
+	<select id="checkReent" parameterType="Class" resultType="Register">
+		select * from register where mno=#{mno} and cno=#{cno}
+	</select>
+	
+	<select id="findClass" resultType="Register" parameterType="int">
+		select * from register where mno=#{mno}
+	</select>
+	<delete id="cancelClass" parameterType="Register">
+		delete from register where mno=#{mno} and cno=#{cno}
+	</delete>
 </mapper>

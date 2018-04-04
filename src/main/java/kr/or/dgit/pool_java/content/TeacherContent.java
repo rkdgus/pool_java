@@ -7,7 +7,10 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import kr.or.dgit.pool_java.dto.Member;
 import kr.or.dgit.pool_java.dto.Teacher;
@@ -233,6 +236,8 @@ public class TeacherContent extends JPanel {
 		add(scrollPane);
 
 		table = new JTable();
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setResizingAllowed(false);
 		loadData();
 		addPopupMenu();
 		table.addMouseListener(new MouseAdapter() {
@@ -283,8 +288,6 @@ public class TeacherContent extends JPanel {
 					return;
 				}
 				
-				
-				cancel.setVisible(false);
 				updateBtn.setVisible(false);
 				addBtn.setVisible(true);
 				tno.setEnabled(true);
@@ -327,10 +330,13 @@ public class TeacherContent extends JPanel {
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
+			
+			
 
 		};
 
 		table.setModel(model);
+		setAlignWidth();
 	}
 
 	private String[] getColumnNames() {
@@ -456,8 +462,8 @@ public class TeacherContent extends JPanel {
 			}
 
 		};
-
 		table.setModel(model);
+		setAlignWidth();
 	}
 
 	private Object[][] getSearchData(String type, String keyWord) {
@@ -519,4 +525,32 @@ public class TeacherContent extends JPanel {
 		}
 		return select;
 	}
+	
+	
+	public void setAlignWidth() {
+		setAlign(SwingConstants.CENTER,0,1,2,3);
+		setAlign(SwingConstants.RIGHT, 4);
+		setCellWidth(70, 70, 100, 40,50);
+	}
+	
+	public void setCellWidth(int...width) {
+		TableColumnModel cModel = table.getColumnModel();
+		for(int i=0; i<width.length; i++){
+			cModel.getColumn(i).setPreferredWidth(width[i]);
+		}
+	}
+	
+	
+	public void setAlign(int align, int...idx) {
+		
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		dtcr.setHorizontalAlignment(align);
+		
+		TableColumnModel cModel = table.getColumnModel();
+	
+		for(int i=0; i<idx.length;i++){
+			cModel.getColumn(idx[i]).setCellRenderer(dtcr);
+		}
+	}
+	
 }

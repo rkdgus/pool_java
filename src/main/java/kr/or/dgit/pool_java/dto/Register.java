@@ -35,6 +35,13 @@ public class Register {
 	public String toString() {
 		return String.format("Register [mno=%s, cno=%s, reentrance=%s]", mno, cno, reentrance);
 	}
+
+	public Register(int mno, int cno) {
+		super();
+		this.mno = mno;
+		this.cno = cno;
+	}
+	
 	
 	
 	
