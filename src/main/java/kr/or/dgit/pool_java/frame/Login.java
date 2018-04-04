@@ -209,6 +209,7 @@ public class Login extends JFrame {
 		
 		// 배경화면 
 		JLabel backImg = new JLabel("");
+		backImg.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\ss.jpg"));
 		backImg.setBounds(0, 0, 626, 450);
 		contentPane.add(backImg);
 	}
