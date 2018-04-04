@@ -1,51 +1,44 @@
 package kr.or.dgit.pool_java.content;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 import kr.or.dgit.pool_java.dto.Class;
 import kr.or.dgit.pool_java.dto.Teacher;
-import kr.or.dgit.pool_java.frame.AddClassFrame;
 import kr.or.dgit.pool_java.frame.ClassInfoFrame;
 import kr.or.dgit.pool_java.frame.ClassScheduleUpdate;
 import kr.or.dgit.pool_java.frame.MemberFrame;
 import kr.or.dgit.pool_java.service.ClassService;
-import kr.or.dgit.pool_java.service.MemberService;
 import kr.or.dgit.pool_java.service.TeacherService;
-
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.border.TitledBorder;
-import javax.swing.ComboBoxModel;
-import javax.swing.JSpinner;
-import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 public class NewClassSchedule extends JPanel {

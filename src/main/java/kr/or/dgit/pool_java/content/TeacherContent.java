@@ -373,7 +373,7 @@ public class TeacherContent extends JPanel {
 
 		if (type == "insert") {
 			teacher = new Teacher(Integer.parseInt(tno.getText()), name.getText(), tell,
-					titleCombo.getSelectedItem().toString(), "teacher");
+					titleCombo.getSelectedItem().toString(), "teacher",tno.getText());
 		}
 		if (type == "update") {
 			teacher = new Teacher(Integer.parseInt(tno.getText()), name.getText(), tell,

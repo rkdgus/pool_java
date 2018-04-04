@@ -127,4 +127,26 @@ public class TeacherService implements TeacherDao {
 		}
 		return res;
 	}
+
+	@Override
+	public List<Teacher> findId(String id) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(TeacherDao.class);
+			return dao.findId(id);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Teacher login(Teacher teacher) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(TeacherDao.class);
+			return dao.login(teacher);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

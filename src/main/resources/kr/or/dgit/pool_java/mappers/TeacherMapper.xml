@@ -42,4 +42,14 @@
 		delete from teacher where tno = #{tno}
 	</delete>
 	
+	<select id="findId" resultType="Teacher" parameterType="String">
+		select * from teacher where id=#{id}
+	</select>
+	
+	<select id="login" resultType="Teacher" parameterType="Teacher">
+		select * from teacher where id=#{id} and pw=password(#{pw})
+	</select>
+	
+	
+
 </mapper>
