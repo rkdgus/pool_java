@@ -43,9 +43,9 @@ public class Chart extends JPanel {
 		add(chartPanel);
 	}
 
-	private CategoryDataset createDataset() {
+	public CategoryDataset createDataset() {
 
-		
+	
 
 		
 		// create the dataset...
