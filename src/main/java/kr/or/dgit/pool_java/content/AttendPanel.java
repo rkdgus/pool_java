@@ -188,7 +188,7 @@ public class AttendPanel extends JPanel {
 				}
 
 				setTable();
-				title.setText("[" + str1 + "] 출석부");
+				title.setText("[" +monthBox.getSelectedItem()+"월 "+ str1 + "] 출석부");
 			}
 		});
 
