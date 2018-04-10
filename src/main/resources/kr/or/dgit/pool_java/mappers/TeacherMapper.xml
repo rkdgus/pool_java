@@ -55,6 +55,5 @@
 		select * from teacher where id=#{id} and pw=password(#{pw})
 	</select>
 	
-	
 
 </mapper>

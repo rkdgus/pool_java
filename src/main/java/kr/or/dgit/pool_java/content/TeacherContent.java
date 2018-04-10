@@ -1,6 +1,7 @@
 package kr.or.dgit.pool_java.content;
 
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JPopupMenu;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -32,6 +33,7 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
 import java.awt.Font;
+import java.awt.Button;
 
 public class TeacherContent extends JPanel {
 	private JTextField tno;
@@ -47,9 +49,11 @@ public class TeacherContent extends JPanel {
 	private JButton addBtn;
 	private JComboBox<String> titleCombo;
 	private JButton cancel;
-	private JTextField textField;
-	private JTextField pw;
-
+	private JTextField id;
+	private JPasswordField pw;
+	private JButton idCheckBtn;
+	private int idCheck=-1;
+	
 	public TeacherContent() {
 		setLayout(null);
 
@@ -97,49 +101,36 @@ public class TeacherContent extends JPanel {
 
 		JLabel tnolbl = new JLabel("강사번호");
 		tnolbl.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		tnolbl.setBounds(579, 77, 57, 15);
+		tnolbl.setBounds(559, 77, 57, 15);
 		add(tnolbl);
 
 		tno = new JTextField();
 		tno.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		tno.setBounds(658, 70, 218, 30);
-		tno.addKeyListener(new KeyAdapter() {
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-				
-				char c = e.getKeyChar();
-				if (!((Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)))) {
-					getToolkit().beep();
-					e.consume();
-				} 
-				
-			}
-			
-		});
+		tno.setBounds(643, 70, 233, 30);
+		tno.setEnabled(false);
 		add(tno);
 		tno.setColumns(10);
 
 		JLabel namelbl = new JLabel("이름");
 		namelbl.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		namelbl.setBounds(579, 242, 57, 15);
+		namelbl.setBounds(580, 242, 36, 15);
 		add(namelbl);
 
 		name = new JTextField();
 		name.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		name.setBounds(658, 235, 218, 30);
+		name.setBounds(643, 235, 233, 30);
 		add(name);
 		name.setColumns(10);
 
 		JLabel telllbl = new JLabel("전화번호");
 		telllbl.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		telllbl.setBounds(579, 297, 57, 15);
+		telllbl.setBounds(559, 297, 57, 15);
 		add(telllbl);
 
 		tell1 = new JTextField();
 		tell1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tell1.setColumns(10);
-		tell1.setBounds(656, 290, 66, 30);
+		tell1.setBounds(643, 296, 66, 30);
 		tell1.addKeyListener(new KeyAdapter() {
 
 			public void keyTyped(KeyEvent e) {
@@ -163,13 +154,13 @@ public class TeacherContent extends JPanel {
 
 		JLabel telllbl1 = new JLabel("-");
 		telllbl1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		telllbl1.setBounds(725, 296, 13, 15);
+		telllbl1.setBounds(715, 303, 13, 15);
 		add(telllbl1);
 
 		tell2 = new JTextField();
 		tell2.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tell2.setColumns(10);
-		tell2.setBounds(733, 290, 66, 30);
+		tell2.setBounds(725, 297, 66, 30);
 		tell2.addKeyListener(new KeyAdapter() {
 
 			public void keyTyped(KeyEvent e) {
@@ -192,13 +183,13 @@ public class TeacherContent extends JPanel {
 
 		JLabel tellllbl2 = new JLabel("-");
 		tellllbl2.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		tellllbl2.setBounds(802, 297, 13, 15);
+		tellllbl2.setBounds(797, 304, 13, 15);
 		add(tellllbl2);
 
 		tell3 = new JTextField();
 		tell3.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tell3.setColumns(10);
-		tell3.setBounds(811, 290, 66, 30);
+		tell3.setBounds(808, 297, 66, 30);
 		add(tell3);
 		tell3.addKeyListener(new KeyAdapter() {
 			@Override
@@ -229,7 +220,8 @@ public class TeacherContent extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (emptyCheck() > 0 && selectCheck() > 0) {
+				if (emptyCheck() > 0 && selectCheck() > 0 
+						&& idCheck>0) {
 					TeacherService.getInstance().insertTeacher(getTextData("insert"));
 				} else if (emptyCheck() < 0) {
 					JOptionPane.showMessageDialog(null, "공백이 존재합니다. 모두 입력해주세요.");
@@ -237,11 +229,16 @@ public class TeacherContent extends JPanel {
 				} else if (selectCheck() < 0) {
 					JOptionPane.showMessageDialog(null, "직급을 선택해주세요");
 					return;
+				}else if(idCheck<0) {
+					JOptionPane.showMessageDialog(null, "아이디 중복을 확인해 주세요");
+					return;
 				}
 
-				tno.setEnabled(true);
+				
 				clearField();
 				loadData();
+				idCheckBtn.setText("중복확인");
+				idCheck=-1;
 			}
 		});
 		add(addBtn);
@@ -262,6 +259,9 @@ public class TeacherContent extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
 					tno.setEnabled(false);
+					pw.setEnabled(false);
+					id.setEnabled(false);
+					idCheckBtn.setEnabled(false);
 					setTextData();
 				}
 			}
@@ -276,7 +276,7 @@ public class TeacherContent extends JPanel {
 
 		titleCombo = new JComboBox<>();
 		titleCombo.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		titleCombo.setBounds(656, 348, 106, 30);
+		titleCombo.setBounds(643, 351, 106, 30);
 		titleCombo.addItem("선택");
 		titleCombo.addItem("사원");
 		titleCombo.addItem("대리");
@@ -295,19 +295,23 @@ public class TeacherContent extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			
-				if (emptyCheck() > 0 && selectCheck() > 0) {
-					TeacherService.getInstance().updateTeacher(getTextData("update"));
-				} else if (emptyCheck() < 0) {
+				if(name.getText().equals("")||tell1.getText().equals("")||tell2.getText().equals("")||tell3.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "공백이 존재합니다. 모두 입력해주세요.");
 					return;
-				} else if (selectCheck() < 0) {
+				}
+				if (selectCheck() < 0) {
 					JOptionPane.showMessageDialog(null, "직급을 선택해주세요");
 					return;
 				}
 				
+				TeacherService.getInstance().updateTeacher(getTextData("update"));
+				
 				updateBtn.setVisible(false);
 				addBtn.setVisible(true);
-				tno.setEnabled(true);
+				pw.setEnabled(true);
+				id.setEnabled(true);
+				idCheckBtn.setEnabled(true);
+				idCheckBtn.setText("중복확인");
 				loadData();
 				clearField();
 			}
@@ -321,7 +325,11 @@ public class TeacherContent extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				updateBtn.setVisible(false);
 				addBtn.setVisible(true);
-				tno.setEnabled(true);
+				pw.setEnabled(true);
+				id.setEnabled(true);
+				idCheckBtn.setEnabled(true);
+				idCheckBtn.setText("중복확인");
+				idCheck=-1;
 				clearField();
 			}
 		});
@@ -329,22 +337,57 @@ public class TeacherContent extends JPanel {
 		add(cancel);
 		
 		JLabel idlbl = new JLabel("아이디");
-		idlbl.setBounds(579, 133, 57, 15);
+		idlbl.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		idlbl.setBounds(569, 133, 36, 15);
 		add(idlbl);
 		
-		textField = new JTextField();
-		textField.setBounds(658, 126, 218, 30);
-		add(textField);
-		textField.setColumns(10);
+		id = new JTextField();
+		id.setBounds(643, 126, 148, 30);
+		id.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				idCheckBtn.setText("중복확인");
+				idCheck=-1;
+			}
+			
+			
+		});
+		add(id);
+		id.setColumns(10);
 		
-		pw = new JTextField();
+		pw = new JPasswordField();
 		pw.setColumns(10);
-		pw.setBounds(658, 183, 218, 30);
+		pw.setBounds(643, 183, 233, 30);
 		add(pw);
 		
 		JLabel pwlbl = new JLabel("비밀번호");
-		pwlbl.setBounds(579, 190, 57, 15);
+		pwlbl.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		pwlbl.setBounds(559, 190, 57, 15);
 		add(pwlbl);
+		
+		idCheckBtn = new JButton("중복확인");
+		idCheckBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		idCheckBtn.setBounds(793, 126, 83, 30);
+		idCheckBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				List<Teacher> t = TeacherService.getInstance().findId(id.getText());
+				
+				if(t.size()==0) {
+					JOptionPane.showMessageDialog(null, "사용가능한 아이디 입니다!");
+					idCheckBtn.setText("사용가능");
+					idCheck=1;
+				}else {
+					JOptionPane.showMessageDialog(null, "이미 등록된 아이디 입니다!(사용불가)");
+					idCheckBtn.setText("중복확인");
+					idCheck=-1;
+				}
+				
+			}
+		});
+		add(idCheckBtn);
 		updateBtn.setVisible(false);
 
 	}
@@ -389,6 +432,8 @@ public class TeacherContent extends JPanel {
 		tell1.setText("");
 		tell2.setText("");
 		tell3.setText("");
+		pw.setText("");
+		id.setText("");
 		titleCombo.setSelectedIndex(0);
 	}
 
@@ -397,8 +442,7 @@ public class TeacherContent extends JPanel {
 		Teacher teacher = null;
 
 		if (type == "insert") {
-			teacher = new Teacher(Integer.parseInt(tno.getText()), name.getText(), tell,
-					titleCombo.getSelectedItem().toString(), "teacher",tno.getText());
+			teacher = new Teacher(name.getText(), tell, titleCombo.getSelectedItem().toString(), pw.getText(), id.getText());
 		}
 		if (type == "update") {
 			teacher = new Teacher(Integer.parseInt(tno.getText()), name.getText(), tell,
@@ -422,7 +466,8 @@ public class TeacherContent extends JPanel {
 		tell1.setText(phone.substring(0, phone.indexOf("-")));
 		tell2.setText(phone.substring(phone.indexOf("-") + 1, phone.lastIndexOf("-")));
 		tell3.setText(phone.substring(phone.lastIndexOf("-") + 1));
-
+		id.setText(t.getId());
+		
 		updateBtn.setVisible(true);
 		cancel.setVisible(true);
 		addBtn.setVisible(false);
@@ -433,16 +478,23 @@ public class TeacherContent extends JPanel {
 		JPopupMenu popupMenu = new JPopupMenu();
 		JMenuItem menuItem = new JMenuItem("수정");
 		JMenuItem menuItem2 = new JMenuItem("퇴사");
-
+		JMenuItem menuItem3 = new JMenuItem("삭제");
+		
 		popupMenu.add(menuItem);
 		popupMenu.add(menuItem2);
-
+		popupMenu.add(menuItem3);
+		
 		table.setComponentPopupMenu(popupMenu);
 		menuItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tno.setEnabled(false);
+				pw.setEnabled(false);
+				id.setEnabled(false);
+				idCheckBtn.setEnabled(false);
+				idCheckBtn.setText("중복확인");
+				idCheck=-1;
 				setTextData();
 			}
 		});
@@ -450,21 +502,51 @@ public class TeacherContent extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int reply = JOptionPane.showConfirmDialog(null, "퇴사 강사로 등록하시겠습니까?", "강사정보 삭제",
+				int reply = JOptionPane.showConfirmDialog(null, "퇴사 강사로 등록하시겠습니까?", "퇴사 강사 등록",
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
 				if (reply == JOptionPane.YES_OPTION) {
 					int row = table.getSelectedRow();
 					int tno = (int) table.getValueAt(row, 0);
-					System.out.println(tno);
 					Teacher teacher = new Teacher();
 					teacher.setTno(tno);
 					teacher.setTitle("퇴사");
 					TeacherService.getInstance().quitTeacher(teacher);
 					loadData();
+					updateBtn.setVisible(false);
+					addBtn.setVisible(true);
+					pw.setEnabled(true);
+					id.setEnabled(true);
+					idCheckBtn.setEnabled(true);
+					idCheckBtn.setText("중복확인");
+					idCheck=-1;
+					clearField();
 				}
 			}
 		});
-
+		
+		
+		menuItem3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int reply = JOptionPane.showConfirmDialog(null, "강사정보를 삭제하시겠습니까?", "강사정보 삭제",
+						JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+				if (reply == JOptionPane.YES_OPTION) {
+					int row = table.getSelectedRow();
+					int tno = (int) table.getValueAt(row, 0);
+					TeacherService.getInstance().deleteTeacher(tno);
+					loadData();
+					updateBtn.setVisible(false);
+					addBtn.setVisible(true);
+					pw.setEnabled(true);
+					id.setEnabled(true);
+					idCheckBtn.setText("중복확인");
+					idCheckBtn.setEnabled(true);
+					idCheck=-1;
+					clearField();
+				}
+			}
+		});
 	}
 
 	private void Search(String type, String keyWord) {
@@ -536,8 +618,8 @@ public class TeacherContent extends JPanel {
 	private int emptyCheck() {
 		int check = -1;
 
-		if (!tno.getText().equals("") && !name.getText().equals("") && !tell1.getText().equals("")
-				&& !tell2.getText().equals("") && !tell3.getText().equals("")) {
+		if (!name.getText().equals("") && !tell1.getText().equals("")
+				&& !tell2.getText().equals("") && !tell3.getText().equals("") && !id.getText().equals("")&& !pw.getText().equals("")) {
 			check = 1;
 		}
 		return check;
