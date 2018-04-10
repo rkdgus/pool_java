@@ -47,6 +47,8 @@ public class TeacherContent extends JPanel {
 	private JButton addBtn;
 	private JComboBox<String> titleCombo;
 	private JButton cancel;
+	private JTextField textField;
+	private JTextField pw;
 
 	public TeacherContent() {
 		setLayout(null);
@@ -95,12 +97,12 @@ public class TeacherContent extends JPanel {
 
 		JLabel tnolbl = new JLabel("강사번호");
 		tnolbl.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		tnolbl.setBounds(579, 109, 57, 15);
+		tnolbl.setBounds(579, 77, 57, 15);
 		add(tnolbl);
 
 		tno = new JTextField();
 		tno.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		tno.setBounds(662, 102, 215, 30);
+		tno.setBounds(658, 70, 218, 30);
 		tno.addKeyListener(new KeyAdapter() {
 
 			@Override
@@ -120,24 +122,24 @@ public class TeacherContent extends JPanel {
 
 		JLabel namelbl = new JLabel("이름");
 		namelbl.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		namelbl.setBounds(579, 167, 57, 15);
+		namelbl.setBounds(579, 242, 57, 15);
 		add(namelbl);
 
 		name = new JTextField();
 		name.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		name.setBounds(662, 160, 219, 30);
+		name.setBounds(658, 235, 218, 30);
 		add(name);
 		name.setColumns(10);
 
 		JLabel telllbl = new JLabel("전화번호");
 		telllbl.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		telllbl.setBounds(579, 225, 57, 15);
+		telllbl.setBounds(579, 297, 57, 15);
 		add(telllbl);
 
 		tell1 = new JTextField();
 		tell1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tell1.setColumns(10);
-		tell1.setBounds(662, 218, 66, 30);
+		tell1.setBounds(656, 290, 66, 30);
 		tell1.addKeyListener(new KeyAdapter() {
 
 			public void keyTyped(KeyEvent e) {
@@ -161,13 +163,13 @@ public class TeacherContent extends JPanel {
 
 		JLabel telllbl1 = new JLabel("-");
 		telllbl1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		telllbl1.setBounds(731, 224, 13, 15);
+		telllbl1.setBounds(725, 296, 13, 15);
 		add(telllbl1);
 
 		tell2 = new JTextField();
 		tell2.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tell2.setColumns(10);
-		tell2.setBounds(739, 218, 66, 30);
+		tell2.setBounds(733, 290, 66, 30);
 		tell2.addKeyListener(new KeyAdapter() {
 
 			public void keyTyped(KeyEvent e) {
@@ -190,13 +192,13 @@ public class TeacherContent extends JPanel {
 
 		JLabel tellllbl2 = new JLabel("-");
 		tellllbl2.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		tellllbl2.setBounds(808, 225, 13, 15);
+		tellllbl2.setBounds(802, 297, 13, 15);
 		add(tellllbl2);
 
 		tell3 = new JTextField();
 		tell3.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tell3.setColumns(10);
-		tell3.setBounds(817, 218, 66, 30);
+		tell3.setBounds(811, 290, 66, 30);
 		add(tell3);
 		tell3.addKeyListener(new KeyAdapter() {
 			@Override
@@ -221,7 +223,7 @@ public class TeacherContent extends JPanel {
 
 		addBtn = new JButton("추가");
 		addBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
-		addBtn.setBounds(725, 357, 75, 23);
+		addBtn.setBounds(724, 417, 75, 23);
 		addBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -269,12 +271,12 @@ public class TeacherContent extends JPanel {
 
 		JLabel titlelbl = new JLabel("직급");
 		titlelbl.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		titlelbl.setBounds(579, 281, 57, 15);
+		titlelbl.setBounds(579, 348, 57, 15);
 		add(titlelbl);
 
 		titleCombo = new JComboBox<>();
 		titleCombo.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		titleCombo.setBounds(662, 273, 106, 30);
+		titleCombo.setBounds(656, 348, 106, 30);
 		titleCombo.addItem("선택");
 		titleCombo.addItem("사원");
 		titleCombo.addItem("대리");
@@ -286,7 +288,7 @@ public class TeacherContent extends JPanel {
 		add(titleCombo);
 
 		updateBtn = new JButton("수정");
-		updateBtn.setBounds(725, 357, 75, 23);
+		updateBtn.setBounds(725, 417, 75, 23);
 		add(updateBtn);
 		updateBtn.addActionListener(new ActionListener() {
 
@@ -323,8 +325,26 @@ public class TeacherContent extends JPanel {
 				clearField();
 			}
 		});
-		cancel.setBounds(802, 357, 75, 23);
+		cancel.setBounds(801, 417, 75, 23);
 		add(cancel);
+		
+		JLabel idlbl = new JLabel("아이디");
+		idlbl.setBounds(579, 133, 57, 15);
+		add(idlbl);
+		
+		textField = new JTextField();
+		textField.setBounds(658, 126, 218, 30);
+		add(textField);
+		textField.setColumns(10);
+		
+		pw = new JTextField();
+		pw.setColumns(10);
+		pw.setBounds(658, 183, 218, 30);
+		add(pw);
+		
+		JLabel pwlbl = new JLabel("비밀번호");
+		pwlbl.setBounds(579, 190, 57, 15);
+		add(pwlbl);
 		updateBtn.setVisible(false);
 
 	}
@@ -557,5 +577,4 @@ public class TeacherContent extends JPanel {
 			cModel.getColumn(idx[i]).setCellRenderer(dtcr);
 		}
 	}
-	
 }
