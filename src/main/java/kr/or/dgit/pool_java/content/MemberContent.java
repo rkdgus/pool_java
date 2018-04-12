@@ -440,6 +440,8 @@ public class MemberContent extends JPanel {
 				loadData();
 				mno.setEnabled(true);
 				mno.requestFocus();
+				eCheck=-1;
+				emailCheck.setText("증복");
 			}
 		});
 		addBtn.setBounds(723, 190, 97, 30);
@@ -654,7 +656,7 @@ public class MemberContent extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				if(emptyCheck()>0&&selectDateCheck()>0&&classCheck()>0) {
+				if(emptyCheck()>0&&selectDateCheck()>0&&classCheck()>0&&eCheck>0) {
 					MemberService.getInstance().updateMember(sendMemberData("update"));
 				}else if(emptyCheck()<0){
 					JOptionPane.showMessageDialog(null, "공백이 존재합니다.");
@@ -664,6 +666,9 @@ public class MemberContent extends JPanel {
 					return;
 				}else if(classCheck()<0) {
 					JOptionPane.showMessageDialog(null, "수강반을 선택해주세요");
+					return;
+				}else if(eCheck<0) {
+					JOptionPane.showMessageDialog(null, "이메일 중복을 확인해 주세요");
 					return;
 				}
 				
