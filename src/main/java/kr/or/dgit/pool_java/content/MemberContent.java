@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -70,6 +71,8 @@ public class MemberContent extends JPanel {
 	private int oldCno=-1;
 	private JButton classreupdateBtn;
 	private int oldClass=-1;
+	private int eCheck = -1;
+	private JButton emailCheck;
 	/**
 	 * Create the panel.
 	 */
@@ -98,12 +101,12 @@ public class MemberContent extends JPanel {
 
 		JLabel lblmno = new JLabel("회원번호");
 		lblmno.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		lblmno.setBounds(41, 26, 57, 15);
+		lblmno.setBounds(25, 33, 57, 15);
 		panel.add(lblmno);
 
 		mno = new JTextField();
 		mno.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		mno.setBounds(134, 26, 183, 30);
+		mno.setBounds(94, 26, 183, 30);
 		mno.addKeyListener(new KeyAdapter() {
 
 			@Override
@@ -122,13 +125,13 @@ public class MemberContent extends JPanel {
 		
 		JLabel lblname = new JLabel("이름");
 		lblname.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		lblname.setBounds(41, 87, 57, 15);
+		lblname.setBounds(25, 87, 57, 15);
 		panel.add(lblname);
 
 		name = new JTextField();
 		name.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		name.setColumns(10);
-		name.setBounds(134, 80, 183, 30);
+		name.setBounds(94, 80, 183, 30);
 		panel.add(name);
 
 		JLabel label_1 = new JLabel("생년월일");
@@ -139,7 +142,7 @@ public class MemberContent extends JPanel {
 		tell1 = new JTextField();
 		tell1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tell1.setColumns(10);
-		tell1.setBounds(134, 134, 66, 30);
+		tell1.setBounds(94, 134, 66, 30);
 		tell1.addKeyListener(new KeyAdapter() {
 			
 			public void keyTyped(KeyEvent e) {
@@ -162,19 +165,28 @@ public class MemberContent extends JPanel {
 
 		JLabel lbltell = new JLabel("전화번호");
 		lbltell.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		lbltell.setBounds(41, 141, 57, 15);
+		lbltell.setBounds(25, 141, 57, 15);
 		panel.add(lbltell);
 
 		JLabel label_3 = new JLabel("이메일");
 		label_3.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		label_3.setBounds(41, 197, 57, 15);
+		label_3.setBounds(369, 141, 57, 15);
 		panel.add(label_3);
 
 		email1 = new JTextField();
 		email1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		email1.setColumns(10);
-		email1.setBounds(134, 190, 124, 30);
+		email1.setBounds(422, 134, 124, 30);
 		panel.add(email1);
+		email1.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				eCheck=-1;
+				emailCheck.setText("중복");
+			}
+			
+		});
 
 		JLabel label_4 = new JLabel("성별");
 		label_4.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
@@ -183,7 +195,7 @@ public class MemberContent extends JPanel {
 
 		JLabel label_5 = new JLabel("반 번호");
 		label_5.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		label_5.setBounds(375, 141, 57, 15);
+		label_5.setBounds(25, 197, 57, 15);
 		panel.add(label_5);
 
 		year = new JComboBox<String>();
@@ -204,7 +216,7 @@ public class MemberContent extends JPanel {
 		tell2 = new JTextField();
 		tell2.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tell2.setColumns(10);
-		tell2.setBounds(211, 134, 66, 30);
+		tell2.setBounds(171, 134, 66, 30);
 		tell2.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
@@ -226,7 +238,7 @@ public class MemberContent extends JPanel {
 		tell3 = new JTextField();
 		tell3.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tell3.setColumns(10);
-		tell3.setBounds(289, 134, 66, 30);
+		tell3.setBounds(249, 134, 66, 30);
 		tell3.addKeyListener(new KeyAdapter() {
 			@Override
 
@@ -268,45 +280,46 @@ public class MemberContent extends JPanel {
 		classCombo = new JComboBox<>();
 		classCombo.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		classCombo.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		classCombo.setBounds(434, 132, 229, 30);
+		classCombo.setBounds(94, 188, 229, 30);
 		panel.add(classCombo);
 		getClassCombo();
 
 		JLabel lbl1 = new JLabel("-");
 		lbl1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		lbl1.setBounds(203, 140, 13, 15);
+		lbl1.setBounds(163, 140, 13, 15);
 		panel.add(lbl1);
 
 		JLabel lbl2 = new JLabel("-");
 		lbl2.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		lbl2.setBounds(280, 141, 13, 15);
+		lbl2.setBounds(240, 141, 13, 15);
 		panel.add(lbl2);
 
 		JLabel label_8 = new JLabel("@");
 		label_8.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		label_8.setBounds(259, 197, 13, 15);
+		label_8.setBounds(545, 141, 13, 15);
 		panel.add(label_8);
 
 		emailAddr = new JTextField();
 		emailAddr.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		emailAddr.setColumns(10);
-		emailAddr.setBounds(270, 190, 124, 30);
+		emailAddr.setBounds(558, 134, 124, 30);
 		panel.add(emailAddr);
+		emailAddr.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				eCheck=-1;
+				emailCheck.setText("중복");
+				System.out.println("이벤트 발생");
+			}
+			
+			
+		});
 
 		emailCombo = new JComboBox<>();
 		emailCombo.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		emailCombo.setBounds(396, 190, 130, 30);
-		emailCombo.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (emailCombo.getSelectedIndex() == 0) {
-					emailAddr.setText("");
-				} else {
-					emailAddr.setText((String) emailCombo.getSelectedItem());
-				}
-			}
-		});
+		emailCombo.setBounds(682, 134, 130, 30);
+		
 		emailCombo.addItem("직접입력");
 		emailCombo.addItem("naver.com");
 		emailCombo.addItem("gmail.com");
@@ -363,7 +376,7 @@ public class MemberContent extends JPanel {
 
 		searchField = new JTextField();
 		searchField.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		searchField.setBounds(149, 10, 630, 35);
+		searchField.setBounds(149, 10, 532, 35);
 		add(searchField);
 		searchField.setColumns(10);
 		searchField.addKeyListener(new KeyAdapter() {
@@ -382,7 +395,7 @@ public class MemberContent extends JPanel {
 
 		JButton searchBtn = new JButton("검색");
 		searchBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
-		searchBtn.setBounds(791, 10, 97, 35);
+		searchBtn.setBounds(683, 10, 97, 35);
 		searchBtn.addActionListener(new ActionListener() {
 			
 			@Override
@@ -401,7 +414,9 @@ public class MemberContent extends JPanel {
 		addBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(emptyCheck()>0&&selectDateCheck()>0&&classCheck()>0) {
+				
+				
+				if(emptyCheck()>0&&selectDateCheck()>0&&classCheck()>0&&eCheck>0) {
 					MemberService.getInstance().insertMember(sendMemberData("insert"));
 					Sales sales = new Sales();
 					sales.setPay(50000);
@@ -414,6 +429,9 @@ public class MemberContent extends JPanel {
 					return;
 				}else if(classCheck()<0) {
 					JOptionPane.showMessageDialog(null, "수강반을 선택해주세요");
+					return;
+				}else if(eCheck<0) {
+					JOptionPane.showMessageDialog(null, "이메일 중복을 확인해 주세요");
 					return;
 				}
 				
@@ -434,7 +452,7 @@ public class MemberContent extends JPanel {
 
 		classupdate = new JButton("수강반 수정");
 		classupdate.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
-		classupdate.setBounds(710, 190, 110, 30);
+		classupdate.setBounds(325, 188, 110, 30);
 		panel.add(classupdate);
 		classupdate.addActionListener(new ActionListener() {
 			
@@ -480,6 +498,50 @@ public class MemberContent extends JPanel {
 		classreupdateBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		classreupdateBtn.setBounds(708, 190, 110, 30);
 		panel.add(classreupdateBtn);
+		
+		emailCheck = new JButton("중복");
+		emailCheck.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
+		emailCheck.setBounds(813, 134, 75, 30);
+		emailCheck.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String email = email1.getText()+"@"+emailAddr.getText();
+				Member m = MemberService.getInstance().selectEmailCheck(email);
+				
+				if(m==null) {
+					JOptionPane.showMessageDialog(null, "사용가능한 이메일 입니다");
+					emailCheck.setText("완료");
+					eCheck=1;
+				
+				}else {
+					JOptionPane.showMessageDialog(null, "사용할 수 없는 이메일 입니다(중복입니다. 다른 이메일 주소를 사용해 주세요)");
+					emailCheck.setText("중복");
+					eCheck=-1;
+				}
+								
+			}
+		});
+		panel.add(emailCheck);
+		
+		JRadioButton isleave = new JRadioButton("탈퇴 회원");
+		isleave.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		
+		isleave.setBounds(806, 16, 86, 23);
+		add(isleave);
+		
+		isleave.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(isleave.isSelected()) {
+					noMemberData();
+				}else {
+					loadData();
+					addPopupMenu();
+				}
+			}
+		});
 		classreupdateBtn.addActionListener(new ActionListener() {
 			
 			@Override
@@ -580,6 +642,8 @@ public class MemberContent extends JPanel {
 				classreupdateBtn.setVisible(false);
 				mno.setEnabled(true);
 				getClassCombo();
+				eCheck=-1;
+				emailCheck.setText("증복");
 			}
 		});
 
@@ -620,6 +684,10 @@ public class MemberContent extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
+					
+					if(isleave.isSelected()) {
+						return;
+					}
 					getClassComboUpdate();
 					getMemberData();
 					addBtn.setVisible(false);
@@ -629,8 +697,24 @@ public class MemberContent extends JPanel {
 					reenterBtn.setVisible(false);
 					
 				}
+				
 			}
 
+		});
+		
+		
+		emailCombo.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (emailCombo.getSelectedIndex() == 0) {
+					emailAddr.setText("");
+				} else {
+					emailAddr.setText((String) emailCombo.getSelectedItem());
+				}
+				eCheck=-1;
+				emailCheck.setText("중복");
+			}
 		});
 	}
 
@@ -681,7 +765,36 @@ public class MemberContent extends JPanel {
 		return data;
 	}
 
+	
+	private void noMemberData() {
+		DefaultTableModel model = new DefaultTableModel(getNomemberData(), getColumnNames()) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+			
+			
 
+		};
+
+		table.setModel(model);
+		table.getComponentPopupMenu().removeAll();
+		setAlignWidth();
+	}
+	private  Object[][] getNomemberData() {
+	
+		List<Member> list = MemberService.getInstance().noMember();
+
+		Object[][] data = new Object[list.size()][];
+
+		for (int i = 0; i < list.size(); i++) {
+
+			data[i] = list.get(i).toArray();
+
+		}
+		return data;
+		
+	}
 	private void loadSearchData(String type, String keyword) {
 
 		DefaultTableModel model = new DefaultTableModel(getSearchData(type, keyword), getColumnNames()) {
@@ -699,7 +812,7 @@ public class MemberContent extends JPanel {
 	private void addPopupMenu() {
 		JPopupMenu popupMenu = new JPopupMenu();
 		JMenuItem menuItem = new JMenuItem("수정");
-		JMenuItem menuItem2 = new JMenuItem("삭제");
+		JMenuItem menuItem2 = new JMenuItem("탈퇴");
 		JMenuItem menuItem3 = new JMenuItem("재등록");
 		JMenuItem menuItem4 = new JMenuItem("수강 취소");
 		
@@ -727,7 +840,7 @@ public class MemberContent extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int reply = JOptionPane.showConfirmDialog(null, "회원을 삭제하시겠습니까?", "회원정보 삭제",
+				int reply = JOptionPane.showConfirmDialog(null, "회원을 탈퇴시키시겠습니까?", "회원 탈퇴",
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
 				if (reply == JOptionPane.YES_OPTION) {
 					int row = table.getSelectedRow();
@@ -735,7 +848,7 @@ public class MemberContent extends JPanel {
 						return;
 					}
 					int mno = (int) table.getValueAt(row, 0);
-					MemberService.getInstance().deleteMember(mno);
+					MemberService.getInstance().udpateleave(mno);
 					loadData();
 				}
 			}
@@ -1145,5 +1258,4 @@ public class MemberContent extends JPanel {
 		}
 
 	}
-	
 }

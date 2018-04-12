@@ -17,7 +17,18 @@ public class Member {
 	private String gender;
 	private String pw;
 	private String id;
+	private boolean isleave;
 	
+
+	public boolean isIsleave() {
+		return isleave;
+	}
+
+
+	public void setIsleave(boolean isleave) {
+		this.isleave = isleave;
+	}
+
 
 	public String getId() {
 		return id;
@@ -94,12 +105,11 @@ public class Member {
 		this.pw = pw;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return String.format("Member [mno=%s, name=%s, age=%s, tell=%s, date=%s, email=%s, gender=%s, pw=%s, id=%s]",
-				mno, name, age, tell, date, email, gender, pw, id);
+		return String.format(
+				"Member [mno=%s, name=%s, age=%s, tell=%s, date=%s, email=%s, gender=%s, pw=%s, id=%s, isleave=%s]",
+				mno, name, age, tell, date, email, gender, pw, id, isleave);
 	}
 
 

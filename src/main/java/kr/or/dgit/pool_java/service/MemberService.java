@@ -93,5 +93,34 @@ public class MemberService implements MemberDao{
 		}
 	}
 
+	@Override
+	public void udpateleave(int mno) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+			dao = sqlsession.getMapper(MemberDao.class);
+			dao.udpateleave(mno);
+			sqlsession.commit();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	@Override
+	public List<Member> noMember() {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(MemberDao.class);
+			return dao.noMember();
+		}
+	}
+
+	@Override
+	public Member selectEmailCheck(String email) {
+		try (SqlSession sqlsession = MyBatisSqlSessionFactory.getSqlSessionFactory().openSession();) {
+			dao = sqlsession.getMapper(MemberDao.class);
+			return dao.selectEmailCheck(email);
+		}
+	}
+
 
 }
