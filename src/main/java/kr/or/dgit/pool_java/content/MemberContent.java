@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -619,13 +620,14 @@ public class MemberContent extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
+					getClassComboUpdate();
 					getMemberData();
 					addBtn.setVisible(false);
 					memupdate.setVisible(true);
 					classupdate.setVisible(true);
 					backBtn.setVisible(true);
 					reenterBtn.setVisible(false);
-				
+					
 				}
 			}
 
@@ -711,6 +713,7 @@ public class MemberContent extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				getClassComboUpdate();
 				getMemberData();
 				addBtn.setVisible(false);
 				memupdate.setVisible(true);
@@ -822,7 +825,7 @@ public class MemberContent extends JPanel {
 
 	private void getClassCombo() {
 
-		List<Class> list = null;
+		List<Class> list = new ArrayList<>();
 
 		Calendar c = Calendar.getInstance();
 		if (c.get(Calendar.DATE) <= 10) {
@@ -837,7 +840,7 @@ public class MemberContent extends JPanel {
 		}
 
 	}
-
+	
 	private void loadData() {
 		DefaultTableModel model = new DefaultTableModel(getData(), getColumnNames()) {
 			@Override
@@ -907,7 +910,7 @@ public class MemberContent extends JPanel {
 	}
 
 	private void getMemberData() {
-	
+		
 		int row = table.getSelectedRow();
 		int no = (int) table.getValueAt(row, 0);
 
@@ -917,7 +920,7 @@ public class MemberContent extends JPanel {
 		name.setText(m.getName());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		regdatetf.setText(sdf.format(m.getDate()));
-
+		
 		if (m.getGender().equals("남")) {
 			womenRadio.setSelected(false);
 			menRadio.setSelected(true);
@@ -969,6 +972,7 @@ public class MemberContent extends JPanel {
 		tell1.setText(t1);
 		tell2.setText(t2);
 		tell3.setText(t3);
+		
 	}
 	
 	private void clearText() {
@@ -1114,6 +1118,20 @@ public class MemberContent extends JPanel {
 		for(int i=0; i<idx.length;i++){
 			cModel.getColumn(idx[i]).setCellRenderer(dtcr);
 		}
+	}
+	
+	private void getClassComboUpdate() {
+
+		List<Class> list = ClassService.getInstance().selectBytoMonth("");
+		for(Class c : list) {
+			System.out.println("class : " + c);
+		}
+		classCombo.removeAllItems();
+		classCombo.addItem("선택");
+		for (int i = 0; i < list.size(); i++) {
+			classCombo.addItem(list.get(i).getCno() + " / "+list.get(i).getTime()+" / "+list.get(i).getLevel());
+		}
+
 	}
 	
 }
