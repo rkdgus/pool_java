@@ -64,6 +64,7 @@ public class ClassSchedule extends JPanel {
 					Class cls = ClassService.getInstance().selectByNo(cno);
 					ClassInfoFrame frame = new ClassInfoFrame(cls);
 					frame.setVisible(true);
+					frame.setResizable(false);
 				}
 			}
 		});
@@ -213,6 +214,7 @@ public class ClassSchedule extends JPanel {
 				Teacher t = TeacherService.getInstance().selectByNo(cls.getTno());
 				System.out.println(cls);
 				ClassScheduleUpdate updateFrame = new ClassScheduleUpdate(t.getName(),cls.getClassmate(),cno);
+				updateFrame.setResizable(false);
 				updateFrame.setVisible(true);
 			}
 		});

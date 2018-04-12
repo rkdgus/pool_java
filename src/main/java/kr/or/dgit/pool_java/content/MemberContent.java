@@ -620,13 +620,14 @@ public class MemberContent extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
+					getClassComboUpdate();
 					getMemberData();
 					addBtn.setVisible(false);
 					memupdate.setVisible(true);
 					classupdate.setVisible(true);
 					backBtn.setVisible(true);
 					reenterBtn.setVisible(false);
-				
+					
 				}
 			}
 
@@ -712,6 +713,7 @@ public class MemberContent extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				getClassComboUpdate();
 				getMemberData();
 				addBtn.setVisible(false);
 				memupdate.setVisible(true);
@@ -729,6 +731,9 @@ public class MemberContent extends JPanel {
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
 				if (reply == JOptionPane.YES_OPTION) {
 					int row = table.getSelectedRow();
+					if(row<0) {
+						return;
+					}
 					int mno = (int) table.getValueAt(row, 0);
 					MemberService.getInstance().deleteMember(mno);
 					loadData();
@@ -759,6 +764,9 @@ public class MemberContent extends JPanel {
 				}
 				
 				int row = table.getSelectedRow();
+				if(row<0) {
+					return;
+				}
 				int no = (int) table.getValueAt(row, 0);
 				
 				for(int i=0;i<list.size();i++) {
@@ -790,6 +798,9 @@ public class MemberContent extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int row = table.getSelectedRow();
+				if(row<0) {
+					return;
+				}
 				int mno = (int)table.getValueAt(row, 0);
 				
 				List<Register> list = RegisterService.getInstance().findClass(mno);
@@ -838,7 +849,7 @@ public class MemberContent extends JPanel {
 		}
 
 	}
-
+	
 	private void loadData() {
 		DefaultTableModel model = new DefaultTableModel(getData(), getColumnNames()) {
 			@Override
@@ -908,8 +919,11 @@ public class MemberContent extends JPanel {
 	}
 
 	private void getMemberData() {
-	
+		
 		int row = table.getSelectedRow();
+		if(row<0) {
+			return;
+		}
 		int no = (int) table.getValueAt(row, 0);
 
 		Member m = MemberService.getInstance().selectMno(no);
@@ -918,7 +932,7 @@ public class MemberContent extends JPanel {
 		name.setText(m.getName());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		regdatetf.setText(sdf.format(m.getDate()));
-
+		
 		if (m.getGender().equals("남")) {
 			womenRadio.setSelected(false);
 			menRadio.setSelected(true);
@@ -970,6 +984,7 @@ public class MemberContent extends JPanel {
 		tell1.setText(t1);
 		tell2.setText(t2);
 		tell3.setText(t3);
+		
 	}
 	
 	private void clearText() {
@@ -1115,6 +1130,20 @@ public class MemberContent extends JPanel {
 		for(int i=0; i<idx.length;i++){
 			cModel.getColumn(idx[i]).setCellRenderer(dtcr);
 		}
+	}
+	
+	private void getClassComboUpdate() {
+
+		List<Class> list = ClassService.getInstance().selectBytoMonth("");
+		for(Class c : list) {
+			System.out.println("class : " + c);
+		}
+		classCombo.removeAllItems();
+		classCombo.addItem("선택");
+		for (int i = 0; i < list.size(); i++) {
+			classCombo.addItem(list.get(i).getCno() + " / "+list.get(i).getTime()+" / "+list.get(i).getLevel());
+		}
+
 	}
 	
 }

@@ -398,9 +398,6 @@ public class TeacherContent extends JPanel {
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
-			
-			
-
 		};
 
 		table.setModel(model);
@@ -455,6 +452,9 @@ public class TeacherContent extends JPanel {
 	private void setTextData() {
 
 		int row = table.getSelectedRow();
+		if(row<0) {
+			return;
+		}
 		int no = (int) table.getValueAt(row, 0);
 		Teacher t = TeacherService.getInstance().selectByNo(no);
 
@@ -506,6 +506,9 @@ public class TeacherContent extends JPanel {
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
 				if (reply == JOptionPane.YES_OPTION) {
 					int row = table.getSelectedRow();
+					if(row<0) {
+						return;
+					}
 					int tno = (int) table.getValueAt(row, 0);
 					Teacher teacher = new Teacher();
 					teacher.setTno(tno);
@@ -533,6 +536,9 @@ public class TeacherContent extends JPanel {
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
 				if (reply == JOptionPane.YES_OPTION) {
 					int row = table.getSelectedRow();
+					if(row<0) {
+						return;
+					}
 					int tno = (int) table.getValueAt(row, 0);
 					TeacherService.getInstance().deleteTeacher(tno);
 					loadData();
