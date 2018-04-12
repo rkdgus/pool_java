@@ -310,7 +310,6 @@ public class MemberContent extends JPanel {
 			public void keyPressed(KeyEvent e) {
 				eCheck=-1;
 				emailCheck.setText("중복");
-				System.out.println("이벤트 발생");
 			}
 			
 			
@@ -415,27 +414,27 @@ public class MemberContent extends JPanel {
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
-				if(emptyCheck()>0&&selectDateCheck()>0&&classCheck()>0&&eCheck>0) {
-					MemberService.getInstance().insertMember(sendMemberData("insert"));
-					Sales sales = new Sales();
-					sales.setPay(50000);
-					SalesService.getInstance().insertSales(sales);
-				}else if(emptyCheck()<0){
+				if(emptyCheck()<0){
 					JOptionPane.showMessageDialog(null, "공백이 존재합니다.");
 					return;
-				}else if(selectDateCheck()<0) {
+				}
+				if(selectDateCheck()<0) {
 					JOptionPane.showMessageDialog(null, "생년월일을 확인해주세요");
 					return;
-				}else if(classCheck()<0) {
+				}
+				if(classCheck()<0) {
 					JOptionPane.showMessageDialog(null, "수강반을 선택해주세요");
 					return;
-				}else if(eCheck<0) {
+				}
+				if(eCheck<0) {
 					JOptionPane.showMessageDialog(null, "이메일 중복을 확인해 주세요");
 					return;
 				}
 				
-				
+				MemberService.getInstance().insertMember(sendMemberData("insert"));
+				Sales sales = new Sales();
+				sales.setPay(50000);
+				SalesService.getInstance().insertSales(sales);
 				
 				loadData();
 				mno.setEnabled(true);
@@ -449,7 +448,7 @@ public class MemberContent extends JPanel {
 
 		memupdate = new JButton("회원정보수정");
 		memupdate.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
-		memupdate.setBounds(591, 190, 117, 30);
+		memupdate.setBounds(703, 190, 117, 30);
 		panel.add(memupdate);
 
 		classupdate = new JButton("수강반 수정");
@@ -517,6 +516,12 @@ public class MemberContent extends JPanel {
 					eCheck=1;
 				
 				}else {
+					if(m.getMno()==Integer.parseInt(mno.getText())) {
+						JOptionPane.showMessageDialog(null, "현재 회원님이 사용중인 이메일 입니다(사용가능)");
+						emailCheck.setText("완료");
+						eCheck=1;
+						return;
+					}
 					JOptionPane.showMessageDialog(null, "사용할 수 없는 이메일 입니다(중복입니다. 다른 이메일 주소를 사용해 주세요)");
 					emailCheck.setText("중복");
 					eCheck=-1;
@@ -538,7 +543,11 @@ public class MemberContent extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(isleave.isSelected()) {
 					noMemberData();
+					searchBtn.setEnabled(false);
+					searchField.setEnabled(false);
 				}else {
+					searchBtn.setEnabled(true);
+					searchField.setEnabled(true);
 					loadData();
 					addPopupMenu();
 				}
@@ -693,6 +702,8 @@ public class MemberContent extends JPanel {
 					if(isleave.isSelected()) {
 						return;
 					}
+					eCheck=1;
+					emailCheck.setText("완료");
 					getClassComboUpdate();
 					getMemberData();
 					addBtn.setVisible(false);
@@ -831,6 +842,8 @@ public class MemberContent extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				eCheck=1;
+				emailCheck.setText("완료");
 				getClassComboUpdate();
 				getMemberData();
 				addBtn.setVisible(false);
@@ -863,6 +876,8 @@ public class MemberContent extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				eCheck=1;
+				emailCheck.setText("완료");
 				getMemberData();
 				reenterBtn.setVisible(true);
 				addBtn.setVisible(false);
@@ -955,7 +970,7 @@ public class MemberContent extends JPanel {
 		List<Class> list = new ArrayList<>();
 
 		Calendar c = Calendar.getInstance();
-		if (c.get(Calendar.DATE) <= 10) {
+		if (c.get(Calendar.DATE) <= 15) {
 			list = ClassService.getInstance().selectBytoMonth("");
 		} else if (c.get(Calendar.DATE) >= 20) {
 			list = ClassService.getInstance().selectByNextMonth("");
@@ -1127,6 +1142,8 @@ public class MemberContent extends JPanel {
 	
 	public void barCodeData(Member m,int no) {
 		
+		eCheck=-1;
+		emailCheck.setText("완료");
 		mno.setText(m.getMno() + "");
 		name.setText(m.getName());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -1187,7 +1204,7 @@ public class MemberContent extends JPanel {
 		classCombo.removeAllItems();
 		classCombo.addItem("선택");
 		for (int i = 0; i < list.size(); i++) {
-			classCombo.addItem(list.get(i).getCno() + "");
+			classCombo.addItem(list.get(i).getCno() + " / "+list.get(i).getTime()+" / "+list.get(i).getLevel());
 		}
 		
 	}
