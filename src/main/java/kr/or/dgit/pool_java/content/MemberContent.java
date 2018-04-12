@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -822,7 +823,7 @@ public class MemberContent extends JPanel {
 
 	private void getClassCombo() {
 
-		List<Class> list = null;
+		List<Class> list = new ArrayList<>();
 
 		Calendar c = Calendar.getInstance();
 		if (c.get(Calendar.DATE) <= 10) {

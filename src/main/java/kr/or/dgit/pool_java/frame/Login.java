@@ -129,7 +129,7 @@ public class Login extends JFrame {
 		PwField.addFocusListener(new FocusAdapter() {
 
 			@Override
-			public void focusGained(FocusEvent e) {
+			public void focusGained(FocusEvent erkd) {
 				PwField.select(0, PwField.getText().length());
 
 			}
