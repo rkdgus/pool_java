@@ -336,9 +336,6 @@ public class TeacherContent extends JPanel {
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
-			
-			
-
 		};
 
 		table.setModel(model);
