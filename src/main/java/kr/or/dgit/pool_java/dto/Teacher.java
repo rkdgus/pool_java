@@ -80,6 +80,15 @@ public class Teacher {
 	
 	
 
+	public Teacher(String name, String tell, String title, String pw, String id) {
+		super();
+		this.name = name;
+		this.tell = tell;
+		this.title = title;
+		this.pw = pw;
+		this.id = id;
+	}
+
 	public Teacher(int tno, String name, String tell, String title, String pw) {
 		super();
 		this.tno = tno;

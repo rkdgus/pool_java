@@ -111,7 +111,7 @@ public class ClassScheduleUpdate extends JFrame {
 	
 	private Vector<String> getDate(){
 		Vector<String> vt = new Vector<>();
-		lists = TeacherService.getInstance().selectByAll();
+		lists = TeacherService.getInstance().realTeacher();
 		for(Teacher t : lists) {
 			vt.add(t.getName());
 		}

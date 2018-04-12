@@ -60,7 +60,7 @@ public class NewClassSchedule extends JPanel {
 	public static NewClassSchedule getInstance() {
 		return instance;
 	}
-	private NewClassSchedule() {
+	public NewClassSchedule() {
 		setBounds(0, 0, 900, 570);
 		setLayout(null);
 		
@@ -272,9 +272,10 @@ public class NewClassSchedule extends JPanel {
 	}
 	private Vector<String> getDate(){
 		Vector<String> vt = new Vector<>();
-		lists = TeacherService.getInstance().selectByAll();
+		lists = TeacherService.getInstance().realTeacher();
 		for(Teacher t : lists) {
 			vt.add(t.getName());
+			System.out.println(vt);
 		}
 		return vt;
 	}
