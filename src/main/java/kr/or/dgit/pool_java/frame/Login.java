@@ -62,7 +62,7 @@ public class Login extends JFrame {
 			public void run() {
 				try {
 					frame = new Login();
-					frame.setVisible(true);
+					frame.setVisible(false);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -77,8 +77,6 @@ public class Login extends JFrame {
 		setIconImage(img);
 		
 		setTitle("수영장");
-		
-		setResizable(false);
 		this.dao = TeacherService.getInstance();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 632, 479);
@@ -178,6 +176,7 @@ public class Login extends JFrame {
 							}else if(!t.getTitle().equals("사장")){
 								JOptionPane.showMessageDialog(null, t.getName() + " 님 환영합니다!");
 								MemberFrame frame = MemberFrame.getInstance();
+								frame.setResizable(false);
 								frame.getPanel().getSales().setVisible(false);
 								frame.getPanel().getSalesTitle().setVisible(false);
 								frame.setVisible(true);

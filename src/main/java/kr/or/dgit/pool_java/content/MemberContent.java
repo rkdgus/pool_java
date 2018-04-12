@@ -731,6 +731,9 @@ public class MemberContent extends JPanel {
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
 				if (reply == JOptionPane.YES_OPTION) {
 					int row = table.getSelectedRow();
+					if(row<0) {
+						return;
+					}
 					int mno = (int) table.getValueAt(row, 0);
 					MemberService.getInstance().deleteMember(mno);
 					loadData();
@@ -761,6 +764,9 @@ public class MemberContent extends JPanel {
 				}
 				
 				int row = table.getSelectedRow();
+				if(row<0) {
+					return;
+				}
 				int no = (int) table.getValueAt(row, 0);
 				
 				for(int i=0;i<list.size();i++) {
@@ -792,6 +798,9 @@ public class MemberContent extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int row = table.getSelectedRow();
+				if(row<0) {
+					return;
+				}
 				int mno = (int)table.getValueAt(row, 0);
 				
 				List<Register> list = RegisterService.getInstance().findClass(mno);
@@ -912,6 +921,9 @@ public class MemberContent extends JPanel {
 	private void getMemberData() {
 		
 		int row = table.getSelectedRow();
+		if(row<0) {
+			return;
+		}
 		int no = (int) table.getValueAt(row, 0);
 
 		Member m = MemberService.getInstance().selectMno(no);
