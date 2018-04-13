@@ -3,11 +3,15 @@
 <mapper namespace="kr.or.dgit.pool_java.dao.MemberDao">
 
 	<select id="selectAll" resultType="Member">
-		select * from member
+		select * from member where isleave =false
 	</select>
 	
 	<select id="selectMno"  resultType="Member">
 		select * from member where mno=#{mno}
+	</select>
+	
+	<select id="noMember" resultType="Member">
+		select * from member where isleave=true
 	</select>
 	
 	<select id="selectSearchName" resultType="Member">
@@ -15,6 +19,10 @@
 	</select>
 	<select id="selectSearchCno" resultType="Member" parameterType="int">
 		select * from member where mno in (select mno from register where cno=#{cno})
+	</select>
+	
+	<select id="selectEmailCheck" resultType="Member" parameterType="String">
+		select * from member where email=#{email}
 	</select>
 	<insert id="insertMember" parameterType="Member">
 		insert into member(mno,name,age,tell,email,gender,pw) values(#{mno},#{name}, #{age}, #{tell}, #{email}, #{gender},password(#{pw}))
@@ -27,5 +35,8 @@
 	<update id="updateMember" parameterType="Member">
 		update member set name=#{name},age=#{age},tell=#{tell},email=#{email},gender=#{gender} where mno = #{mno}  
 	</update>
-
+	
+	<update id="udpateleave" parameterType="int">
+		update member set isleave = true where mno = #{mno}
+	</update>
 </mapper>

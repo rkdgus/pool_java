@@ -12,4 +12,7 @@ public interface MemberDao {
 	public Member selectMno(int mno);
 	public List<Member> selectSearchName(String name);
 	public List<Member> selectSearchCno(int cno);
+	public void udpateleave(int mno);
+	public List<Member> noMember();
+	public Member selectEmailCheck(String email);
 }
