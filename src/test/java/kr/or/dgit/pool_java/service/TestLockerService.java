@@ -22,7 +22,7 @@ public class TestLockerService {
 		service = null;
 	}
 
-	//@Test 
+	/*//@Test 
 	public void test1InsertLockerData() {
 		System.out.println(service.selectAll());
 	}
@@ -32,7 +32,7 @@ public class TestLockerService {
 		Locker locker = new Locker();
 		locker.setAble(true);
 		service.insertLocker(locker);
-	}
+	}*/
 	
 	/*@Test
 	public void test2FindSelectCarDataByCarDataCode() {

@@ -24,12 +24,12 @@ public class TestSalsesService {
 	public static void tearDownAfterClass() throws Exception {
 		service = null;
 	}
-
+/*
 	//@Test 
 	public void test1InsertLockerData() {
 		System.out.println(service.selectAll());
 	}
-	
+	*/
 /*	@Test
 	public void test1InsertSalesData() {
 		Sales sales = new Sales();

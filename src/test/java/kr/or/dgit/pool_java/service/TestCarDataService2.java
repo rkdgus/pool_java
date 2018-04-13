@@ -22,7 +22,7 @@ public class TestCarDataService2 {
 	public static void tearDownAfterClass() throws Exception {
 		service = null;
 	}
-	@Test
+	/*@Test
 	public void test1InsertMemberData() {
 		List<Class> lists = service.selectByreclass(true);
 		for(Class c : lists) {
@@ -32,5 +32,5 @@ public class TestCarDataService2 {
 			c.setS_day(date);
 			service.updateReclass(c);
 		}
-	}
+	}*/
 }

@@ -1,2 +1,5 @@
 Manifest-Version: 1.0
+Title: pool
+Version: 1.0
+Main-Class: kr.or.dgit.pool_java.frame.Login
 

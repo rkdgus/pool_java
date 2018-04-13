@@ -22,7 +22,7 @@ public class TestAttendanceService {
 		service = null;
 	}
 
-	@Test 
+	/*@Test 
 	public void test1InsertMemberData() {
 		Member member = new Member();
 		member.setName("강현");
@@ -32,7 +32,7 @@ public class TestAttendanceService {
 		System.out.println(member);
 		service.insertMember(member);
 	}
-	
+	*/
 	/*@Test
 	public void test1InsertCarData() {
 		CarData carData = new CarData();

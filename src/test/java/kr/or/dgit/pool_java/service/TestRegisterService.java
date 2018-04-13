@@ -22,7 +22,7 @@ public class TestRegisterService {
 		service = null;
 	}
 
-	//@Test 
+	/*//@Test 
 	public void test1InsertLockerData() {
 		
 	}
@@ -34,7 +34,7 @@ public class TestRegisterService {
 		register.setMno(1);
 		register.setReentrance(true);
 		service.insertRegister(register);
-	}
+	}*/
 	
 	/*@Test
 	public void test2FindSelectCarDataByCarDataCode() {

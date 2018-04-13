@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'application'
 
 sourceCompatibility = 1.8
 
@@ -36,6 +37,26 @@ dependencies {
     //excel 
     compile files('libs/jxl.jar')
 
-
+ testImplementation 'junit:junit:4.12'
 }
+
+jar{
+
+    version = 1.0
+ 	mainClassName='kr.or.dgit.pool_java.frame.Login'
+
+	baseName='pool'
+ 	appendix='bin'
+ 	
+ 	manifest{
+ 		 attributes 'Title':baseName, 'Version':version, 'Main-Class':mainClassName
+ 	}
+	
+	// jar 생성 시 연관된 파일도 포함
+	dependsOn configurations.runtime
+    	 from {
+        	configurations.compile.collect {it.isDirectory()? it: zipTree(it)}
+    	}
+}
+
 
