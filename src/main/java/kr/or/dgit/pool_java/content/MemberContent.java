@@ -970,7 +970,7 @@ public class MemberContent extends JPanel {
 		List<Class> list = new ArrayList<>();
 
 		Calendar c = Calendar.getInstance();
-		if (c.get(Calendar.DATE) <= 15) {
+		if (c.get(Calendar.DATE) <= 10) {
 			list = ClassService.getInstance().selectBytoMonth("");
 		} else if (c.get(Calendar.DATE) >= 20) {
 			list = ClassService.getInstance().selectByNextMonth("");
