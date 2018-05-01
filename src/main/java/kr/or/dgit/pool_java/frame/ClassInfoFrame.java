@@ -37,6 +37,7 @@ public class ClassInfoFrame extends JFrame {
 	private DefaultComboBoxModel<String> cmbModel;
 
 	public ClassInfoFrame(Class cls) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 520, 349);
 		contentPane = new JPanel();

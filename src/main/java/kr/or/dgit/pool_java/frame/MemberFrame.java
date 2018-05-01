@@ -59,7 +59,7 @@ public class MemberFrame extends JFrame {
 		
 		setTitle("수영장 관리");*/
 		
-		
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1170, 602);
 		contentPane = new JPanel();

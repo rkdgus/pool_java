@@ -37,7 +37,7 @@ public class ClassScheduleUpdate extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		setResizable(false);
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel.setBounds(17, 11, 323, 208);
