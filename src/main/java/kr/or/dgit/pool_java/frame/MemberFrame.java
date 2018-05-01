@@ -52,12 +52,12 @@ public class MemberFrame extends JFrame {
 	private JPanel content;
 
 	private MemberFrame() {
-		/*
+		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Image img = tk.getImage(System.getProperty("user.dir") + "\\images\\Instapaper icon.png");
 		setIconImage(img);
 		
-		setTitle("수영장 관리");*/
+		setTitle("수영장 관리");
 		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
