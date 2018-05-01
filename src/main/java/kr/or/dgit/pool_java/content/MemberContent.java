@@ -620,15 +620,17 @@ public class MemberContent extends JPanel {
 				
 				Class c2 = RegisterService.getInstance().selectByMno(map);
 				
-			
-				if(c.getTno()==c2.getTno()) {
-					Register register = new Register();
-					register.setMno(no);
-					register.setCno(c2.getCno());
-					register.setReentrance(true);
-					System.out.println(register);
-					RegisterService.getInstance().updateReenter(register);
+				if(c2!=null) {
+					if(c.getTno()==c2.getTno()) {
+						Register register = new Register();
+						register.setMno(no);
+						register.setCno(c2.getCno());
+						register.setReentrance(true);
+						System.out.println(register);
+						RegisterService.getInstance().updateReenter(register);
+					}
 				}
+				
 				
 				Sales sales = new Sales();
 				sales.setPay(50000);

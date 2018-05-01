@@ -53,8 +53,6 @@ public class Login extends JFrame {
 				try {
 					frame = new Login();
 					frame.setVisible(true);
-					frame.setResizable(false);
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
