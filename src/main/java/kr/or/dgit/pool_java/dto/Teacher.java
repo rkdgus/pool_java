@@ -128,7 +128,7 @@ public class Teacher {
 		d.setMonth(d.getMonth() - 1);
 		Calendar cal = Calendar.getInstance();
 		if (cal.get(Calendar.DATE) >= 20) {
-			d.setMonth(d.getMonth()+1);
+			d.setMonth(d.getMonth());
 		}
 
 		d.setDate(1);
