@@ -138,6 +138,8 @@ public class Teacher {
 		c.setTno(tno);
 		c.setLevel(sdf.format(d));
 		int totalCount = RegisterService.getInstance().selectByTnoCount(c);
+		d.setMonth(d.getMonth() + 1);
+		c.setLevel(sdf.format(d));
 		int re = RegisterService.getInstance().reenter(c);
 
 		System.out.println(name + " = " + totalCount + " : " + re);
