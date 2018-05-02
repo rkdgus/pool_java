@@ -125,10 +125,10 @@ public class Teacher {
 	public Object[] toArray() {
 
 		Date d = new Date();
-
+		d.setMonth(d.getMonth() - 1);
 		Calendar cal = Calendar.getInstance();
 		if (cal.get(Calendar.DATE) >= 20) {
-			d.setMonth(d.getMonth() + 1);
+			d.setMonth(d.getMonth()+1);
 		}
 
 		d.setDate(1);
