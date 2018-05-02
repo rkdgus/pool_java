@@ -1018,11 +1018,12 @@ public class MemberContent extends JPanel {
 					if(c2!=null) {
 						if(c.getTno()==c2.getTno()) {
 							Register register = new Register();
-							register.setCno(Integer.parseInt(cancel.substring(0,cancel.indexOf("/")-1)));
+							register.setCno(c2.getCno());
 							register.setMno(mno);
 							Register re = RegisterService.getInstance().checkReent(register);
+							
 							if(re.isReentrance()==true) {
-								re.setReentrance(true);
+								re.setReentrance(false);
 								RegisterService.getInstance().updateReenter(re);
 							}
 						}
@@ -1030,16 +1031,7 @@ public class MemberContent extends JPanel {
 					
 					RegisterService.getInstance().cancelClass(new Register(mno, Integer.parseInt(cancel.substring(0,cancel.indexOf("/")-1))));
 					Sales s = SalesService.getInstance().lastSales(sdf.format(day));
-					
-					if(s.getSno()<0) {
-						Date before = new Date();
-						before.setMonth(before.getMonth()-1);
-						Sales sBefore = SalesService.getInstance().lastSales(sdf.format(before));
-						SalesService.getInstance().deleteSales(sBefore.getSno());
-					}else {
-						SalesService.getInstance().deleteSales(s.getSno());
-					}
-					
+					SalesService.getInstance().deleteSales(s.getSno());
 				}
 			}
 		});
