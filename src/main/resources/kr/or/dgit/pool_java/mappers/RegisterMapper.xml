@@ -43,7 +43,7 @@
 	<update id="changeClass" parameterType="map">
 		update register set cno=#{newCno} where mno=#{mno} and cno=#{oldCno}
 	</update>
-	
+
 	<select id="checkReent" parameterType="Class" resultType="Register">
 		select * from register where mno=#{mno} and cno=#{cno}
 	</select>

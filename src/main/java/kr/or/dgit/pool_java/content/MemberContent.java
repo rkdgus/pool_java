@@ -474,7 +474,46 @@ public class MemberContent extends JPanel {
 				map.put("newCno", newCno.substring(0,newCno.indexOf("/")-1));
 				map.put("mno",mno.getText());
 				map.put("oldCno",oldCno);
-				RegisterService.getInstance().changeClass(map);
+				
+				if(oldCno ==-1) {
+					Register register1 = new Register();
+					register1.setCno(Integer.parseInt(newCno.substring(0,newCno.indexOf("/")-1)));
+					register1.setMno(Integer.parseInt(mno.getText()));
+					register1.setReentrance(false);
+					RegisterService.getInstance().insertRegister(register1);
+					
+					Sales sales = new Sales();
+					sales.setPay(50000);
+					SalesService.getInstance().insertSales(sales);
+					
+					Class c = ClassService.getInstance().selectByNo(Integer.parseInt(newCno.substring(0,newCno.indexOf("/")-1)));
+					
+					HashMap<String,Object> map2 = new HashMap<>();
+					map2.put("mno", Integer.parseInt(mno.getText()));
+					Date d = new Date();
+					
+					d.setMonth(d.getMonth()-1);
+					d.setDate(1);
+					SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+					System.out.println(sdf2.format(d));
+					map2.put("s_day",sdf2.format(d));
+					
+					Class c2 = RegisterService.getInstance().selectByMno(map2);
+					
+					if(c2!=null) {
+						if(c.getTno()==c2.getTno()) {
+							Register register = new Register();
+							register.setMno(Integer.parseInt(mno.getText()));
+							register.setCno(c2.getCno());
+							register.setReentrance(true);
+							System.out.println(register);
+							RegisterService.getInstance().updateReenter(register);
+						}
+					}
+				}else {
+					RegisterService.getInstance().changeClass(map);
+				}
+				
 				
 				clearText();
 				getClassCombo();
@@ -614,7 +653,7 @@ public class MemberContent extends JPanel {
 				map.put("mno", no);
 				Date d = new Date();
 				
-				d.setDate(1);
+				d.setMonth(1);
 				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 				map.put("s_day",sdf2.format(d));
 				
@@ -957,9 +996,40 @@ public class MemberContent extends JPanel {
 				
 				if(selected !=null) {
 					String cancel = selected.toString();
-					RegisterService.getInstance().cancelClass(new Register(mno, Integer.parseInt(cancel.substring(0,cancel.indexOf("/")-1))));
+				
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 					Date day = new Date();
+			
+					
+					
+					Class c = ClassService.getInstance().selectByNo(Integer.parseInt(cancel.substring(0,cancel.indexOf("/")-1)));
+					
+					HashMap<String,Object> map2 = new HashMap<>();
+					map2.put("mno", mno);
+					Date d = new Date();
+					
+					d.setMonth(d.getMonth()-1);
+					d.setDate(1);
+					SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+					map2.put("s_day",sdf2.format(d));
+					
+					Class c2 = RegisterService.getInstance().selectByMno(map2);
+					
+					if(c2!=null) {
+						if(c.getTno()==c2.getTno()) {
+							Register register = new Register();
+							register.setCno(c2.getCno());
+							register.setMno(mno);
+							Register re = RegisterService.getInstance().checkReent(register);
+							
+							if(re.isReentrance()==true) {
+								re.setReentrance(false);
+								RegisterService.getInstance().updateReenter(re);
+							}
+						}
+					}
+					
+					RegisterService.getInstance().cancelClass(new Register(mno, Integer.parseInt(cancel.substring(0,cancel.indexOf("/")-1))));
 					Sales s = SalesService.getInstance().lastSales(sdf.format(day));
 					SalesService.getInstance().deleteSales(s.getSno());
 				}
