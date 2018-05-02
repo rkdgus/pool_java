@@ -1030,7 +1030,16 @@ public class MemberContent extends JPanel {
 					
 					RegisterService.getInstance().cancelClass(new Register(mno, Integer.parseInt(cancel.substring(0,cancel.indexOf("/")-1))));
 					Sales s = SalesService.getInstance().lastSales(sdf.format(day));
-					SalesService.getInstance().deleteSales(s.getSno());
+					
+					if(s.getSno()<0) {
+						Date before = new Date();
+						before.setMonth(before.getMonth()-1);
+						Sales sBefore = SalesService.getInstance().lastSales(sdf.format(before));
+						SalesService.getInstance().deleteSales(sBefore.getSno());
+					}else {
+						SalesService.getInstance().deleteSales(s.getSno());
+					}
+					
 				}
 			}
 		});
